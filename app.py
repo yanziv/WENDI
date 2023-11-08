@@ -6,7 +6,7 @@ app = Flask(__name__)
 # one or the other of these. Defaults to MySQL (PyMySQL)
 # change comment characters to switch to SQLite
 
-import wendi_db as dbi
+import cs304dbi as dbi
 # import cs304dbi_sqlite3 as dbi
 
 import random
