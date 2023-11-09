@@ -1,34 +1,9 @@
+{% extends "base.html" %}
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name=author content="Annabel Yao, Emma Lim, Hae Rin Hong, Veronica Lin">
-    <meta name=description content="">
-    <meta name=keywords content="">    
-    <title>ROOM NAME GOES HERE</title>
-    <link rel="stylesheet" type="text/css"
-          href="/cs304crud/static/styling.css">
-  </head>
-  <body>
-      <!-- database is  -->
-    <div id="navigation">
-      <ul>
-        <li><a href="/cs304crud/">Home</a>
-        <li><a href="/cs304crud/insert/">Insert A Movie</a>
-        <li><a href="/cs304crud/search/">Search by Title</a>
-        <li><a href="/cs304crud/select/">Select from Incomplete Movies</a>
-      </ul>
-    </div>
-    <div id="content">
+{% block main_content %}
+<h1>ROOM NAME HERE</h1>
 
-       
+<h2>have for loop that shows the diff reviews for this room</h2>
 
-    </div>
 
-    <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
-    
-    <!-- JS code would go here -->
-    
-  </body>
-</html>
+{% endblock %}

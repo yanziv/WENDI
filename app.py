@@ -28,6 +28,16 @@ def index():
 # You will probably not need the routes below, but they are here
 # just in case. Please delete them if you are not using them
 
+@app.route('/browse_all/')
+def landing():
+    return render_template('landing.html')
+
+ 
+@app.route('/dorm/')
+def dorm():
+    return render_template('dorm.html')
+
+
 @app.route('/greet/', methods=["GET", "POST"])
 def greet():
     if request.method == 'GET':
