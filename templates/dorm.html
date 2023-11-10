@@ -3,6 +3,12 @@
 {% block main_content %}
 <h1>DORM NAME HERE</h1>
 
+<p>this is the dorm page, which displays a list of all the rooms in the specified dorm. the page will display different info 
+    based on which dorm the user is looking at. clicking on the rooms will redirect to the room page, which displays all the reviews
+    users have made for that room.
+</p>
+
+
 {% for room in dorm %}
 <div class="{{dormname}}" id="{{rmnum}}">
     <b>Room: </b>
