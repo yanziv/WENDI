@@ -38,6 +38,11 @@ def dorm():
     return render_template('dorm.html')
 
 
+@app.route('/room/')
+def room():
+    return render_template('room.html')
+
+
 @app.route('/greet/', methods=["GET", "POST"])
 def greet():
     if request.method == 'GET':
