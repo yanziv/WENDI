@@ -15,10 +15,19 @@
 
 <a href="/room/">sample room page</a>
 
+<h3>Rooms with reviews:</h3>
 {% for room in dorm %}
-<div class="{{dormname}}" id="{{rmnum}}">
-    <b>Room: </b>
+<div class="{{dormname}}" id="{{room.number}}" style="border:solid 2px black; margin-bottom:15px;">
+    <b>Room: {{room.number}}</b>
 </div>
 {% endfor %}
+
+<h3>Rooms without reviews:</h3>
+{% for room in dorm %}
+<div class="{{dormname}}" id="{{room.number}}" style="border:solid 2px black; margin-bottom:15px;">
+    <b>Room: {{room.number}}</b>
+</div>
+{% endfor %}
+
 
 {% endblock %}

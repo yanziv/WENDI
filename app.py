@@ -10,6 +10,7 @@ import cs304dbi as dbi
 # import cs304dbi_sqlite3 as dbi
 
 import random
+import queries as queries
 
 app.secret_key = 'your secret here'
 # replace that with a random key
@@ -35,7 +36,9 @@ def landing():
  
 @app.route('/dorm/')
 def dorm():
-    return render_template('dorm.html')
+    conn = dbi.connect()
+    roomsList = queries.show_rooms(conn, 1)
+    return render_template('dorm.html', dorm=roomsList)
 
 
 @app.route('/room/')
