@@ -22,9 +22,9 @@ app.secret_key = ''.join([ random.choice(('ABCDEFGHIJKLMNOPQRSTUVXYZ' +
 # This gets us better error messages for certain common request errors
 app.config['TRAP_BAD_REQUEST_ERRORS'] = True
 
-@app.route('/')
+@app.route('/', methods=["GET", "POST"])
 def index():
-    return render_template('base.html',title='Hello')
+    return render_template('login.html',title='Main Page')
 
 # You will probably not need the routes below, but they are here
 # just in case. Please delete them if you are not using them
