@@ -1,0 +1,1539 @@
+hid,number,description,type
+BAT,102,Double,First Year
+BAT,104,Double,First Year
+BAT,101,Single,Upperclass
+BAT,103,Single,Upperclass
+BAT,105,Single,Upperclass
+BAT,106,Double,First Year
+BAT,108,Double,First Year
+BAT,110,Double,First Year
+BAT,107,Single,Upperclass
+BAT,109,Single,Upperclass
+BAT,112,Double,First Year
+BAT,111,Single,Residential Staff
+BAT,113,Single,Academic Success Coach
+BAT,116,Double,First Year
+BAT,115,Single,Upperclass
+BAT,117,Single,Upperclass
+BAT,118,Double,First Year
+BAT,120,Double,First Year
+BAT,122,Double,First Year
+BAT,119,Single,Upperclass
+BAT,121,Single,Upperclass
+BAT,202,Double,First Year
+BAT,204,Double,First Year
+BAT,201,Single,Residential Staff
+BAT,203,Single,Upperclass
+BAT,205,Single,Upperclass
+BAT,206,Double,First Year
+BAT,208,Double,First Year
+BAT,210,Double,First Year
+BAT,207,Single,Upperclass
+BAT,209,Single,Upperclass
+BAT,212,Double,First Year
+BAT,211,Single,Residential Staff
+BAT,213,Single,Upperclass
+BAT,216,Double,First Year
+BAT,215,Single,Upperclass
+BAT,217,Single,Upperclass
+BAT,218,Double,First Year
+BAT,220,Double,First Year
+BAT,222,Double,First Year
+BAT,219,Single,Upperclass
+BAT,221,Single,Upperclass
+BAT,301,Single,Upperclass
+BAT,303,Single,Upperclass
+BAT,305,Single,Upperclass
+BAT,302,Double,Upperclass
+BAT,304,Double,Upperclass
+BAT,307,Single,Upperclass
+BAT,309,Single,Upperclass
+BAT,306,Double,Upperclass
+BAT,308,Double,Upperclass
+BAT,310,Double,Upperclass
+BAT,311,Single,Residential Staff
+BAT,313,Single,Upperclass
+BAT,312,Double,Academic Success Coach
+BAT,315,Single,Upperclass
+BAT,317,Single,Upperclass
+BAT,316,Double,Upperclass
+BAT,319,Single,Upperclass
+BAT,321,Single,Upperclass
+BAT,318,Double,Upperclass
+BAT,320,Double,Upperclass
+BAT,322,Double,Upperclass
+BAT,401,Single,Upperclass
+BAT,403,Single,Upperclass
+BAT,405,Single,Upperclass
+BAT,402,Double,Upperclass
+BAT,404,Double,Upperclass
+BAT,407,Single,Upperclass
+BAT,409,Single,Upperclass
+BAT,406,Double,Upperclass
+BAT,408,Double,Upperclass
+BAT,410,Double,Upperclass
+BAT,411,Single,Residential Staff
+BAT,413,Single,Upperclass
+BAT,412,Double,Upperclass
+BAT,415,Single,Upperclass
+BAT,417,Single,Upperclass
+BAT,416,Double,Upperclass
+BAT,419,Single,Upperclass
+BAT,421,Single,Upperclass
+BAT,418,Double,Upperclass
+BAT,420,Double,Upperclass
+BAT,422,Double,Upperclass
+BAT,503,Single,Upperclass
+BAT,504,Single,Upperclass
+BAT,505,Single,Upperclass
+BAT,501,Single,Upperclass
+BAT,502,Single,Upperclass
+BAT,Ground  Double,Double,Upperclass
+BAT,Ground Single,Single,Upperclass
+BEB,1,Single,Upperclass
+BEB,2,Single,Upperclass
+BEB,3,Single,Upperclass
+BEB,4,Single,Upperclass
+BEB,5,Single,Upperclass
+BEB,6,Single,Upperclass
+BEB,7,Single,Upperclass
+BEB,103,Double,First Year
+BEB,107,Double,First Year
+BEB,106,Single,Residential Staff
+BEB,105,Double,Upperclass
+BEB,109,Double,Upperclass
+BEB,112,Double,First Year
+BEB,113,Double,First Year
+BEB,110,Double,Upperclass
+BEB,111,Double,Upperclass
+BEB,115,Double,Upperclass
+BEB,225,Single,Upperclass
+BEB,200,Triple,Upperclass
+BEB,201,Triple,Upperclass
+BEB,202,Double,Upperclass
+BEB,207,Double,First Year
+BEB,208,Double,First Year
+BEB,209,Double,First Year
+BEB,205,Single,Upperclass
+BEB,204,Double,Upperclass
+BEB,206,Double,Upperclass
+BEB,211,Double,First Year
+BEB,214,Double,First Year
+BEB,215,Double,First Year
+BEB,210,Single,Residential Staff
+BEB,212,Single,Academic Success Coach
+BEB,213,Single,Upperclass
+BEB,217,Double,First Year
+BEB,218,Double,First Year
+BEB,219,Double,First Year
+BEB,220,Double,Upperclass
+BEB,221,Double,Upperclass
+BEB,223,Double,Upperclass
+BEB,224,Single,Upperclass
+BEB,226,Single,Upperclass
+BEB,227,Single,Upperclass
+BEB,228,Single,Upperclass
+BEB,229,Single,Upperclass
+BEB,231,Single,Upperclass
+BEB,300,Single,Upperclass
+BEB,301,Single,Upperclass
+BEB,302,Single,Upperclass
+BEB,303,Single,Upperclass
+BEB,304,Single,Upperclass
+BEB,306,Double,First Year
+BEB,310,Double,First Year
+BEB,307,Single,Upperclass
+BEB,308,Single,Upperclass
+BEB,309,Double,Upperclass
+BEB,311,Double,Upperclass
+BEB,314,Double,First Year
+BEB,315,Double,First Year
+BEB,317,Double,First Year
+BEB,312,Single,Residential Staff
+BEB,316,Single,Upperclass
+BEB,313,Double,Upperclass
+BEB,319,Double,First Year
+BEB,320,Single,Upperclass
+BEB,323,Single,Upperclass
+BEB,321,Double,Upperclass
+BEB,322,Double,Upperclass
+BEB,325,Double,Upperclass
+BEB,400,Single,Residential Staff
+BEB,401,Single,Upperclass
+BEB,402,Single,Upperclass
+BEB,403,Single,Upperclass
+BEB,404,Single,Upperclass
+BEB,406,Single,Upperclass
+BEB,407,Single,Upperclass
+BEB,408,Double,Upperclass
+BEB,409,Double,Upperclass
+BEB,410,Single,Upperclass
+BEB,411,Single,Upperclass
+BEB,412,Single,Residential Staff
+BEB,413,Single,Upperclass
+BEB,414,Double,Upperclass
+BEB,415,Double,Upperclass
+BEB,416,Double,Upperclass
+BEB,417,Double,Upperclass
+BEB,419,Double,Upperclass
+BEB,420,Single,Upperclass
+BEB,421,Single,Upperclass
+BEB,422,Single,Upperclass
+BEB,423,Single,Upperclass
+BEB,425,Single,Upperclass
+BEB,500,Single,Upperclass
+BEB,501,Single,Upperclass
+BEB,502,Double,Upperclass
+BEB,503,Single,Upperclass
+BEB,504,Single,Upperclass
+BEB,RD APT,4-person Apartment,Upperclass
+CAZ,3,Single,Upperclass
+CAZ,4,Single,Upperclass
+CAZ,5,Single,Upperclass
+CAZ,6,Single,Upperclass
+CAZ,2,Single,Upperclass
+CAZ,1,Single,Upperclass
+CAZ,7,Single,Upperclass
+CAZ,8,Single,Upperclass
+CAZ,9,Single,Upperclass
+CAZ,101,Double,First Year
+CAZ,103,Double,First Year
+CAZ,105,Double,First Year
+CAZ,102,Single,Residential Staff
+CAZ,104,Single,Academic Success Coach
+CAZ,107,Double,First Year
+CAZ,109,Double,First Year
+CAZ,111,Double,First Year
+CAZ,106,Double,First Year
+CAZ,110,Double,First Year
+CAZ,112,Double,First Year
+CAZ,113,Double,First Year
+CAZ,115,Double,First Year
+CAZ,201,Double,First Year
+CAZ,203,Double,First Year
+CAZ,204,Double,First Year
+CAZ,205,Double,First Year
+CAZ,220,Double,Upperclass
+CAZ,206,Double,First Year
+CAZ,207,Double,First Year
+CAZ,209,Double,First Year
+CAZ,210,Double,First Year
+CAZ,211,Double,First Year
+CAZ,208,Single,Residential Staff
+CAZ,213,Double,First Year
+CAZ,214,Double,First Year
+CAZ,215,Double,First Year
+CAZ,216,Double,First Year
+CAZ,217,Double,First Year
+CAZ,219,Double,First Year
+CAZ,226,Single,Residential Staff
+CAZ,222,Single,Upperclass
+CAZ,223,Single,Upperclass
+CAZ,224,Single,Upperclass
+CAZ,221,Double,Upperclass
+CAZ,227,Double,Upperclass
+CAZ,307,Double,Upperclass
+CAZ,309,Double,Upperclass
+CAZ,310,Double,Upperclass
+CAZ,311,Double,Upperclass
+CAZ,332,Double,Upperclass
+CAZ,314,Single,Residential Staff
+CAZ,313,Single,Upperclass
+CAZ,315,Single,Upperclass
+CAZ,317,Double,Upperclass
+CAZ,312,Double,Upperclass
+CAZ,316,Double,Upperclass
+CAZ,319,Double,Upperclass
+CAZ,320,Single,Upperclass
+CAZ,322,Single,Upperclass
+CAZ,321,Double,Upperclass
+CAZ,323,Double,Upperclass
+CAZ,324,Double,Upperclass
+CAZ,325,Single,Upperclass
+CAZ,326,Single,Upperclass
+CAZ,327,Single,Upperclass
+CAZ,328,Single,Upperclass
+CAZ,331,2 Room Double,Upperclass
+CAZ,329,Single,Upperclass
+CAZ,330,Single,Upperclass
+CAZ,333,Double,Upperclass
+CAZ,335,Single,Upperclass
+CAZ,336,Double,Upperclass
+CAZ,334,Double,Upperclass
+CAZ,337,Double,Upperclass
+CAZ,338,Double,Upperclass
+CAZ,400,Single,Residential Staff
+CAZ,401,Single,Upperclass
+CAZ,402,Single,Academic Success Coach
+CAZ,403,Single,Upperclass
+CAZ,404,Single,Upperclass
+CAZ,405,Single,Upperclass
+CAZ,409,Double,Upperclass
+CAZ,411,Double,Upperclass
+CAZ,407,Single,Upperclass
+CAZ,410,Double,Upperclass
+CAZ,426,Double,Upperclass
+CAZ,416,Double,Upperclass
+CAZ,417,Double,Upperclass
+CAZ,414,Single,Residential Staff
+CAZ,412,Single,Upperclass
+CAZ,413,Single,Upperclass
+CAZ,415,Double,Upperclass
+CAZ,421,Double,Upperclass
+CAZ,423,Double,Upperclass
+CAZ,419,Single,Upperclass
+CAZ,422,Single,Upperclass
+CAZ,425,Single,Upperclass
+CAZ,420,Double,Upperclass
+CAZ,427,Single,Upperclass
+CAZ,428,Single,Upperclass
+CAZ,429,Single,Upperclass
+CAZ,430,Single,Upperclass
+CAZ,431,Single,Upperclass
+CAZ,432,Double,Upperclass
+CAZ,503,Single,Upperclass
+CAZ,504,Single,Upperclass
+CAZ,500,Single,Upperclass
+CAZ,501,Single,Upperclass
+CAZ,502,Single,Upperclass
+CED,1,Single,Residential Staff
+CED,02A,Single,Upperclass
+CED,3,Single,Upperclass
+CED,4,Single,Upperclass
+CED,01A,Single,Upperclass
+CED,2,Single,Upperclass
+CED,5,Single,Upperclass
+CED,6,Single,Upperclass
+CED,7,Single,Upperclass
+CED,8,Single,Upperclass
+CED,9,Single,Upperclass
+CER,204,Single,Residential Staff
+CER,105,Single,Upperclass
+CER,205,Single,Upperclass
+CER,102,Double,Upperclass
+CER,201,Double,Upperclass
+CER,202,Double,Upperclass
+CLA,5,Single,Upperclass
+CLA,3,Single,Upperclass
+CLA,4,Single,Upperclass
+CLA,22,2 Room Triple,Upperclass
+CLA,24,Single,Upperclass
+CLA,25,Single,Upperclass
+CLA,103,2 Room Double,Upperclass
+CLA,104,2 Room Double,Upperclass
+CLA,101,Single,Residential Staff
+CLA,102,Single,Academic Success Coach
+CLA,105,2 Room Double,Upperclass
+CLA,106,2 Room Double,Upperclass
+CLA,108,Single,Upperclass
+CLA,109,Single,Upperclass
+CLA,107,Triple,First Year
+CLA,110,Single,Upperclass
+CLA,111,Single,Upperclass
+CLA,112,Single,Upperclass
+CLA,113,Single,Upperclass
+CLA,114,Single,Upperclass
+CLA,115,Single,Upperclass
+CLA,116,Single,Upperclass
+CLA,117,Single,Upperclass
+CLA,118,Single,Upperclass
+CLA,119,Single,Upperclass
+CLA,120,Single,Upperclass
+CLA,121,Single,Upperclass
+CLA,122,Double,First Year
+CLA,203,2 Room Double,Upperclass
+CLA,205,2 Room Double,Upperclass
+CLA,204,2 Room Double,Upperclass
+CLA,206,2 Room Double,Upperclass
+CLA,201,Single,Upperclass
+CLA,202,Single,Upperclass
+CLA,231,2 Room Triple,Upperclass
+CLA,208,Single,Upperclass
+CLA,209,Single,Upperclass
+CLA,210,Single,Upperclass
+CLA,232,Single,Upperclass
+CLA,207,Triple,First Year
+CLA,211,Single,Upperclass
+CLA,212,Single,Upperclass
+CLA,213,Single,Upperclass
+CLA,214,Single,Upperclass
+CLA,215,Single,Upperclass
+CLA,216,Single,Upperclass
+CLA,219,Single,Residential Staff
+CLA,217,Single,Upperclass
+CLA,218,Single,Upperclass
+CLA,220,Single,Upperclass
+CLA,221,Single,Upperclass
+CLA,223,Single,Upperclass
+CLA,222,Quad with Bath,First Year
+CLA,228,Single,Residential Staff
+CLA,224,Single,Upperclass
+CLA,225,Single,Upperclass
+CLA,226,Single,Upperclass
+CLA,227,Single,Upperclass
+CLA,229,Single,Upperclass
+CLA,303,Double,First Year
+CLA,306,Double,First Year
+CLA,307,Triple,First Year
+CLA,301,Single,Upperclass
+CLA,302,Single,Upperclass
+CLA,309,Double,First Year
+CLA,308,Single,Upperclass
+CLA,310,Single,Upperclass
+CLA,311,Single,Upperclass
+CLA,312,Single,Upperclass
+CLA,317,Single,Residential Staff
+CLA,313,Single,Upperclass
+CLA,314,Single,Upperclass
+CLA,315,Single,Upperclass
+CLA,316,Single,Upperclass
+CLA,318,Single,Upperclass
+CLA,319,Single,Upperclass
+CLA,320,Single,Upperclass
+CLA,321,Single,Upperclass
+CLA,323,Single,Upperclass
+CLA,324,2 Room Triple,Upperclass
+CLA,324A,Single,Upperclass
+CLA,325,Single,Upperclass
+CLA,327,Single,Upperclass
+CLA,329,Single,Upperclass
+CLA,401,2 Room Double,Upperclass
+CLA,402,2 Room Double,Upperclass
+CLA,405,2 Room Double,Upperclass
+CLA,406,2 Room Double,Upperclass
+CLA,407,Single,Upperclass
+CLA,409,Single,Upperclass
+CLA,408,Double,First Year
+CLA,410,Double,First Year
+CLA,412,Double,First Year
+CLA,414,Double,First Year
+CLA,416,Double,First Year
+CLA,411,Single,Upperclass
+CLA,418,Double,First Year
+CLA,420,Double,First Year
+CLA,422,Double,First Year
+CLA,424,Single,Residential Staff
+CLA,427,Single,Academic Success Coach
+CLA,501,Single,Upperclass
+CLA,502,Single,Upperclass
+CLA,503,Single,Upperclass
+CLA,B031,Single,Upperclass
+CLA,1,Suite for 2 with Bath,Upperclass
+CLA,2,Suite for 2 with Bath,Upperclass
+CLA,001G,Suite for 5 with Bathroom,Upperclass
+CLA,002G,Suite for 5 with Bathroom,Upperclass
+CLA,003G,Suite for 5 with Bathroom,Upperclass
+WCC,23,(Unallocated),Upperclass
+WCC,25,Single,Upperclass
+WCC,26,Single,Upperclass
+WCC,27,Single,Upperclass
+WCC,28,Single,Upperclass
+WCC,16,Single,Upperclass
+WCC,17,Single,Upperclass
+WCC,18,Single,Upperclass
+WCC,22,Single,Upperclass
+WCC,24,Single,Upperclass
+WCC,21,Single,Upperclass
+WCC,11,Single,Upperclass
+WCC,12,Single,Upperclass
+WCC,13,Single,Upperclass
+WCC,14,Single,Upperclass
+WCC,15,Single,Upperclass
+DAV,338,Single,Upperclass
+DAV,339,Single,Upperclass
+DAV,340,Single,Upperclass
+DAV,336,Single,Upperclass
+DAV,334,Double,Upperclass
+DAV,337,Double,Upperclass
+DAV,58,Triple,First Year
+DAV,59,Triple,First Year
+DAV,60,Triple,First Year
+DAV,61,Triple,First Year
+DAV,62,Triple,First Year
+DAV,57,Single,Residential Staff
+DAV,132,Quad,Upperclass
+DAV,138,Double,First Year
+DAV,135,Single,Upperclass
+DAV,141,Single,Upperclass
+DAV,142,Single,Upperclass
+DAV,139,Triple,Upperclass
+DAV,137,Double,Upperclass
+DAV,145,Double,First Year
+DAV,147,Double,First Year
+DAV,148,Single,Upperclass
+DAV,146,Single,Upperclass
+DAV,143,Double,Upperclass
+DAV,150,Single,Upperclass
+DAV,152,Single,Upperclass
+DAV,153,Triple,First Year
+DAV,154,Triple,First Year
+DAV,151,Single,Upperclass
+DAV,244,Single,Upperclass
+DAV,245,Single,Upperclass
+DAV,246,Single,Upperclass
+DAV,249,Single,Upperclass
+DAV,242,Double,Upperclass
+DAV,243,Double,Upperclass
+DAV,247,Single,Upperclass
+DAV,250,Single,Upperclass
+DAV,252,Single,Upperclass
+DAV,253,Single,Upperclass
+DAV,251,Double,Upperclass
+DAV,259,Double,First Year
+DAV,260,Double,First Year
+DAV,254,Single,Upperclass
+DAV,256,Single,Upperclass
+DAV,257,Single,Upperclass
+DAV,255,Double,Upperclass
+DAV,261,Double,First Year
+DAV,262,Single,Residential Staff
+DAV,263,Single,Upperclass
+DAV,264,Single,Upperclass
+DAV,265,Single,Upperclass
+DAV,266,Single,Upperclass
+DAV,271,Triple,First Year
+DAV,272,Triple,First Year
+DAV,267,Single,Upperclass
+DAV,269,Single,Upperclass
+DAV,270,Single,Upperclass
+DAV,342,Single,Upperclass
+DAV,343,Single,Upperclass
+DAV,344,Single,Upperclass
+DAV,345,Single,Upperclass
+DAV,346,Single,Upperclass
+DAV,347,Single,Upperclass
+DAV,349,Single,Residential Staff
+DAV,350,Single,Upperclass
+DAV,354,Single,Upperclass
+DAV,348,Double,Academic Success Coach
+DAV,351,Double,Upperclass
+DAV,353,Double,Upperclass
+DAV,359,Single,Residential Staff
+DAV,362,Single,Upperclass
+DAV,363,Single,Upperclass
+DAV,355,Double,Upperclass
+DAV,356,Double,Upperclass
+DAV,418,Single,Upperclass
+DAV,420,Double,Upperclass
+DAV,422,Double,Upperclass
+DAV,425,Double,Upperclass
+DAV,427,Single,Upperclass
+DAV,430,Single,Upperclass
+DAV,424,Double,Upperclass
+DAV,426,Double,Upperclass
+DAV,428,Double,Upperclass
+DOW,101,Double,First Year
+DOW,103,Double,First Year
+DOW,104,Single,Residential Staff
+DOW,105,Double,First Year
+DOW,107,Double,First Year
+DOW,109,Double,First Year
+DOW,110,Double,First Year
+DOW,201,Double,Upperclass
+DOW,202,Double,Upperclass
+DOW,203,Double,Upperclass
+DOW,204,Double,Upperclass
+DOW,205,Double,Upperclass
+DOW,206,Double,Upperclass
+DOW,207,Double,Upperclass
+DOW,208,Double,Upperclass
+DOW,209,Double,Upperclass
+DOW,210,Double,Upperclass
+DOW,211,Double,Upperclass
+DOW,212,3 Room Triple,Upperclass
+DOW,213,3 Room Triple,Upperclass
+DOW,214,3 Room Triple,Upperclass
+DOW,APT,3-person Apartment,Upperclass
+FHC,101,Single,Upperclass
+FHC,102,Single,Upperclass
+FHC,103,Single,Upperclass
+FHC,201,Single,Upperclass
+FHC,202,Single,Upperclass
+FHC,203,Single,Upperclass
+FHC,204,Single,Upperclass
+FHM,202,Single,Residential Staff
+FHM,203,Single,Upperclass
+FHM,204,Single,Upperclass
+FHM,207,Single,Upperclass
+FHM,205,Single,Upperclass
+FHM,206,Single,Upperclass
+FHM,304,Single,Upperclass
+FHM,302,Double,Upperclass
+FRE,102,Double,First Year
+FRE,104,Double,First Year
+FRE,101,Single,Upperclass
+FRE,103,Single,Upperclass
+FRE,105,Single,Upperclass
+FRE,106,Double,First Year
+FRE,108,Double,First Year
+FRE,110,Double,First Year
+FRE,107,Single,Upperclass
+FRE,109,Single,Upperclass
+FRE,112,Double,Academic Success Coach
+FRE,111,Single,Residential Staff
+FRE,113,Single,Upperclass
+FRE,116,Double,First Year
+FRE,115,Single,Upperclass
+FRE,117,Single,Upperclass
+FRE,118,Double,First Year
+FRE,120,Double,First Year
+FRE,122,Double,First Year
+FRE,119,Single,Upperclass
+FRE,121,Single,Upperclass
+FRE,202,Double,First Year
+FRE,204,Double,First Year
+FRE,201,Single,Residential Staff
+FRE,203,Single,Upperclass
+FRE,205,Single,Upperclass
+FRE,206,Double,First Year
+FRE,208,Double,First Year
+FRE,210,Double,First Year
+FRE,207,Single,Upperclass
+FRE,209,Single,Upperclass
+FRE,212,Double,First Year
+FRE,211,Single,Residential Staff
+FRE,213,Single,Upperclass
+FRE,216,Double,First Year
+FRE,215,Single,Upperclass
+FRE,217,Single,Upperclass
+FRE,218,Double,First Year
+FRE,220,Double,First Year
+FRE,222,Double,First Year
+FRE,219,Single,Upperclass
+FRE,221,Single,Upperclass
+FRE,301,Single,Upperclass
+FRE,303,Single,Upperclass
+FRE,305,Single,Upperclass
+FRE,302,Double,First Year
+FRE,304,Double,First Year
+FRE,307,Single,Upperclass
+FRE,309,Single,Upperclass
+FRE,306,Double,First Year
+FRE,308,Double,First Year
+FRE,310,Double,First Year
+FRE,311,Single,Residential Staff
+FRE,313,Single,Upperclass
+FRE,312,Double,Upperclass
+FRE,315,Single,Upperclass
+FRE,317,Single,Upperclass
+FRE,316,Double,Upperclass
+FRE,319,Single,Upperclass
+FRE,321,Single,Upperclass
+FRE,318,Double,Upperclass
+FRE,320,Double,Upperclass
+FRE,322,Double,Upperclass
+FRE,401,Single,Upperclass
+FRE,403,Single,Upperclass
+FRE,405,Single,Upperclass
+FRE,402,Double,Upperclass
+FRE,404,Double,Upperclass
+FRE,407,Single,Upperclass
+FRE,409,Single,Upperclass
+FRE,406,Double,Upperclass
+FRE,408,Double,Upperclass
+FRE,410,Double,Upperclass
+FRE,411,Single,Residential Staff
+FRE,413,Single,Upperclass
+FRE,412,Double,Upperclass
+FRE,415,Single,Upperclass
+FRE,417,Single,Upperclass
+FRE,416,Double,Upperclass
+FRE,419,Single,Upperclass
+FRE,421,Single,Upperclass
+FRE,418,Double,Upperclass
+FRE,420,Double,Upperclass
+FRE,422,Double,Upperclass
+FRE,501,Single,Upperclass
+FRE,502,Single,Upperclass
+FRE,503,Single,Upperclass
+FRE,504,Single,Upperclass
+FRE,505,Single,Upperclass
+LAK,103,Single,Upperclass
+LAK,105,Single,Upperclass
+LAK,102,Single,Upperclass
+LAK,104,Single,Upperclass
+LAK,106,Single,Upperclass
+LAK,101,Single,Upperclass
+LAK,107,Single,Upperclass
+LAK,109,Single,Upperclass
+LAK,111,Single,Upperclass
+LAK,113,Single,Upperclass
+LAK,115,Single,Upperclass
+LAK,108,Double,Academic Success Coach
+LAK,117,Single,Upperclass
+LAK,119,Single,Upperclass
+LAK,121,Single,Upperclass
+LAK,123,Single,Upperclass
+LAK,124,Single,Upperclass
+LAK,125,Single,Upperclass
+LAK,126,Single,Upperclass
+LAK,127,Single,Upperclass
+LAK,128,Single,Upperclass
+LAK,129,Single,Upperclass
+LAK,130,Single,Upperclass
+LAK,201,Single,Upperclass
+LAK,206,Single,Upperclass
+LAK,202,Single,Upperclass
+LAK,203,Single,Upperclass
+LAK,204,Single,Upperclass
+LAK,205,Single,Upperclass
+LAK,217,Single,Upperclass
+LAK,219,Single,Upperclass
+LAK,221,Single,Residential Staff
+LAK,222,Single,Upperclass
+LAK,223,Single,Upperclass
+LAK,224,Single,Upperclass
+LAK,225,Single,Upperclass
+LAK,226,Single,Upperclass
+LAK,227,Single,Upperclass
+LAK,228,Single,Upperclass
+LAK,229,Single,Upperclass
+LAK,230,Single,Upperclass
+LAK,301,Single,Residential Staff
+LAK,302,Double,First Year
+LAK,303,Double,First Year
+LAK,304,Double,First Year
+LAK,305,Double,First Year
+LAK,308,Double,First Year
+LAK,309,Double,First Year
+LAK,310,Double,First Year
+LAK,311,Double,First Year
+LAK,307,Double,First Year
+LAK,211,Single,Upperclass
+LAK,208,Single,Upperclass
+LAK,209,Single,Upperclass
+LAK,207,Single,Upperclass
+LAK,210,Single,Upperclass
+LAK,213,Single,Upperclass
+LAK,215,Single,Upperclass
+MCA,101,2 Room Double,Upperclass
+MCA,103,2 Room Double,Upperclass
+MCA,102,2 Room Double,Upperclass
+MCA,104,2 Room Double,Upperclass
+MCA,105,Double,Upperclass
+MCA,106,Double,Upperclass
+MCA,108,Single,Upperclass
+MCA,110,Single,Upperclass
+MCA,112,Single,Upperclass
+MCA,107,Double,Upperclass
+MCA,109,Double,Upperclass
+MCA,116,Single,Residential Staff
+MCA,114,Single,Upperclass
+MCA,118,Single,Upperclass
+MCA,111,Double,Upperclass
+MCA,113,Double,Upperclass
+MCA,120,Single,Upperclass
+MCA,119,Double,Upperclass
+MCA,121,Double,Upperclass
+MCA,122,Double,Upperclass
+MCA,203,2 Room Double,Upperclass
+MCA,202,2 Room Double,Upperclass
+MCA,204,2 Room Double,Upperclass
+MCA,201,2 Room Double,Upperclass
+MCA,206,Double,Upperclass
+MCA,205,Double,Upperclass
+MCA,208,Single,Upperclass
+MCA,210,Single,Upperclass
+MCA,212,Single,Upperclass
+MCA,207,Double,Upperclass
+MCA,209,Double,Upperclass
+MCA,216,Single,Residential Staff
+MCA,214,Single,Upperclass
+MCA,218,Single,Upperclass
+MCA,211,Double,Upperclass
+MCA,213,Double,Upperclass
+MCA,220,Single,Upperclass
+MCA,222,Single,Upperclass
+MCA,224,Single,Upperclass
+MCA,221,Double,Upperclass
+MCA,219,Double,Upperclass
+MCA,226,Single,Residential Staff
+MCA,228,Single,Upperclass
+MCA,230,Single,Upperclass
+MCA,223,Double,Upperclass
+MCA,225,Double,Academic Success Coach
+MCA,303,2 Room Double,Upperclass
+MCA,302,2 Room Double,Upperclass
+MCA,304,2 Room Double,Upperclass
+MCA,301,2 Room Double,Upperclass
+MCA,305,Double,First Year
+MCA,309,Double,First Year
+MCA,306,Double,First Year
+MCA,307,Double,First Year
+MCA,310,Single,Upperclass
+MCA,312,Single,Upperclass
+MCA,308,Single,Upperclass
+MCA,311,Double,First Year
+MCA,313,Double,First Year
+MCA,316,Single,Residential Staff
+MCA,314,Single,Upperclass
+MCA,318,Single,Upperclass
+MCA,319,Double,First Year
+MCA,321,Double,First Year
+MCA,323,Double,First Year
+MCA,320,Single,Upperclass
+MCA,322,Single,Upperclass
+MCA,325,Double,First Year
+MCA,324,Single,Upperclass
+MCA,326,Single,Upperclass
+MCA,328,Single,Upperclass
+MCA,330,Single,Upperclass
+MCA,404,2 Room Double,Upperclass
+MCA,401,2 Room Double,Upperclass
+MCA,403,2 Room Double,Upperclass
+MCA,402,2 Room Double,Upperclass
+MCA,405,Double,First Year
+MCA,406,Double,First Year
+MCA,407,Double,First Year
+MCA,409,Double,First Year
+MCA,411,Double,First Year
+MCA,408,Single,Upperclass
+MCA,410,Single,Upperclass
+MCA,413,Double,First Year
+MCA,416,Single,Residential Staff
+MCA,412,Single,Upperclass
+MCA,414,Single,Upperclass
+MCA,418,Single,Upperclass
+MCA,419,Double,First Year
+MCA,421,Double,First Year
+MCA,423,Double,First Year
+MCA,420,Single,Upperclass
+MCA,422,Single,Upperclass
+MCA,425,Double,First Year
+MCA,424,Single,Upperclass
+MCA,426,Single,Upperclass
+MCA,428,Single,Upperclass
+MCA,430,Single,Upperclass
+MCA,502,Triple,Upperclass
+MCA,RD APT,4-person Apartment,Upperclass
+MUN,34,Single,Upperclass
+MUN,36,Single,Upperclass
+MUN,37,Single,Upperclass
+MUN,38,Single,Upperclass
+MUN,43,Single,Upperclass
+MUN,44,Single,Upperclass
+MUN,45,Single,Upperclass
+MUN,46,Single,Upperclass
+MUN,47,Double,Upperclass
+MUN,102,Double,First Year
+MUN,103,Double,First Year
+MUN,101,Single,Upperclass
+MUN,105,Single,Upperclass
+MUN,107,Double,First Year
+MUN,109,Single,Residential Staff
+MUN,111,Single,Academic Success Coach
+MUN,113,Single,Upperclass
+MUN,116,Double,First Year
+MUN,114,Single,Upperclass
+MUN,115,Single,Upperclass
+MUN,117,Single,Upperclass
+MUN,118,Single,Upperclass
+MUN,130,4-person Apartment,Upperclass
+MUN,137,Single,Residential Staff
+MUN,133,Single,Upperclass
+MUN,135,Single,Upperclass
+MUN,139,Single,Upperclass
+MUN,136,Double,Upperclass
+MUN,141,Single,Upperclass
+MUN,143,Single,Upperclass
+MUN,147,Single,Upperclass
+MUN,145,Double,Upperclass
+MUN,146,Double,Upperclass
+MUN,202,Double,First Year
+MUN,201,Single,Upperclass
+MUN,205,Single,Upperclass
+MUN,207,Single,Upperclass
+MUN,209,Single,Upperclass
+MUN,203,Double,Upperclass
+MUN,216,Double,First Year
+MUN,221,Double,First Year
+MUN,217,Single,Upperclass
+MUN,218,Single,Upperclass
+MUN,219,Single,Upperclass
+MUN,224,Single,Upperclass
+MUN,224A,Single,Upperclass
+MUN,226,Single,Upperclass
+MUN,223,Double,Upperclass
+MUN,225,Double,Upperclass
+MUN,228,Single,Residential Staff
+MUN,226A,Single,Upperclass
+MUN,227,Double,Upperclass
+MUN,228A,Single,Upperclass
+MUN,229,Double,First Year
+MUN,231,Double,First Year
+MUN,230,Quad with Bath,First Year
+MUN,231A,Single,Upperclass
+MUN,237,Single,Upperclass
+MUN,233,Single,Upperclass
+MUN,232,Single,Upperclass
+MUN,234,Single,Upperclass
+MUN,235,Single,Upperclass
+MUN,236,Single,Upperclass
+MUN,245,Double,First Year
+MUN,246,Double,First Year
+MUN,243,Single,Upperclass
+MUN,247,Single,Upperclass
+MUN,239,Single,Upperclass
+MUN,241,Single,Upperclass
+MUN,321,Double,First Year
+MUN,324,Single,Upperclass
+MUN,316,Single,Upperclass
+MUN,317,Single,Upperclass
+MUN,318,Single,Upperclass
+MUN,319,Single,Upperclass
+MUN,323,Double,First Year
+MUN,325,Double,First Year
+MUN,324A,Single,Upperclass
+MUN,326,Single,Upperclass
+MUN,326A,Single,Upperclass
+MUN,327,Double,First Year
+MUN,329,Double,First Year
+MUN,331,Double,First Year
+MUN,330,Quad with Bath,First Year
+MUN,328,Single,Residential Staff
+MUN,328A,Single,Upperclass
+MUN,331A,Single,Upperclass
+MUN,214,Single,Upperclass
+MUN,215,Single,Upperclass
+MUN,210,Single,Upperclass
+MUN,212,Single,Upperclass
+MUN,211,Single,Upperclass
+MUN,213,Single,Upperclass
+MUN,301,Single,Upperclass
+MUN,302,Single,Upperclass
+MUN,305,Single,Upperclass
+MUN,307,Single,Upperclass
+MUN,309,Single,Upperclass
+MUN,303,Double,Upperclass
+MUN,310,Single,Upperclass
+MUN,311,Single,Upperclass
+MUN,312,Single,Upperclass
+MUN,313,Single,Upperclass
+MUN,314,Single,Upperclass
+MUN,315,Single,Upperclass
+MUN,332,Single,Upperclass
+MUN,333,Single,Upperclass
+MUN,334,Single,Upperclass
+MUN,335,Single,Upperclass
+MUN,336,Single,Upperclass
+MUN,337,Single,Upperclass
+MUN,346,Single,Upperclass
+MUN,347,Single,Upperclass
+MUN,339,Single,Upperclass
+MUN,341,Single,Upperclass
+MUN,343,Single,Upperclass
+MUN,345,Double,Upperclass
+POM,101,Double,First Year
+POM,102,Double,First Year
+POM,110,Double,First Year
+POM,111,Double,First Year
+POM,112,Double,First Year
+POM,107,Double,First Year
+POM,108,Double,First Year
+POM,109,Double,First Year
+POM,103,Single,Residential Staff
+POM,104,Double,First Year
+POM,105,Double,First Year
+POM,106,Double,First Year
+POM,105A,Single,Upperclass
+POM,201,Double,Upperclass
+POM,202,Double,Upperclass
+POM,203,Double,Upperclass
+POM,204,Double,Upperclass
+POM,205,Double,Upperclass
+POM,206,Double,Upperclass
+POM,208,Double,Upperclass
+POM,221,Double,Upperclass
+POM,222,Double,Upperclass
+POM,223,Single,Upperclass
+POM,207,Double,Upperclass
+POM,209,Double,First Year
+POM,211,Double,First Year
+POM,218,Double,First Year
+POM,219,Double,First Year
+POM,220,Double,First Year
+POM,210,Double,Academic Success Coach
+POM,212,Double,First Year
+POM,213,Double,First Year
+POM,214,Double,First Year
+POM,215,Double,First Year
+POM,216,Double,First Year
+POM,217,Double,First Year
+POM,230,Single,Residential Staff
+POM,227,Single,Upperclass
+POM,228,Single,Upperclass
+POM,229,Single,Upperclass
+POM,231,Single,Upperclass
+POM,232,Single,Upperclass
+POM,233,Single,Upperclass
+POM,234,Single,Upperclass
+POM,235,Single,Upperclass
+POM,306,Double,First Year
+POM,301,Double,Upperclass
+POM,302,Double,Upperclass
+POM,303,Double,Upperclass
+POM,304,Double,Upperclass
+POM,305,Double,Upperclass
+POM,320,Double,First Year
+POM,321,Double,First Year
+POM,322,Single,Upperclass
+POM,307,Double,Upperclass
+POM,308,Double,Upperclass
+POM,317,Double,First Year
+POM,318,Double,First Year
+POM,319,Double,First Year
+POM,310,Single,Residential Staff
+POM,309,Single,Upperclass
+POM,311,Single,Academic Success Coach
+POM,314,Double,First Year
+POM,315,Double,First Year
+POM,316,Double,First Year
+POM,311A,Single,Upperclass
+POM,312,Double,Upperclass
+POM,313,Double,Upperclass
+POM,324,Single,Upperclass
+POM,325,Single,Upperclass
+POM,326,Single,Upperclass
+POM,323,Double,Upperclass
+POM,327,Single,Upperclass
+POM,328,Single,Upperclass
+POM,329,Single,Upperclass
+POM,402,Single,Upperclass
+POM,403,Single,Upperclass
+POM,404,Single,Upperclass
+POM,405,Single,Upperclass
+POM,406,Single,Upperclass
+POM,401,Double,Upperclass
+POM,408,Double,Upperclass
+POM,421,Double,Upperclass
+POM,422,Single,Upperclass
+POM,423,Single,Upperclass
+POM,407,Double,Upperclass
+POM,409,Double,Upperclass
+POM,410,Single,Residential Staff
+POM,411,Single,Upperclass
+POM,418,Double,Upperclass
+POM,419,Double,Upperclass
+POM,420,Double,Upperclass
+POM,412,Double,Upperclass
+POM,413,Single,Upperclass
+POM,414,Single,Upperclass
+POM,415,Double,Upperclass
+POM,416,Double,Upperclass
+POM,417,Double,Upperclass
+POM,426,Single,Residential Staff
+POM,425,Single,Upperclass
+POM,427,Single,Upperclass
+POM,428,Single,Upperclass
+POM,424,Single,Upperclass
+POM,501,Single,Upperclass
+POM,502,Single,Upperclass
+POM,503,Single,Upperclass
+POM,504,Single,Upperclass
+POM,505,Single,Upperclass
+SEV,27,Single,Residential Staff
+SEV,33,Triple,Upperclass
+SEV,29,Double,Upperclass
+SEV,31,Double,Upperclass
+SEV,34,Double,Upperclass
+SEV,36,Double,Upperclass
+SEV,38,Double,Upperclass
+SEV,41,Double,Upperclass
+SEV,42,Double,Upperclass
+SEV,40,Double,Upperclass
+SEV,103,Single,Residential Staff
+SEV,101,Double,Upperclass
+SEV,104,Double,Upperclass
+SEV,116,Double,First Year
+SEV,118,Double,First Year
+SEV,112,Triple,First Year
+SEV,114,Triple,First Year
+SEV,115,Single,Upperclass
+SEV,117,Single,Upperclass
+SEV,124,Single,Residential Staff
+SEV,119,Single,Upperclass
+SEV,120,Single,Upperclass
+SEV,121,Single,Upperclass
+SEV,122,Single,Upperclass
+SEV,127,Triple,First Year
+SEV,123,Single,Upperclass
+SEV,125,Single,Upperclass
+SEV,126,Single,Upperclass
+SEV,128,Single,Upperclass
+SEV,135,Double,Upperclass
+SEV,129,Single,Upperclass
+SEV,130,Single,Upperclass
+SEV,131,Single,Upperclass
+SEV,133,Single,Upperclass
+SEV,134,Single,Upperclass
+SEV,136,Single,Upperclass
+SEV,132,Suite for 2 with Bath,Upperclass
+SEV,137,Single,Upperclass
+SEV,138,Single,Upperclass
+SEV,139,Single,Upperclass
+SEV,140,Single,Upperclass
+SEV,141,Single,Upperclass
+SEV,142,Single,Upperclass
+SEV,207,Single,Upperclass
+SEV,201,Double,Upperclass
+SEV,202,Double,Upperclass
+SEV,208,Single,Upperclass
+SEV,209,Double,Upperclass
+SEV,210,Double,Upperclass
+SEV,211,Double,Upperclass
+SEV,233,Single,Upperclass
+SEV,229,Single,Upperclass
+SEV,230,Single,Upperclass
+SEV,231,Single,Upperclass
+SEV,232,Suite for 2 with Bath,Upperclass
+SEV,216,Double,First Year
+SEV,212,Triple,First Year
+SEV,214,Triple,First Year
+SEV,215,Single,Upperclass
+SEV,217,Single,Upperclass
+SEV,213,Double,Upperclass
+SEV,219,Single,Upperclass
+SEV,220,Single,Upperclass
+SEV,221,Single,Upperclass
+SEV,222,Single,Upperclass
+SEV,218,Double,Upperclass
+SEV,224,Single,Residential Staff
+SEV,225,Single,Upperclass
+SEV,226,Single,Upperclass
+SEV,228,Single,Upperclass
+SEV,223,Single,Upperclass
+SEV,227,Double,Academic Success Coach
+SEV,238,Double,First Year
+SEV,240,Double,First Year
+SEV,234,Quad,First Year
+SEV,242,Single,Upperclass
+SEV,241,Double,Upperclass
+SEV,310,Double,Upperclass
+SEV,311,Double,Upperclass
+SEV,313,Triple,First Year
+SEV,316,Single,Upperclass
+SEV,318,Single,Upperclass
+SEV,312,Triple,Upperclass
+SEV,314,Triple,Upperclass
+SEV,324,Double,First Year
+SEV,320,Triple,First Year
+SEV,331,Single,Residential Staff
+SEV,329,Single,Upperclass
+SEV,332,Suite for 2 with Bath,Upperclass
+SEV,327,Double,Upperclass
+SEV,1,Single,Upperclass
+SEV,3,Single,Upperclass
+SEV,5,Single,Upperclass
+SEV,6,Single,Upperclass
+SEV,7,Single,Upperclass
+SEV,8,Triple,Upperclass
+SEV,9,Double,Upperclass
+SEV,10,Double,Upperclass
+SEV,APT,4-person Apartment,Upperclass
+SHA,1,Single,Upperclass
+SHA,2,Single,Upperclass
+SHA,3,Single,Upperclass
+SHA,4,Single,Upperclass
+SHA,8,Single,Upperclass
+SHA,9,Single,Upperclass
+SHA,001G,Single,Upperclass
+SHA,003G,Single,Upperclass
+SHA,004G,Double,Upperclass
+SHA,005G,Double,Upperclass
+SHA,006G,Double,Upperclass
+SHA,002G,Double,Upperclass
+SHA,5,Single,Upperclass
+SHA,6,Single,Upperclass
+SHA,7,Single,Upperclass
+SHA,103,Double,First Year
+SHA,105,Double,First Year
+SHA,107,Double,First Year
+SHA,106,Double,First Year
+SHA,101,Single,Residential Staff
+SHA,109,Double,First Year
+SHA,110,Double,First Year
+SHA,111,Double,First Year
+SHA,112,Double,First Year
+SHA,113,Double,First Year
+SHA,115,Double,First Year
+SHA,202,Single,Upperclass
+SHA,200,Triple,Upperclass
+SHA,201,Triple,Upperclass
+SHA,204,Single,Residential Staff
+SHA,209,Single,Upperclass
+SHA,205,Single,Upperclass
+SHA,206,Double,Upperclass
+SHA,207,Double,Upperclass
+SHA,208,Double,Upperclass
+SHA,215,Double,First Year
+SHA,212,Single,Upperclass
+SHA,213,Single,Upperclass
+SHA,214,Single,Upperclass
+SHA,210,Double,Upperclass
+SHA,211,Double,Upperclass
+SHA,219,Double,First Year
+SHA,221,Double,First Year
+SHA,218,Single,Upperclass
+SHA,217,Double,Upperclass
+SHA,220,Double,Upperclass
+SHA,223,Double,Upperclass
+SHA,224,Single,Upperclass
+SHA,225,Single,Upperclass
+SHA,227,Single,Upperclass
+SHA,226,Single,Upperclass
+SHA,228,Single,Upperclass
+SHA,229,Single,Upperclass
+SHA,230,Single,Upperclass
+SHA,231,Single,Upperclass
+SHA,233,Single,Upperclass
+SHA,300,Single,Upperclass
+SHA,301,Single,Upperclass
+SHA,302,Single,Upperclass
+SHA,303,Single,Upperclass
+SHA,304,Single,Upperclass
+SHA,309,Double,First Year
+SHA,306,Single,Residential Staff
+SHA,307,Single,Academic Success Coach
+SHA,310,Single,Upperclass
+SHA,311,Single,Upperclass
+SHA,308,Double,Upperclass
+SHA,314,Double,First Year
+SHA,315,Single,Upperclass
+SHA,317,Single,Upperclass
+SHA,312,Single,Upperclass
+SHA,316,Double,Upperclass
+SHA,313,Double,Upperclass
+SHA,319,Double,First Year
+SHA,320,Double,First Year
+SHA,321,Double,First Year
+SHA,323,Double,First Year
+SHA,322,Single,Upperclass
+SHA,325,Double,Upperclass
+SHA,400,Single,Residential Staff
+SHA,401,Single,Upperclass
+SHA,402,Single,Upperclass
+SHA,403,Single,Upperclass
+SHA,404,Single,Upperclass
+SHA,406,Single,Residential Staff
+SHA,407,Single,Upperclass
+SHA,408,Double,Upperclass
+SHA,409,Double,Upperclass
+SHA,410,Single,Upperclass
+SHA,411,Single,Upperclass
+SHA,414,Double,Upperclass
+SHA,415,Double,Upperclass
+SHA,416,Single,Upperclass
+SHA,417,Double,Upperclass
+SHA,412,Double,Upperclass
+SHA,413,Double,Upperclass
+SHA,419,Single,Upperclass
+SHA,420,Single,Upperclass
+SHA,421,Single,Upperclass
+SHA,422,Single,Upperclass
+SHA,423,Single,Upperclass
+SHA,425,Single,Upperclass
+SHA,500,Single,Upperclass
+SHA,501,Single,Upperclass
+SHA,502,Single,Upperclass
+SHA,503,Single,Upperclass
+SHA,504,Single,Upperclass
+SHA,RD APT,4-person Apartment,Upperclass
+STO,2,Triple,First Year
+STO,3,Triple,First Year
+STO,4,Triple,First Year
+STO,5,Triple,First Year
+STO,8,Triple,First Year
+STO,9,Single,Residential Staff
+STO,105,Single,Upperclass
+STO,108,Single,Upperclass
+STO,101,Triple,First Year
+STO,102,Triple,First Year
+STO,106,Single,Upperclass
+STO,109,Single,Upperclass
+STO,112,Double,First Year
+STO,110,Single,Upperclass
+STO,111,Single,Upperclass
+STO,114,Double,First Year
+STO,115,Single,Upperclass
+STO,118,Triple,Upperclass
+STO,113,Double,Upperclass
+STO,207,Double,First Year
+STO,201,Triple,First Year
+STO,202,Triple,First Year
+STO,206,Single,Upperclass
+STO,208,Single,Upperclass
+STO,215,Double,First Year
+STO,209,Single,Upperclass
+STO,211,Single,Upperclass
+STO,212,Single,Upperclass
+STO,213,Single,Academic Success Coach
+STO,214,Single,Residential Staff
+STO,218,Double,First Year
+STO,219,Double,First Year
+STO,220,Single,Upperclass
+STO,221,Single,Upperclass
+STO,223,Single,Upperclass
+STO,222,Double,Upperclass
+STO,228,Single,Upperclass
+STO,224,Single,Upperclass
+STO,225,Single,Upperclass
+STO,227,Single,Upperclass
+STO,230,Single,Upperclass
+STO,226,Double,Upperclass
+STO,305,Single,Residential Staff
+STO,302,Single,Upperclass
+STO,303,Single,Upperclass
+STO,308,Double,Upperclass
+STO,309,Double,Upperclass
+STO,315,Single,Residential Staff
+STO,314,Single,Upperclass
+STO,310,Single,Upperclass
+STO,311,Double,Upperclass
+STO,313,Double,Upperclass
+STO,316,Double,Upperclass
+STO,319,Single,Upperclass
+STO,320,Single,Upperclass
+STO,321,Single,Upperclass
+STO,322,Single,Upperclass
+STO,317,Single,Upperclass
+STO,318,Single,Upperclass
+STO,324,Single,Upperclass
+STO,323,Single,Upperclass
+STO,326,Single,Upperclass
+STO,327,Single,Upperclass
+STO,328,Single,Upperclass
+STO,330,Double,Upperclass
+STO,407,Single,Residential Staff
+STO,402,Single,Upperclass
+STO,405,Single,Upperclass
+STO,406,Double,Upperclass
+STO,404,Double,Upperclass
+STO,408,Double,Upperclass
+STO,413,Single,Upperclass
+STO,414,Single,Upperclass
+STO,415,Single,Upperclass
+STO,410,Double,Upperclass
+STO,411,Single,Upperclass
+STO,412,Double,Upperclass
+STO,231,Single,Upperclass
+STO,232,Single,Upperclass
+STO,233,Single,Upperclass
+STO,234,Single,Upperclass
+STO,236,Double,Upperclass
+TCE,101,Single,Upperclass
+TCE,106,Single,Upperclass
+TCE,102,Double,Upperclass
+TCE,103,Double,Upperclass
+TCE,104,Double,Upperclass
+TCE,110,Single,Residential Staff
+TCE,107,Single,Upperclass
+TCE,108,Single,Upperclass
+TCE,109,Single,Upperclass
+TCE,112,Single,Upperclass
+TCE,111,Single,Upperclass
+TCE,113,Single,Upperclass
+TCE,114,Single,Upperclass
+TCE,115,Single,Upperclass
+TCE,116,Single,Upperclass
+TCE,202,Double,First Year
+TCE,203,Double,First Year
+TCE,201,Single,Upperclass
+TCE,204,Double,First Year
+TCE,206,Double,Upperclass
+TCE,208,Double,First Year
+TCE,209,Single,Residential Staff
+TCE,205,Single,Academic Success Coach
+TCE,207,Single,Upperclass
+TCE,210,Double,First Year
+TCE,212,Double,First Year
+TCE,214,Double,First Year
+TCE,211,Single,Upperclass
+TCE,213,Double,Upperclass
+TCE,215,Double,Upperclass
+TCE,216,Double,First Year
+TCE,217,Double,First Year
+TCE,218,Double,First Year
+TCE,220,Triple,First Year
+TCE,219,Double,Upperclass
+TCE,221,Suite for 2 with Bath,Upperclass
+TCE,223,Suite for 2 with Bath,Upperclass
+TCE,302,Double,First Year
+TCE,303,Double,First Year
+TCE,304,Double,First Year
+TCE,301,Single,Upperclass
+TCE,305,Single,Upperclass
+TCE,306,Double,Upperclass
+TCE,307,Single,Upperclass
+TCE,308,Double,Upperclass
+TCE,309,Single,Upperclass
+TCE,310,Double,Upperclass
+TCE,311,Single,Upperclass
+TCE,312,Double,Upperclass
+TCE,313,Single,Upperclass
+TCE,314,Double,Upperclass
+TCE,316,Double,Upperclass
+TCE,318,Double,First Year
+TCE,317,Single,Residential Staff
+TCE,315,Single,Upperclass
+TCE,319,Double,Upperclass
+TCE,322,Double,First Year
+TCE,320,Triple,First Year
+TCE,328,Single,Upperclass
+TCE,326,Single,Upperclass
+TCE,323,Suite for 2 with Bath,Upperclass
+TCE,321,Suite for 2 with Bath,Upperclass
+TCE,325,Suite for 3 with Bath,Upperclass
+TCE,327,Suite for 3 with Bath,Upperclass
+TCE,408,Double,Upperclass
+TCE,410,Double,Upperclass
+TCE,405,Single,Upperclass
+TCE,407,Single,Upperclass
+TCE,412,Double,Upperclass
+TCE,414,Double,Upperclass
+TCE,409,Single,Upperclass
+TCE,411,Single,Upperclass
+TCE,413,Single,Upperclass
+TCE,415,Single,Upperclass
+TCE,416,Double,Upperclass
+TCE,418,Double,Upperclass
+TCE,417,Single,Residential Staff
+TCE,420,Triple,Upperclass
+TCE,419,Double,Upperclass
+TCE,422,Double,Upperclass
+TCE,421,Suite for 2 with Bath,Upperclass
+TCE,423,Suite for 2 with Bath,Upperclass
+TCE,428,Single,Upperclass
+TCE,425,Single,Upperclass
+TCE,426,Single,Upperclass
+TCE,427,Single,Upperclass
+TCE,424,Double,Upperclass
+TCE,523,Double,Upperclass
+TCE,526,Single,Upperclass
+TCE,528,Single,Upperclass
+TCE,525,Triple,Upperclass
+TCE,521,Double,Upperclass
+TCE,403,Single,Upperclass
+TCE,404,Double,Upperclass
+TCE,406,Double,Upperclass
+TCE,401,Single,Upperclass
+TCE,402,Double,Upperclass
+TCE,515,Single,Upperclass
+TCE,524,Double,Upperclass
+TCE,508,Triple,Upperclass
+TCE,507,Double,Upperclass
+TCE,519,Single,Residential Staff
+TCE,517,Single,Upperclass
+TCE,520,Double,Upperclass
+TCE,522,Double,Upperclass
+TCE,RD APT,4-person Apartment,Upperclass
+TCW,626,Single,Upperclass
+TCW,628,Single,Upperclass
+TCW,630,Single,Upperclass
+TCW,632,Single,Upperclass
+TCW,625,Triple,Upperclass
+TCW,631,Triple,Upperclass
+TCW,118,Single,Residential Staff
+TCW,142,Double,First Year
+TCW,144,Double,First Year
+TCW,140,Single,Upperclass
+TCW,141,Single,Upperclass
+TCW,143,Single,Upperclass
+TCW,145,Double,First Year
+TCW,148,Single,Residential Staff
+TCW,146,Single,Upperclass
+TCW,147,Single,Upperclass
+TCW,149,Single,Upperclass
+TCW,152,Double,First Year
+TCW,153,Double,First Year
+TCW,154,Double,First Year
+TCW,150,Single,Upperclass
+TCW,155,Single,Upperclass
+TCW,238,Double,First Year
+TCW,239,Double,First Year
+TCW,236,Quad with Bath,First Year
+TCW,234,Triple,First Year
+TCW,237,Double,Upperclass
+TCW,240,Double,First Year
+TCW,242,Double,First Year
+TCW,244,Double,First Year
+TCW,241,Single,Residential Staff
+TCW,243,Double,Upperclass
+TCW,245,Double,Upperclass
+TCW,246,Double,First Year
+TCW,248,Double,First Year
+TCW,250,Double,Upperclass
+TCW,252,Double,Upperclass
+TCW,247,Single,Upperclass
+TCW,249,Single,Upperclass
+TCW,251,Single,Upperclass
+TCW,254,Double,First Year
+TCW,253,Single,Upperclass
+TCW,255,Single,Upperclass
+TCW,257,Single,Upperclass
+TCW,331,Suite for 3 with Bath,Upperclass
+TCW,329,Suite for 3 with Bath,Upperclass
+TCW,333,Double,First Year
+TCW,334,Triple,First Year
+TCW,330,Single,Upperclass
+TCW,332,Single,Upperclass
+TCW,335,Suite for 2 with Bath,Upperclass
+TCW,336,Suite for 2 with Bath,Upperclass
+TCW,338,Double,First Year
+TCW,337,Double,First Year
+TCW,339,Single,Residential Staff
+TCW,341,Single,Academic Success Coach
+TCW,340,Double,First Year
+TCW,342,Double,Upperclass
+TCW,343,Single,Upperclass
+TCW,345,Single,Upperclass
+TCW,344,Double,Upperclass
+TCW,346,Double,Upperclass
+TCW,347,Single,Upperclass
+TCW,349,Single,Upperclass
+TCW,348,Double,Upperclass
+TCW,350,Double,Upperclass
+TCW,351,Single,Upperclass
+TCW,352,Double,First Year
+TCW,353,Double,First Year
+TCW,354,Double,First Year
+TCW,355,Single,Upperclass
+TCW,429,Single,Upperclass
+TCW,430,Single,Upperclass
+TCW,432,Single,Upperclass
+TCW,431,Double,Upperclass
+TCW,433,Double,Upperclass
+TCW,439,Single,Residential Staff
+TCW,441,Double,Upperclass
+TCW,434,Triple,Upperclass
+TCW,437,Double,Upperclass
+TCW,438,Double,Upperclass
+TCW,435,Suite for 2 with Bath,Upperclass
+TCW,436,Suite for 2 with Bath,Upperclass
+TCW,440,Double,Upperclass
+TCW,442,Double,Upperclass
+TCW,443,Single,Upperclass
+TCW,445,Single,Upperclass
+TCW,447,Single,Upperclass
+TCW,449,Single,Upperclass
+TCW,444,Double,Upperclass
+TCW,446,Double,Upperclass
+TCW,448,Double,Upperclass
+TCW,450,Double,Upperclass
+TCW,451,Single,Upperclass
+TCW,455,Single,Upperclass
+TCW,453,Single,Upperclass
+TCW,452,Double,Upperclass
+TCW,454,Double,Upperclass
+TCW,530,Single,Upperclass
+TCW,532,Single,Residential Staff
+TCW,531,Triple,Upperclass
+TCW,535,Double,Upperclass
+TCW,536,Double,Upperclass
+TCW,537,Single,Residential Staff
+TCW,538,Double,Upperclass
+TCW,539,Single,Upperclass
+TCW,540,Double,Upperclass
+TCW,541,Single,Upperclass
+TCW,542,Double,Upperclass
+TCW,553,Triple,Upperclass
+TCW,555,Double,Upperclass
