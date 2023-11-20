@@ -1,25 +1,33 @@
-{% extends "base.html" %}
-
-{% block main_content %}
-<h1>DORM NAME</h1>
-
-<form method="POST" action="">
-
-    <fieldset>
-        <legend>Movie Data</legend>
-            <table>
-            <tr><td><label for="movie-tt" accesskey="i">(i) Movie ID/TT:</label></td>
-                <td><input id="movie-tt" type="text" name="movie-tt"></td></tr>
-            <tr><td><label for="movie-title" accesskey="t">(t) Movie Title:</label></td>
-                <td><input id="movie-title" type="text" name="movie-title"></td></tr>
-            <tr><td><label for="movie-release" accesskey="r">(r) Movie Release Year:</label></td>
-                <td><input id="movie-release" type="text" name="movie-release"></td></tr>
-            </table>
-        </fieldset>
-
-        <p> <input type='submit' value='Insert Movie'> </p>
-
-</form>
-
-
-{% endblock %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="/static/styling.css">
+    </head>
+    <body>
+        <div class="login-page">
+            <div class="group-wrapper">
+                <div class="group">
+                    <img class="rectangle" src="img/rectanlge.png"/>
+                    <div class="div">
+                        <div class="text-wrapper">WENDI</div>
+                        <p class="p">Wellesley Evaluation Network for Dorm Information</p>
+                    </div>
+                    <div class="overlap-group-wrapper">
+                        <div class="overlap-group">
+                            <div class="text-wrapper-2">Password</div>
+                            <img class="frame" src="img/image.svg"/>
+                        </div>
+                    <div class="overlap-group-wrapper">
+                        <div class="overlap-group">
+                            <div class="text-wrapper-3">Username</div>
+                            <img class="frame" src="img/frame.svg">
+                        </div>
+                    </div>
+                    <div class="div-wrapper">
+                        <div class="overlap"><div class="text-wrapper-4">LOGIN</div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
