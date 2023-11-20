@@ -23,7 +23,7 @@ ENGINE = InnoDB;
 CREATE TABLE `hall` (
   `id` CHAR(3) PRIMARY KEY,
   `name` VARCHAR(20),
-  `mediaURL` VARCHAR(255),
+  `mediaFilepath` VARCHAR(255),
   `toQuad` INT,
   `toGym` INT,
   `toDining` INT,
@@ -38,8 +38,9 @@ CREATE TABLE `room` (
   `id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   `number` CHAR(10),
   `hid` CHAR(3),
-  `type` ENUM ('First Year', 'Upperclass'),
+  `type` ENUM ('First Year', 'Upperclass', 'Residential Staff', 'Academic Success Coach'),
   `description` VARCHAR(30),
+  `numReviews` INT,
   FOREIGN KEY (hid) REFERENCES hall(id)
         ON UPDATE RESTRICT
         ON DELETE RESTRICT
@@ -54,6 +55,7 @@ CREATE TABLE `review` (
   `startTime` DATE,
   `lengthOfStay` ENUM ('Winter', 'Summer', 'Spring Only', 'Fall Only', 'Whole Year'),
   `sizeScore` FLOAT,
+  `storageScore` FLOAT,
   `ventScore` FLOAT,
   `cleanScore` FLOAT,
   `bathroomScore` FLOAT,

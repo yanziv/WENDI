@@ -1,0 +1,1539 @@
+id,number,hid,type,description,numReviews
+,102,BAT,First Year,Double,0
+,104,BAT,First Year,Double,0
+,101,BAT,Upperclass,Single,0
+,103,BAT,Upperclass,Single,0
+,105,BAT,Upperclass,Single,0
+,106,BAT,First Year,Double,0
+,108,BAT,First Year,Double,0
+,110,BAT,First Year,Double,0
+,107,BAT,Upperclass,Single,0
+,109,BAT,Upperclass,Single,0
+,112,BAT,First Year,Double,0
+,111,BAT,Residential Staff,Res Staff,0
+,113,BAT,Academic Success Coach,Single,0
+,116,BAT,First Year,Double,0
+,115,BAT,Upperclass,Single,0
+,117,BAT,Upperclass,Single,0
+,118,BAT,First Year,Double,0
+,120,BAT,First Year,Double,0
+,122,BAT,First Year,Double,0
+,119,BAT,Upperclass,Single,0
+,121,BAT,Upperclass,Single,0
+,202,BAT,First Year,Double,0
+,204,BAT,First Year,Double,0
+,201,BAT,Residential Staff,Res Staff,0
+,203,BAT,Upperclass,Single,0
+,205,BAT,Upperclass,Single,0
+,206,BAT,First Year,Double,0
+,208,BAT,First Year,Double,0
+,210,BAT,First Year,Double,0
+,207,BAT,Upperclass,Single,0
+,209,BAT,Upperclass,Single,0
+,212,BAT,First Year,Double,0
+,211,BAT,Residential Staff,Res Staff,0
+,213,BAT,Upperclass,Single,0
+,216,BAT,First Year,Double,0
+,215,BAT,Upperclass,Single,0
+,217,BAT,Upperclass,Single,0
+,218,BAT,First Year,Double,0
+,220,BAT,First Year,Double,0
+,222,BAT,First Year,Double,0
+,219,BAT,Upperclass,Single,0
+,221,BAT,Upperclass,Single,0
+,301,BAT,Upperclass,Single,0
+,303,BAT,Upperclass,Single,0
+,305,BAT,Upperclass,Single,0
+,302,BAT,Upperclass,Double,0
+,304,BAT,Upperclass,Double,0
+,307,BAT,Upperclass,Single,0
+,309,BAT,Upperclass,Single,0
+,306,BAT,Upperclass,Double,0
+,308,BAT,Upperclass,Double,0
+,310,BAT,Upperclass,Double,0
+,311,BAT,Residential Staff,Res Staff,0
+,313,BAT,Upperclass,Single,0
+,312,BAT,Academic Success Coach,Double,0
+,315,BAT,Upperclass,Single,0
+,317,BAT,Upperclass,Single,0
+,316,BAT,Upperclass,Double,0
+,319,BAT,Upperclass,Single,0
+,321,BAT,Upperclass,Single,0
+,318,BAT,Upperclass,Double,0
+,320,BAT,Upperclass,Double,0
+,322,BAT,Upperclass,Double,0
+,401,BAT,Upperclass,Single,0
+,403,BAT,Upperclass,Single,0
+,405,BAT,Upperclass,Single,0
+,402,BAT,Upperclass,Double,0
+,404,BAT,Upperclass,Double,0
+,407,BAT,Upperclass,Single,0
+,409,BAT,Upperclass,Single,0
+,406,BAT,Upperclass,Double,0
+,408,BAT,Upperclass,Double,0
+,410,BAT,Upperclass,Double,0
+,411,BAT,Residential Staff,Res Staff,0
+,413,BAT,Upperclass,Single,0
+,412,BAT,Upperclass,Double,0
+,415,BAT,Upperclass,Single,0
+,417,BAT,Upperclass,Single,0
+,416,BAT,Upperclass,Double,0
+,419,BAT,Upperclass,Single,0
+,421,BAT,Upperclass,Single,0
+,418,BAT,Upperclass,Double,0
+,420,BAT,Upperclass,Double,0
+,422,BAT,Upperclass,Double,0
+,503,BAT,Upperclass,Single,0
+,504,BAT,Upperclass,Single,0
+,505,BAT,Upperclass,Single,0
+,501,BAT,Upperclass,Single,0
+,502,BAT,Upperclass,Single,0
+,Ground  Double,BAT,Upperclass,Double,0
+,Ground Single,BAT,Upperclass,Single,0
+,1,BEB,Upperclass,Single,0
+,2,BEB,Upperclass,Single,0
+,3,BEB,Upperclass,Single,0
+,4,BEB,Upperclass,Single,0
+,5,BEB,Upperclass,Single,0
+,6,BEB,Upperclass,Single,0
+,7,BEB,Upperclass,Single,0
+,103,BEB,First Year,Double,0
+,107,BEB,First Year,Double,0
+,106,BEB,Residential Staff,Single,0
+,105,BEB,Upperclass,Double,0
+,109,BEB,Upperclass,Double,0
+,112,BEB,First Year,Double,0
+,113,BEB,First Year,Double,0
+,110,BEB,Upperclass,Double,0
+,111,BEB,Upperclass,Double,0
+,115,BEB,Upperclass,Double,0
+,225,BEB,Upperclass,Single,0
+,200,BEB,Upperclass,Triple,0
+,201,BEB,Upperclass,Triple,0
+,202,BEB,Upperclass,Double,0
+,207,BEB,First Year,Double,0
+,208,BEB,First Year,Double,0
+,209,BEB,First Year,Double,0
+,205,BEB,Upperclass,Single,0
+,204,BEB,Upperclass,Double,0
+,206,BEB,Upperclass,Double,0
+,211,BEB,First Year,Double,0
+,214,BEB,First Year,Double,0
+,215,BEB,First Year,Double,0
+,210,BEB,Residential Staff,Single,0
+,212,BEB,Academic Success Coach,Single,0
+,213,BEB,Upperclass,Single,0
+,217,BEB,First Year,Double,0
+,218,BEB,First Year,Double,0
+,219,BEB,First Year,Double,0
+,220,BEB,Upperclass,Double,0
+,221,BEB,Upperclass,Double,0
+,223,BEB,Upperclass,Double,0
+,224,BEB,Upperclass,Single,0
+,226,BEB,Upperclass,Single,0
+,227,BEB,Upperclass,Single,0
+,228,BEB,Upperclass,Single,0
+,229,BEB,Upperclass,Single,0
+,231,BEB,Upperclass,Single,0
+,300,BEB,Upperclass,Single,0
+,301,BEB,Upperclass,Single,0
+,302,BEB,Upperclass,Single,0
+,303,BEB,Upperclass,Single,0
+,304,BEB,Upperclass,Single,0
+,306,BEB,First Year,Double,0
+,310,BEB,First Year,Double,0
+,307,BEB,Upperclass,Single,0
+,308,BEB,Upperclass,Single,0
+,309,BEB,Upperclass,Double,0
+,311,BEB,Upperclass,Double,0
+,314,BEB,First Year,Double,0
+,315,BEB,First Year,Double,0
+,317,BEB,First Year,Double,0
+,312,BEB,Residential Staff,Single,0
+,316,BEB,Upperclass,Single,0
+,313,BEB,Upperclass,Double,0
+,319,BEB,First Year,Double,0
+,320,BEB,Upperclass,Single,0
+,323,BEB,Upperclass,Single,0
+,321,BEB,Upperclass,Double,0
+,322,BEB,Upperclass,Double,0
+,325,BEB,Upperclass,Double,0
+,400,BEB,Residential Staff,Single,0
+,401,BEB,Upperclass,Single,0
+,402,BEB,Upperclass,Single,0
+,403,BEB,Upperclass,Single,0
+,404,BEB,Upperclass,Single,0
+,406,BEB,Upperclass,Single,0
+,407,BEB,Upperclass,Single,0
+,408,BEB,Upperclass,Double,0
+,409,BEB,Upperclass,Double,0
+,410,BEB,Upperclass,Single,0
+,411,BEB,Upperclass,Single,0
+,412,BEB,Residential Staff,Single,0
+,413,BEB,Upperclass,Single,0
+,414,BEB,Upperclass,Double,0
+,415,BEB,Upperclass,Double,0
+,416,BEB,Upperclass,Double,0
+,417,BEB,Upperclass,Double,0
+,419,BEB,Upperclass,Double,0
+,420,BEB,Upperclass,Single,0
+,421,BEB,Upperclass,Single,0
+,422,BEB,Upperclass,Single,0
+,423,BEB,Upperclass,Single,0
+,425,BEB,Upperclass,Single,0
+,500,BEB,Upperclass,Single,0
+,501,BEB,Upperclass,Single,0
+,502,BEB,Upperclass,Double,0
+,503,BEB,Upperclass,Single,0
+,504,BEB,Upperclass,Single,0
+,RD APT,BEB,Upperclass,4-person Apartment,0
+,3,CAZ,Upperclass,Single,0
+,4,CAZ,Upperclass,Single,0
+,5,CAZ,Upperclass,Single,0
+,6,CAZ,Upperclass,Single,0
+,2,CAZ,Upperclass,Single,0
+,1,CAZ,Upperclass,Single,0
+,7,CAZ,Upperclass,Single,0
+,8,CAZ,Upperclass,Single,0
+,9,CAZ,Upperclass,Single,0
+,101,CAZ,First Year,Double,0
+,103,CAZ,First Year,Double,0
+,105,CAZ,First Year,Double,0
+,102,CAZ,Residential Staff,Single,0
+,104,CAZ,Academic Success Coach,Single,0
+,107,CAZ,First Year,Double,0
+,109,CAZ,First Year,Double,0
+,111,CAZ,First Year,Double,0
+,106,CAZ,First Year,Double,0
+,110,CAZ,First Year,Double,0
+,112,CAZ,First Year,Double,0
+,113,CAZ,First Year,Double,0
+,115,CAZ,First Year,Double,0
+,201,CAZ,First Year,Double,0
+,203,CAZ,First Year,Double,0
+,204,CAZ,First Year,Double,0
+,205,CAZ,First Year,Double,0
+,220,CAZ,Upperclass,Double,0
+,206,CAZ,First Year,Double,0
+,207,CAZ,First Year,Double,0
+,209,CAZ,First Year,Double,0
+,210,CAZ,First Year,Double,0
+,211,CAZ,First Year,Double,0
+,208,CAZ,Residential Staff,Single,0
+,213,CAZ,First Year,Double,0
+,214,CAZ,First Year,Double,0
+,215,CAZ,First Year,Double,0
+,216,CAZ,First Year,Double,0
+,217,CAZ,First Year,Double,0
+,219,CAZ,First Year,Double,0
+,226,CAZ,Residential Staff,Single,0
+,222,CAZ,Upperclass,Single,0
+,223,CAZ,Upperclass,Single,0
+,224,CAZ,Upperclass,Single,0
+,221,CAZ,Upperclass,Double,0
+,227,CAZ,Upperclass,Double,0
+,307,CAZ,Upperclass,Double,0
+,309,CAZ,Upperclass,Double,0
+,310,CAZ,Upperclass,Double,0
+,311,CAZ,Upperclass,Double,0
+,332,CAZ,Upperclass,Double,0
+,314,CAZ,Residential Staff,Single,0
+,313,CAZ,Upperclass,Single,0
+,315,CAZ,Upperclass,Single,0
+,317,CAZ,Upperclass,Double,0
+,312,CAZ,Upperclass,Double,0
+,316,CAZ,Upperclass,Double,0
+,319,CAZ,Upperclass,Double,0
+,320,CAZ,Upperclass,Single,0
+,322,CAZ,Upperclass,Single,0
+,321,CAZ,Upperclass,Double,0
+,323,CAZ,Upperclass,Double,0
+,324,CAZ,Upperclass,Double,0
+,325,CAZ,Upperclass,Single,0
+,326,CAZ,Upperclass,Single,0
+,327,CAZ,Upperclass,Single,0
+,328,CAZ,Upperclass,Single,0
+,331,CAZ,Upperclass,2 Room Double,0
+,329,CAZ,Upperclass,Single,0
+,330,CAZ,Upperclass,Single,0
+,333,CAZ,Upperclass,Double,0
+,335,CAZ,Upperclass,Single,0
+,336,CAZ,Upperclass,Double,0
+,334,CAZ,Upperclass,Double,0
+,337,CAZ,Upperclass,Double,0
+,338,CAZ,Upperclass,Double,0
+,400,CAZ,Residential Staff,Single,0
+,401,CAZ,Upperclass,Single,0
+,402,CAZ,Academic Success Coach,Single,0
+,403,CAZ,Upperclass,Single,0
+,404,CAZ,Upperclass,Single,0
+,405,CAZ,Upperclass,Single,0
+,409,CAZ,Upperclass,Double,0
+,411,CAZ,Upperclass,Double,0
+,407,CAZ,Upperclass,Single,0
+,410,CAZ,Upperclass,Double,0
+,426,CAZ,Upperclass,Double,0
+,416,CAZ,Upperclass,Double,0
+,417,CAZ,Upperclass,Double,0
+,414,CAZ,Residential Staff,Single,0
+,412,CAZ,Upperclass,Single,0
+,413,CAZ,Upperclass,Single,0
+,415,CAZ,Upperclass,Double,0
+,421,CAZ,Upperclass,Double,0
+,423,CAZ,Upperclass,Double,0
+,419,CAZ,Upperclass,Single,0
+,422,CAZ,Upperclass,Single,0
+,425,CAZ,Upperclass,Single,0
+,420,CAZ,Upperclass,Double,0
+,427,CAZ,Upperclass,Single,0
+,428,CAZ,Upperclass,Single,0
+,429,CAZ,Upperclass,Single,0
+,430,CAZ,Upperclass,Single,0
+,431,CAZ,Upperclass,Single,0
+,432,CAZ,Upperclass,Double,0
+,503,CAZ,Upperclass,Single,0
+,504,CAZ,Upperclass,Single,0
+,500,CAZ,Upperclass,Single,0
+,501,CAZ,Upperclass,Single,0
+,502,CAZ,Upperclass,Single,0
+,1,CED,Residential Staff,Single,0
+,02A,CED,Upperclass,Single,0
+,3,CED,Upperclass,Single,0
+,4,CED,Upperclass,Single,0
+,01A,CED,Upperclass,Single,0
+,2,CED,Upperclass,Single,0
+,5,CED,Upperclass,Single,0
+,6,CED,Upperclass,Single,0
+,7,CED,Upperclass,Single,0
+,8,CED,Upperclass,Single,0
+,9,CED,Upperclass,Single,0
+,204,CER,Residential Staff,Single,0
+,105,CER,Upperclass,Single,0
+,205,CER,Upperclass,Single,0
+,102,CER,Upperclass,Double,0
+,201,CER,Upperclass,Double,0
+,202,CER,Upperclass,Double,0
+,5,CLA,Upperclass,Single,0
+,3,CLA,Upperclass,Single,0
+,4,CLA,Upperclass,Single,0
+,22,CLA,Upperclass,2 Room Triple,0
+,24,CLA,Upperclass,Single,0
+,25,CLA,Upperclass,Single,0
+,103,CLA,Upperclass,2 Room Double,0
+,104,CLA,Upperclass,2 Room Double,0
+,101,CLA,Residential Staff,Single,0
+,102,CLA,Academic Success Coach,Single,0
+,105,CLA,Upperclass,2 Room Double,0
+,106,CLA,Upperclass,2 Room Double,0
+,108,CLA,Upperclass,Single,0
+,109,CLA,Upperclass,Single,0
+,107,CLA,First Year,Triple,0
+,110,CLA,Upperclass,Single,0
+,111,CLA,Upperclass,Single,0
+,112,CLA,Upperclass,Single,0
+,113,CLA,Upperclass,Single,0
+,114,CLA,Upperclass,Single,0
+,115,CLA,Upperclass,Single,0
+,116,CLA,Upperclass,Single,0
+,117,CLA,Upperclass,Single,0
+,118,CLA,Upperclass,Single,0
+,119,CLA,Upperclass,Single,0
+,120,CLA,Upperclass,Single,0
+,121,CLA,Upperclass,Single,0
+,122,CLA,First Year,Double,0
+,203,CLA,Upperclass,2 Room Double,0
+,205,CLA,Upperclass,2 Room Double,0
+,204,CLA,Upperclass,2 Room Double,0
+,206,CLA,Upperclass,2 Room Double,0
+,201,CLA,Upperclass,Single,0
+,202,CLA,Upperclass,Single,0
+,231,CLA,Upperclass,2 Room Triple,0
+,208,CLA,Upperclass,Single,0
+,209,CLA,Upperclass,Single,0
+,210,CLA,Upperclass,Single,0
+,232,CLA,Upperclass,Single,0
+,207,CLA,First Year,Triple,0
+,211,CLA,Upperclass,Single,0
+,212,CLA,Upperclass,Single,0
+,213,CLA,Upperclass,Single,0
+,214,CLA,Upperclass,Single,0
+,215,CLA,Upperclass,Single,0
+,216,CLA,Upperclass,Single,0
+,219,CLA,Residential Staff,Single,0
+,217,CLA,Upperclass,Single,0
+,218,CLA,Upperclass,Single,0
+,220,CLA,Upperclass,Single,0
+,221,CLA,Upperclass,Single,0
+,223,CLA,Upperclass,Single,0
+,222,CLA,First Year,Quad with Bath,0
+,228,CLA,Residential Staff,Single,0
+,224,CLA,Upperclass,Single,0
+,225,CLA,Upperclass,Single,0
+,226,CLA,Upperclass,Single,0
+,227,CLA,Upperclass,Single,0
+,229,CLA,Upperclass,Single,0
+,303,CLA,First Year,Double,0
+,306,CLA,First Year,Double,0
+,307,CLA,First Year,Triple,0
+,301,CLA,Upperclass,Single,0
+,302,CLA,Upperclass,Single,0
+,309,CLA,First Year,Double,0
+,308,CLA,Upperclass,Single,0
+,310,CLA,Upperclass,Single,0
+,311,CLA,Upperclass,Single,0
+,312,CLA,Upperclass,Single,0
+,317,CLA,Residential Staff,Single,0
+,313,CLA,Upperclass,Single,0
+,314,CLA,Upperclass,Single,0
+,315,CLA,Upperclass,Single,0
+,316,CLA,Upperclass,Single,0
+,318,CLA,Upperclass,Single,0
+,319,CLA,Upperclass,Single,0
+,320,CLA,Upperclass,Single,0
+,321,CLA,Upperclass,Single,0
+,323,CLA,Upperclass,Single,0
+,324,CLA,Upperclass,2 Room Triple,0
+,324A,CLA,Upperclass,Single,0
+,325,CLA,Upperclass,Single,0
+,327,CLA,Upperclass,Single,0
+,329,CLA,Upperclass,Single,0
+,401,CLA,Upperclass,2 Room Double,0
+,402,CLA,Upperclass,2 Room Double,0
+,405,CLA,Upperclass,2 Room Double,0
+,406,CLA,Upperclass,2 Room Double,0
+,407,CLA,Upperclass,Single,0
+,409,CLA,Upperclass,Single,0
+,408,CLA,First Year,Double,0
+,410,CLA,First Year,Double,0
+,412,CLA,First Year,Double,0
+,414,CLA,First Year,Double,0
+,416,CLA,First Year,Double,0
+,411,CLA,Upperclass,Single,0
+,418,CLA,First Year,Double,0
+,420,CLA,First Year,Double,0
+,422,CLA,First Year,Double,0
+,424,CLA,Residential Staff,Single,0
+,427,CLA,Academic Success Coach,Single,0
+,501,CLA,Upperclass,Single,0
+,502,CLA,Upperclass,Single,0
+,503,CLA,Upperclass,Single,0
+,B031,CLA,Upperclass,Single,0
+,1,CLA,Upperclass,Suite for 2 with Bath,0
+,2,CLA,Upperclass,Suite for 2 with Bath,0
+,001G,CLA,Upperclass,Suite for 5 with Bathroom,0
+,002G,CLA,Upperclass,Suite for 5 with Bathroom,0
+,003G,CLA,Upperclass,Suite for 5 with Bathroom,0
+,23,WCC,Upperclass,(Unallocated),0
+,25,WCC,Upperclass,Single,0
+,26,WCC,Upperclass,Single,0
+,27,WCC,Upperclass,Single,0
+,28,WCC,Upperclass,Single,0
+,16,WCC,Upperclass,Single,0
+,17,WCC,Upperclass,Single,0
+,18,WCC,Upperclass,Single,0
+,22,WCC,Upperclass,Single,0
+,24,WCC,Upperclass,Single,0
+,21,WCC,Upperclass,Single,0
+,11,WCC,Upperclass,Single,0
+,12,WCC,Upperclass,Single,0
+,13,WCC,Upperclass,Single,0
+,14,WCC,Upperclass,Single,0
+,15,WCC,Upperclass,Single,0
+,338,DAV,Upperclass,Single,0
+,339,DAV,Upperclass,Single,0
+,340,DAV,Upperclass,Single,0
+,336,DAV,Upperclass,Single,0
+,334,DAV,Upperclass,Double,0
+,337,DAV,Upperclass,Double,0
+,58,DAV,First Year,Triple,0
+,59,DAV,First Year,Triple,0
+,60,DAV,First Year,Triple,0
+,61,DAV,First Year,Triple,0
+,62,DAV,First Year,Triple,0
+,57,DAV,Residential Staff,Single,0
+,132,DAV,Upperclass,Quad,0
+,138,DAV,First Year,Double,0
+,135,DAV,Upperclass,Single,0
+,141,DAV,Upperclass,Single,0
+,142,DAV,Upperclass,Single,0
+,139,DAV,Upperclass,Triple,0
+,137,DAV,Upperclass,Double,0
+,145,DAV,First Year,Double,0
+,147,DAV,First Year,Double,0
+,148,DAV,Upperclass,Single,0
+,146,DAV,Upperclass,Single,0
+,143,DAV,Upperclass,Double,0
+,150,DAV,Upperclass,Single,0
+,152,DAV,Upperclass,Single,0
+,153,DAV,First Year,Triple,0
+,154,DAV,First Year,Triple,0
+,151,DAV,Upperclass,Single,0
+,244,DAV,Upperclass,Single,0
+,245,DAV,Upperclass,Single,0
+,246,DAV,Upperclass,Single,0
+,249,DAV,Upperclass,Single,0
+,242,DAV,Upperclass,Double,0
+,243,DAV,Upperclass,Double,0
+,247,DAV,Upperclass,Single,0
+,250,DAV,Upperclass,Single,0
+,252,DAV,Upperclass,Single,0
+,253,DAV,Upperclass,Single,0
+,251,DAV,Upperclass,Double,0
+,259,DAV,First Year,Double,0
+,260,DAV,First Year,Double,0
+,254,DAV,Upperclass,Single,0
+,256,DAV,Upperclass,Single,0
+,257,DAV,Upperclass,Single,0
+,255,DAV,Upperclass,Double,0
+,261,DAV,First Year,Double,0
+,262,DAV,Residential Staff,Single,0
+,263,DAV,Upperclass,Single,0
+,264,DAV,Upperclass,Single,0
+,265,DAV,Upperclass,Single,0
+,266,DAV,Upperclass,Single,0
+,271,DAV,First Year,Triple,0
+,272,DAV,First Year,Triple,0
+,267,DAV,Upperclass,Single,0
+,269,DAV,Upperclass,Single,0
+,270,DAV,Upperclass,Single,0
+,342,DAV,Upperclass,Single,0
+,343,DAV,Upperclass,Single,0
+,344,DAV,Upperclass,Single,0
+,345,DAV,Upperclass,Single,0
+,346,DAV,Upperclass,Single,0
+,347,DAV,Upperclass,Single,0
+,349,DAV,Residential Staff,Single,0
+,350,DAV,Upperclass,Single,0
+,354,DAV,Upperclass,Single,0
+,348,DAV,Academic Success Coach,Double,0
+,351,DAV,Upperclass,Double,0
+,353,DAV,Upperclass,Double,0
+,359,DAV,Residential Staff,Single,0
+,362,DAV,Upperclass,Single,0
+,363,DAV,Upperclass,Single,0
+,355,DAV,Upperclass,Double,0
+,356,DAV,Upperclass,Double,0
+,418,DAV,Upperclass,Single,0
+,420,DAV,Upperclass,Double,0
+,422,DAV,Upperclass,Double,0
+,425,DAV,Upperclass,Double,0
+,427,DAV,Upperclass,Single,0
+,430,DAV,Upperclass,Single,0
+,424,DAV,Upperclass,Double,0
+,426,DAV,Upperclass,Double,0
+,428,DAV,Upperclass,Double,0
+,101,DOW,First Year,Double,0
+,103,DOW,First Year,Double,0
+,104,DOW,Residential Staff,Single,0
+,105,DOW,First Year,Double,0
+,107,DOW,First Year,Double,0
+,109,DOW,First Year,Double,0
+,110,DOW,First Year,Double,0
+,201,DOW,Upperclass,Double,0
+,202,DOW,Upperclass,Double,0
+,203,DOW,Upperclass,Double,0
+,204,DOW,Upperclass,Double,0
+,205,DOW,Upperclass,Double,0
+,206,DOW,Upperclass,Double,0
+,207,DOW,Upperclass,Double,0
+,208,DOW,Upperclass,Double,0
+,209,DOW,Upperclass,Double,0
+,210,DOW,Upperclass,Double,0
+,211,DOW,Upperclass,Double,0
+,212,DOW,Upperclass,3 Room Triple,0
+,213,DOW,Upperclass,3 Room Triple,0
+,214,DOW,Upperclass,3 Room Triple,0
+,APT,DOW,Upperclass,3-person Apartment,0
+,101,FHC,Upperclass,Single,0
+,102,FHC,Upperclass,Single,0
+,103,FHC,Upperclass,Single,0
+,201,FHC,Upperclass,Single,0
+,202,FHC,Upperclass,Single,0
+,203,FHC,Upperclass,Single,0
+,204,FHC,Upperclass,Single,0
+,202,FHM,Residential Staff,Single,0
+,203,FHM,Upperclass,Single,0
+,204,FHM,Upperclass,Single,0
+,207,FHM,Upperclass,Single,0
+,205,FHM,Upperclass,Single,0
+,206,FHM,Upperclass,Single,0
+,304,FHM,Upperclass,Single,0
+,302,FHM,Upperclass,Double,0
+,102,FRE,First Year,Double,0
+,104,FRE,First Year,Double,0
+,101,FRE,Upperclass,Single,0
+,103,FRE,Upperclass,Single,0
+,105,FRE,Upperclass,Single,0
+,106,FRE,First Year,Double,0
+,108,FRE,First Year,Double,0
+,110,FRE,First Year,Double,0
+,107,FRE,Upperclass,Single,0
+,109,FRE,Upperclass,Single,0
+,112,FRE,Academic Success Coach,Double,0
+,111,FRE,Residential Staff,Single,0
+,113,FRE,Upperclass,Single,0
+,116,FRE,First Year,Double,0
+,115,FRE,Upperclass,Single,0
+,117,FRE,Upperclass,Single,0
+,118,FRE,First Year,Double,0
+,120,FRE,First Year,Double,0
+,122,FRE,First Year,Double,0
+,119,FRE,Upperclass,Single,0
+,121,FRE,Upperclass,Single,0
+,202,FRE,First Year,Double,0
+,204,FRE,First Year,Double,0
+,201,FRE,Residential Staff,Single,0
+,203,FRE,Upperclass,Single,0
+,205,FRE,Upperclass,Single,0
+,206,FRE,First Year,Double,0
+,208,FRE,First Year,Double,0
+,210,FRE,First Year,Double,0
+,207,FRE,Upperclass,Single,0
+,209,FRE,Upperclass,Single,0
+,212,FRE,First Year,Double,0
+,211,FRE,Residential Staff,Single,0
+,213,FRE,Upperclass,Single,0
+,216,FRE,First Year,Double,0
+,215,FRE,Upperclass,Single,0
+,217,FRE,Upperclass,Single,0
+,218,FRE,First Year,Double,0
+,220,FRE,First Year,Double,0
+,222,FRE,First Year,Double,0
+,219,FRE,Upperclass,Single,0
+,221,FRE,Upperclass,Single,0
+,301,FRE,Upperclass,Single,0
+,303,FRE,Upperclass,Single,0
+,305,FRE,Upperclass,Single,0
+,302,FRE,First Year,Double,0
+,304,FRE,First Year,Double,0
+,307,FRE,Upperclass,Single,0
+,309,FRE,Upperclass,Single,0
+,306,FRE,First Year,Double,0
+,308,FRE,First Year,Double,0
+,310,FRE,First Year,Double,0
+,311,FRE,Residential Staff,Single,0
+,313,FRE,Upperclass,Single,0
+,312,FRE,Upperclass,Double,0
+,315,FRE,Upperclass,Single,0
+,317,FRE,Upperclass,Single,0
+,316,FRE,Upperclass,Double,0
+,319,FRE,Upperclass,Single,0
+,321,FRE,Upperclass,Single,0
+,318,FRE,Upperclass,Double,0
+,320,FRE,Upperclass,Double,0
+,322,FRE,Upperclass,Double,0
+,401,FRE,Upperclass,Single,0
+,403,FRE,Upperclass,Single,0
+,405,FRE,Upperclass,Single,0
+,402,FRE,Upperclass,Double,0
+,404,FRE,Upperclass,Double,0
+,407,FRE,Upperclass,Single,0
+,409,FRE,Upperclass,Single,0
+,406,FRE,Upperclass,Double,0
+,408,FRE,Upperclass,Double,0
+,410,FRE,Upperclass,Double,0
+,411,FRE,Residential Staff,Single,0
+,413,FRE,Upperclass,Single,0
+,412,FRE,Upperclass,Double,0
+,415,FRE,Upperclass,Single,0
+,417,FRE,Upperclass,Single,0
+,416,FRE,Upperclass,Double,0
+,419,FRE,Upperclass,Single,0
+,421,FRE,Upperclass,Single,0
+,418,FRE,Upperclass,Double,0
+,420,FRE,Upperclass,Double,0
+,422,FRE,Upperclass,Double,0
+,501,FRE,Upperclass,Single,0
+,502,FRE,Upperclass,Single,0
+,503,FRE,Upperclass,Single,0
+,504,FRE,Upperclass,Single,0
+,505,FRE,Upperclass,Single,0
+,103,LAK,Upperclass,Single,0
+,105,LAK,Upperclass,Single,0
+,102,LAK,Upperclass,Single,0
+,104,LAK,Upperclass,Single,0
+,106,LAK,Upperclass,Single,0
+,101,LAK,Upperclass,Single,0
+,107,LAK,Upperclass,Single,0
+,109,LAK,Upperclass,Single,0
+,111,LAK,Upperclass,Single,0
+,113,LAK,Upperclass,Single,0
+,115,LAK,Upperclass,Single,0
+,108,LAK,Academic Success Coach,Double,0
+,117,LAK,Upperclass,Single,0
+,119,LAK,Upperclass,Single,0
+,121,LAK,Upperclass,Single,0
+,123,LAK,Upperclass,Single,0
+,124,LAK,Upperclass,Single,0
+,125,LAK,Upperclass,Single,0
+,126,LAK,Upperclass,Single,0
+,127,LAK,Upperclass,Single,0
+,128,LAK,Upperclass,Single,0
+,129,LAK,Upperclass,Single,0
+,130,LAK,Upperclass,Single,0
+,201,LAK,Upperclass,Single,0
+,206,LAK,Upperclass,Single,0
+,202,LAK,Upperclass,Single,0
+,203,LAK,Upperclass,Single,0
+,204,LAK,Upperclass,Single,0
+,205,LAK,Upperclass,Single,0
+,217,LAK,Upperclass,Single,0
+,219,LAK,Upperclass,Single,0
+,221,LAK,Residential Staff,Single,0
+,222,LAK,Upperclass,Single,0
+,223,LAK,Upperclass,Single,0
+,224,LAK,Upperclass,Single,0
+,225,LAK,Upperclass,Single,0
+,226,LAK,Upperclass,Single,0
+,227,LAK,Upperclass,Single,0
+,228,LAK,Upperclass,Single,0
+,229,LAK,Upperclass,Single,0
+,230,LAK,Upperclass,Single,0
+,301,LAK,Residential Staff,Single,0
+,302,LAK,First Year,Double,0
+,303,LAK,First Year,Double,0
+,304,LAK,First Year,Double,0
+,305,LAK,First Year,Double,0
+,308,LAK,First Year,Double,0
+,309,LAK,First Year,Double,0
+,310,LAK,First Year,Double,0
+,311,LAK,First Year,Double,0
+,307,LAK,First Year,Double,0
+,211,LAK,Upperclass,Single,0
+,208,LAK,Upperclass,Single,0
+,209,LAK,Upperclass,Single,0
+,207,LAK,Upperclass,Single,0
+,210,LAK,Upperclass,Single,0
+,213,LAK,Upperclass,Single,0
+,215,LAK,Upperclass,Single,0
+,101,MCA,Upperclass,2 Room Double,0
+,103,MCA,Upperclass,2 Room Double,0
+,102,MCA,Upperclass,2 Room Double,0
+,104,MCA,Upperclass,2 Room Double,0
+,105,MCA,Upperclass,Double,0
+,106,MCA,Upperclass,Double,0
+,108,MCA,Upperclass,Single,0
+,110,MCA,Upperclass,Single,0
+,112,MCA,Upperclass,Single,0
+,107,MCA,Upperclass,Double,0
+,109,MCA,Upperclass,Double,0
+,116,MCA,Residential Staff,Single,0
+,114,MCA,Upperclass,Single,0
+,118,MCA,Upperclass,Single,0
+,111,MCA,Upperclass,Double,0
+,113,MCA,Upperclass,Double,0
+,120,MCA,Upperclass,Single,0
+,119,MCA,Upperclass,Double,0
+,121,MCA,Upperclass,Double,0
+,122,MCA,Upperclass,Double,0
+,203,MCA,Upperclass,2 Room Double,0
+,202,MCA,Upperclass,2 Room Double,0
+,204,MCA,Upperclass,2 Room Double,0
+,201,MCA,Upperclass,2 Room Double,0
+,206,MCA,Upperclass,Double,0
+,205,MCA,Upperclass,Double,0
+,208,MCA,Upperclass,Single,0
+,210,MCA,Upperclass,Single,0
+,212,MCA,Upperclass,Single,0
+,207,MCA,Upperclass,Double,0
+,209,MCA,Upperclass,Double,0
+,216,MCA,Residential Staff,Single,0
+,214,MCA,Upperclass,Single,0
+,218,MCA,Upperclass,Single,0
+,211,MCA,Upperclass,Double,0
+,213,MCA,Upperclass,Double,0
+,220,MCA,Upperclass,Single,0
+,222,MCA,Upperclass,Single,0
+,224,MCA,Upperclass,Single,0
+,221,MCA,Upperclass,Double,0
+,219,MCA,Upperclass,Double,0
+,226,MCA,Residential Staff,Single,0
+,228,MCA,Upperclass,Single,0
+,230,MCA,Upperclass,Single,0
+,223,MCA,Upperclass,Double,0
+,225,MCA,Academic Success Coach,Double,0
+,303,MCA,Upperclass,2 Room Double,0
+,302,MCA,Upperclass,2 Room Double,0
+,304,MCA,Upperclass,2 Room Double,0
+,301,MCA,Upperclass,2 Room Double,0
+,305,MCA,First Year,Double,0
+,309,MCA,First Year,Double,0
+,306,MCA,First Year,Double,0
+,307,MCA,First Year,Double,0
+,310,MCA,Upperclass,Single,0
+,312,MCA,Upperclass,Single,0
+,308,MCA,Upperclass,Single,0
+,311,MCA,First Year,Double,0
+,313,MCA,First Year,Double,0
+,316,MCA,Residential Staff,Single,0
+,314,MCA,Upperclass,Single,0
+,318,MCA,Upperclass,Single,0
+,319,MCA,First Year,Double,0
+,321,MCA,First Year,Double,0
+,323,MCA,First Year,Double,0
+,320,MCA,Upperclass,Single,0
+,322,MCA,Upperclass,Single,0
+,325,MCA,First Year,Double,0
+,324,MCA,Upperclass,Single,0
+,326,MCA,Upperclass,Single,0
+,328,MCA,Upperclass,Single,0
+,330,MCA,Upperclass,Single,0
+,404,MCA,Upperclass,2 Room Double,0
+,401,MCA,Upperclass,2 Room Double,0
+,403,MCA,Upperclass,2 Room Double,0
+,402,MCA,Upperclass,2 Room Double,0
+,405,MCA,First Year,Double,0
+,406,MCA,First Year,Double,0
+,407,MCA,First Year,Double,0
+,409,MCA,First Year,Double,0
+,411,MCA,First Year,Double,0
+,408,MCA,Upperclass,Single,0
+,410,MCA,Upperclass,Single,0
+,413,MCA,First Year,Double,0
+,416,MCA,Residential Staff,Single,0
+,412,MCA,Upperclass,Single,0
+,414,MCA,Upperclass,Single,0
+,418,MCA,Upperclass,Single,0
+,419,MCA,First Year,Double,0
+,421,MCA,First Year,Double,0
+,423,MCA,First Year,Double,0
+,420,MCA,Upperclass,Single,0
+,422,MCA,Upperclass,Single,0
+,425,MCA,First Year,Double,0
+,424,MCA,Upperclass,Single,0
+,426,MCA,Upperclass,Single,0
+,428,MCA,Upperclass,Single,0
+,430,MCA,Upperclass,Single,0
+,502,MCA,Upperclass,Triple,0
+,RD APT,MCA,Upperclass,4-person Apartment,0
+,34,MUN,Upperclass,Single,0
+,36,MUN,Upperclass,Single,0
+,37,MUN,Upperclass,Single,0
+,38,MUN,Upperclass,Single,0
+,43,MUN,Upperclass,Single,0
+,44,MUN,Upperclass,Single,0
+,45,MUN,Upperclass,Single,0
+,46,MUN,Upperclass,Single,0
+,47,MUN,Upperclass,Double,0
+,102,MUN,First Year,Double,0
+,103,MUN,First Year,Double,0
+,101,MUN,Upperclass,Single,0
+,105,MUN,Upperclass,Single,0
+,107,MUN,First Year,Double,0
+,109,MUN,Residential Staff,Single,0
+,111,MUN,Academic Success Coach,Single,0
+,113,MUN,Upperclass,Single,0
+,116,MUN,First Year,Double,0
+,114,MUN,Upperclass,Single,0
+,115,MUN,Upperclass,Single,0
+,117,MUN,Upperclass,Single,0
+,118,MUN,Upperclass,Single,0
+,130,MUN,Upperclass,4-person Apartment,0
+,137,MUN,Residential Staff,Single,0
+,133,MUN,Upperclass,Single,0
+,135,MUN,Upperclass,Single,0
+,139,MUN,Upperclass,Single,0
+,136,MUN,Upperclass,Double,0
+,141,MUN,Upperclass,Single,0
+,143,MUN,Upperclass,Single,0
+,147,MUN,Upperclass,Single,0
+,145,MUN,Upperclass,Double,0
+,146,MUN,Upperclass,Double,0
+,202,MUN,First Year,Double,0
+,201,MUN,Upperclass,Single,0
+,205,MUN,Upperclass,Single,0
+,207,MUN,Upperclass,Single,0
+,209,MUN,Upperclass,Single,0
+,203,MUN,Upperclass,Double,0
+,216,MUN,First Year,Double,0
+,221,MUN,First Year,Double,0
+,217,MUN,Upperclass,Single,0
+,218,MUN,Upperclass,Single,0
+,219,MUN,Upperclass,Single,0
+,224,MUN,Upperclass,Single,0
+,224A,MUN,Upperclass,Single,0
+,226,MUN,Upperclass,Single,0
+,223,MUN,Upperclass,Double,0
+,225,MUN,Upperclass,Double,0
+,228,MUN,Residential Staff,Single,0
+,226A,MUN,Upperclass,Single,0
+,227,MUN,Upperclass,Double,0
+,228A,MUN,Upperclass,Single,0
+,229,MUN,First Year,Double,0
+,231,MUN,First Year,Double,0
+,230,MUN,First Year,Quad with Bath,0
+,231A,MUN,Upperclass,Single,0
+,237,MUN,Upperclass,Single,0
+,233,MUN,Upperclass,Single,0
+,232,MUN,Upperclass,Single,0
+,234,MUN,Upperclass,Single,0
+,235,MUN,Upperclass,Single,0
+,236,MUN,Upperclass,Single,0
+,245,MUN,First Year,Double,0
+,246,MUN,First Year,Double,0
+,243,MUN,Upperclass,Single,0
+,247,MUN,Upperclass,Single,0
+,239,MUN,Upperclass,Single,0
+,241,MUN,Upperclass,Single,0
+,321,MUN,First Year,Double,0
+,324,MUN,Upperclass,Single,0
+,316,MUN,Upperclass,Single,0
+,317,MUN,Upperclass,Single,0
+,318,MUN,Upperclass,Single,0
+,319,MUN,Upperclass,Single,0
+,323,MUN,First Year,Double,0
+,325,MUN,First Year,Double,0
+,324A,MUN,Upperclass,Single,0
+,326,MUN,Upperclass,Single,0
+,326A,MUN,Upperclass,Single,0
+,327,MUN,First Year,Double,0
+,329,MUN,First Year,Double,0
+,331,MUN,First Year,Double,0
+,330,MUN,First Year,Quad with Bath,0
+,328,MUN,Residential Staff,Single,0
+,328A,MUN,Upperclass,Single,0
+,331A,MUN,Upperclass,Single,0
+,214,MUN,Upperclass,Single,0
+,215,MUN,Upperclass,Single,0
+,210,MUN,Upperclass,Single,0
+,212,MUN,Upperclass,Single,0
+,211,MUN,Upperclass,Single,0
+,213,MUN,Upperclass,Single,0
+,301,MUN,Upperclass,Single,0
+,302,MUN,Upperclass,Single,0
+,305,MUN,Upperclass,Single,0
+,307,MUN,Upperclass,Single,0
+,309,MUN,Upperclass,Single,0
+,303,MUN,Upperclass,Double,0
+,310,MUN,Upperclass,Single,0
+,311,MUN,Upperclass,Single,0
+,312,MUN,Upperclass,Single,0
+,313,MUN,Upperclass,Single,0
+,314,MUN,Upperclass,Single,0
+,315,MUN,Upperclass,Single,0
+,332,MUN,Upperclass,Single,0
+,333,MUN,Upperclass,Single,0
+,334,MUN,Upperclass,Single,0
+,335,MUN,Upperclass,Single,0
+,336,MUN,Upperclass,Single,0
+,337,MUN,Upperclass,Single,0
+,346,MUN,Upperclass,Single,0
+,347,MUN,Upperclass,Single,0
+,339,MUN,Upperclass,Single,0
+,341,MUN,Upperclass,Single,0
+,343,MUN,Upperclass,Single,0
+,345,MUN,Upperclass,Double,0
+,101,POM,First Year,Double,0
+,102,POM,First Year,Double,0
+,110,POM,First Year,Double,0
+,111,POM,First Year,Double,0
+,112,POM,First Year,Double,0
+,107,POM,First Year,Double,0
+,108,POM,First Year,Double,0
+,109,POM,First Year,Double,0
+,103,POM,Residential Staff,Single,0
+,104,POM,First Year,Double,0
+,105,POM,First Year,Double,0
+,106,POM,First Year,Double,0
+,105A,POM,Upperclass,Single,0
+,201,POM,Upperclass,Double,0
+,202,POM,Upperclass,Double,0
+,203,POM,Upperclass,Double,0
+,204,POM,Upperclass,Double,0
+,205,POM,Upperclass,Double,0
+,206,POM,Upperclass,Double,0
+,208,POM,Upperclass,Double,0
+,221,POM,Upperclass,Double,0
+,222,POM,Upperclass,Double,0
+,223,POM,Upperclass,Single,0
+,207,POM,Upperclass,Double,0
+,209,POM,First Year,Double,0
+,211,POM,First Year,Double,0
+,218,POM,First Year,Double,0
+,219,POM,First Year,Double,0
+,220,POM,First Year,Double,0
+,210,POM,Academic Success Coach,Double,0
+,212,POM,First Year,Double,0
+,213,POM,First Year,Double,0
+,214,POM,First Year,Double,0
+,215,POM,First Year,Double,0
+,216,POM,First Year,Double,0
+,217,POM,First Year,Double,0
+,230,POM,Residential Staff,Single,0
+,227,POM,Upperclass,Single,0
+,228,POM,Upperclass,Single,0
+,229,POM,Upperclass,Single,0
+,231,POM,Upperclass,Single,0
+,232,POM,Upperclass,Single,0
+,233,POM,Upperclass,Single,0
+,234,POM,Upperclass,Single,0
+,235,POM,Upperclass,Single,0
+,306,POM,First Year,Double,0
+,301,POM,Upperclass,Double,0
+,302,POM,Upperclass,Double,0
+,303,POM,Upperclass,Double,0
+,304,POM,Upperclass,Double,0
+,305,POM,Upperclass,Double,0
+,320,POM,First Year,Double,0
+,321,POM,First Year,Double,0
+,322,POM,Upperclass,Single,0
+,307,POM,Upperclass,Double,0
+,308,POM,Upperclass,Double,0
+,317,POM,First Year,Double,0
+,318,POM,First Year,Double,0
+,319,POM,First Year,Double,0
+,310,POM,Residential Staff,Single,0
+,309,POM,Upperclass,Single,0
+,311,POM,Academic Success Coach,Single,0
+,314,POM,First Year,Double,0
+,315,POM,First Year,Double,0
+,316,POM,First Year,Double,0
+,311A,POM,Upperclass,Single,0
+,312,POM,Upperclass,Double,0
+,313,POM,Upperclass,Double,0
+,324,POM,Upperclass,Single,0
+,325,POM,Upperclass,Single,0
+,326,POM,Upperclass,Single,0
+,323,POM,Upperclass,Double,0
+,327,POM,Upperclass,Single,0
+,328,POM,Upperclass,Single,0
+,329,POM,Upperclass,Single,0
+,402,POM,Upperclass,Single,0
+,403,POM,Upperclass,Single,0
+,404,POM,Upperclass,Single,0
+,405,POM,Upperclass,Single,0
+,406,POM,Upperclass,Single,0
+,401,POM,Upperclass,Double,0
+,408,POM,Upperclass,Double,0
+,421,POM,Upperclass,Double,0
+,422,POM,Upperclass,Single,0
+,423,POM,Upperclass,Single,0
+,407,POM,Upperclass,Double,0
+,409,POM,Upperclass,Double,0
+,410,POM,Residential Staff,Single,0
+,411,POM,Upperclass,Single,0
+,418,POM,Upperclass,Double,0
+,419,POM,Upperclass,Double,0
+,420,POM,Upperclass,Double,0
+,412,POM,Upperclass,Double,0
+,413,POM,Upperclass,Single,0
+,414,POM,Upperclass,Single,0
+,415,POM,Upperclass,Double,0
+,416,POM,Upperclass,Double,0
+,417,POM,Upperclass,Double,0
+,426,POM,Residential Staff,Single,0
+,425,POM,Upperclass,Single,0
+,427,POM,Upperclass,Single,0
+,428,POM,Upperclass,Single,0
+,424,POM,Upperclass,Single,0
+,501,POM,Upperclass,Single,0
+,502,POM,Upperclass,Single,0
+,503,POM,Upperclass,Single,0
+,504,POM,Upperclass,Single,0
+,505,POM,Upperclass,Single,0
+,27,SEV,Residential Staff,Single,0
+,33,SEV,Upperclass,Triple,0
+,29,SEV,Upperclass,Double,0
+,31,SEV,Upperclass,Double,0
+,34,SEV,Upperclass,Double,0
+,36,SEV,Upperclass,Double,0
+,38,SEV,Upperclass,Double,0
+,41,SEV,Upperclass,Double,0
+,42,SEV,Upperclass,Double,0
+,40,SEV,Upperclass,Double,0
+,103,SEV,Residential Staff,Single,0
+,101,SEV,Upperclass,Double,0
+,104,SEV,Upperclass,Double,0
+,116,SEV,First Year,Double,0
+,118,SEV,First Year,Double,0
+,112,SEV,First Year,Triple,0
+,114,SEV,First Year,Triple,0
+,115,SEV,Upperclass,Single,0
+,117,SEV,Upperclass,Single,0
+,124,SEV,Residential Staff,Single,0
+,119,SEV,Upperclass,Single,0
+,120,SEV,Upperclass,Single,0
+,121,SEV,Upperclass,Single,0
+,122,SEV,Upperclass,Single,0
+,127,SEV,First Year,Triple,0
+,123,SEV,Upperclass,Single,0
+,125,SEV,Upperclass,Single,0
+,126,SEV,Upperclass,Single,0
+,128,SEV,Upperclass,Single,0
+,135,SEV,Upperclass,Double,0
+,129,SEV,Upperclass,Single,0
+,130,SEV,Upperclass,Single,0
+,131,SEV,Upperclass,Single,0
+,133,SEV,Upperclass,Single,0
+,134,SEV,Upperclass,Single,0
+,136,SEV,Upperclass,Single,0
+,132,SEV,Upperclass,Suite for 2 with Bath,0
+,137,SEV,Upperclass,Single,0
+,138,SEV,Upperclass,Single,0
+,139,SEV,Upperclass,Single,0
+,140,SEV,Upperclass,Single,0
+,141,SEV,Upperclass,Single,0
+,142,SEV,Upperclass,Single,0
+,207,SEV,Upperclass,Single,0
+,201,SEV,Upperclass,Double,0
+,202,SEV,Upperclass,Double,0
+,208,SEV,Upperclass,Single,0
+,209,SEV,Upperclass,Double,0
+,210,SEV,Upperclass,Double,0
+,211,SEV,Upperclass,Double,0
+,233,SEV,Upperclass,Single,0
+,229,SEV,Upperclass,Single,0
+,230,SEV,Upperclass,Single,0
+,231,SEV,Upperclass,Single,0
+,232,SEV,Upperclass,Suite for 2 with Bath,0
+,216,SEV,First Year,Double,0
+,212,SEV,First Year,Triple,0
+,214,SEV,First Year,Triple,0
+,215,SEV,Upperclass,Single,0
+,217,SEV,Upperclass,Single,0
+,213,SEV,Upperclass,Double,0
+,219,SEV,Upperclass,Single,0
+,220,SEV,Upperclass,Single,0
+,221,SEV,Upperclass,Single,0
+,222,SEV,Upperclass,Single,0
+,218,SEV,Upperclass,Double,0
+,224,SEV,Residential Staff,Single,0
+,225,SEV,Upperclass,Single,0
+,226,SEV,Upperclass,Single,0
+,228,SEV,Upperclass,Single,0
+,223,SEV,Upperclass,Single,0
+,227,SEV,Academic Success Coach,Double,0
+,238,SEV,First Year,Double,0
+,240,SEV,First Year,Double,0
+,234,SEV,First Year,Quad,0
+,242,SEV,Upperclass,Single,0
+,241,SEV,Upperclass,Double,0
+,310,SEV,Upperclass,Double,0
+,311,SEV,Upperclass,Double,0
+,313,SEV,First Year,Triple,0
+,316,SEV,Upperclass,Single,0
+,318,SEV,Upperclass,Single,0
+,312,SEV,Upperclass,Triple,0
+,314,SEV,Upperclass,Triple,0
+,324,SEV,First Year,Double,0
+,320,SEV,First Year,Triple,0
+,331,SEV,Residential Staff,Single,0
+,329,SEV,Upperclass,Single,0
+,332,SEV,Upperclass,Suite for 2 with Bath,0
+,327,SEV,Upperclass,Double,0
+,1,SEV,Upperclass,Single,0
+,3,SEV,Upperclass,Single,0
+,5,SEV,Upperclass,Single,0
+,6,SEV,Upperclass,Single,0
+,7,SEV,Upperclass,Single,0
+,8,SEV,Upperclass,Triple,0
+,9,SEV,Upperclass,Double,0
+,10,SEV,Upperclass,Double,0
+,APT,SEV,Upperclass,4-person Apartment,0
+,1,SHA,Upperclass,Single,0
+,2,SHA,Upperclass,Single,0
+,3,SHA,Upperclass,Single,0
+,4,SHA,Upperclass,Single,0
+,8,SHA,Upperclass,Single,0
+,9,SHA,Upperclass,Single,0
+,001G,SHA,Upperclass,Single,0
+,003G,SHA,Upperclass,Single,0
+,004G,SHA,Upperclass,Double,0
+,005G,SHA,Upperclass,Double,0
+,006G,SHA,Upperclass,Double,0
+,002G,SHA,Upperclass,Double,0
+,5,SHA,Upperclass,Single,0
+,6,SHA,Upperclass,Single,0
+,7,SHA,Upperclass,Single,0
+,103,SHA,First Year,Double,0
+,105,SHA,First Year,Double,0
+,107,SHA,First Year,Double,0
+,106,SHA,First Year,Double,0
+,101,SHA,Residential Staff,Single,0
+,109,SHA,First Year,Double,0
+,110,SHA,First Year,Double,0
+,111,SHA,First Year,Double,0
+,112,SHA,First Year,Double,0
+,113,SHA,First Year,Double,0
+,115,SHA,First Year,Double,0
+,202,SHA,Upperclass,Single,0
+,200,SHA,Upperclass,Triple,0
+,201,SHA,Upperclass,Triple,0
+,204,SHA,Residential Staff,Single,0
+,209,SHA,Upperclass,Single,0
+,205,SHA,Upperclass,Single,0
+,206,SHA,Upperclass,Double,0
+,207,SHA,Upperclass,Double,0
+,208,SHA,Upperclass,Double,0
+,215,SHA,First Year,Double,0
+,212,SHA,Upperclass,Single,0
+,213,SHA,Upperclass,Single,0
+,214,SHA,Upperclass,Single,0
+,210,SHA,Upperclass,Double,0
+,211,SHA,Upperclass,Double,0
+,219,SHA,First Year,Double,0
+,221,SHA,First Year,Double,0
+,218,SHA,Upperclass,Single,0
+,217,SHA,Upperclass,Double,0
+,220,SHA,Upperclass,Double,0
+,223,SHA,Upperclass,Double,0
+,224,SHA,Upperclass,Single,0
+,225,SHA,Upperclass,Single,0
+,227,SHA,Upperclass,Single,0
+,226,SHA,Upperclass,Single,0
+,228,SHA,Upperclass,Single,0
+,229,SHA,Upperclass,Single,0
+,230,SHA,Upperclass,Single,0
+,231,SHA,Upperclass,Single,0
+,233,SHA,Upperclass,Single,0
+,300,SHA,Upperclass,Single,0
+,301,SHA,Upperclass,Single,0
+,302,SHA,Upperclass,Single,0
+,303,SHA,Upperclass,Single,0
+,304,SHA,Upperclass,Single,0
+,309,SHA,First Year,Double,0
+,306,SHA,Residential Staff,Single,0
+,307,SHA,Academic Success Coach,Single,0
+,310,SHA,Upperclass,Single,0
+,311,SHA,Upperclass,Single,0
+,308,SHA,Upperclass,Double,0
+,314,SHA,First Year,Double,0
+,315,SHA,Upperclass,Single,0
+,317,SHA,Upperclass,Single,0
+,312,SHA,Upperclass,Single,0
+,316,SHA,Upperclass,Double,0
+,313,SHA,Upperclass,Double,0
+,319,SHA,First Year,Double,0
+,320,SHA,First Year,Double,0
+,321,SHA,First Year,Double,0
+,323,SHA,First Year,Double,0
+,322,SHA,Upperclass,Single,0
+,325,SHA,Upperclass,Double,0
+,400,SHA,Residential Staff,Single,0
+,401,SHA,Upperclass,Single,0
+,402,SHA,Upperclass,Single,0
+,403,SHA,Upperclass,Single,0
+,404,SHA,Upperclass,Single,0
+,406,SHA,Residential Staff,Single,0
+,407,SHA,Upperclass,Single,0
+,408,SHA,Upperclass,Double,0
+,409,SHA,Upperclass,Double,0
+,410,SHA,Upperclass,Single,0
+,411,SHA,Upperclass,Single,0
+,414,SHA,Upperclass,Double,0
+,415,SHA,Upperclass,Double,0
+,416,SHA,Upperclass,Single,0
+,417,SHA,Upperclass,Double,0
+,412,SHA,Upperclass,Double,0
+,413,SHA,Upperclass,Double,0
+,419,SHA,Upperclass,Single,0
+,420,SHA,Upperclass,Single,0
+,421,SHA,Upperclass,Single,0
+,422,SHA,Upperclass,Single,0
+,423,SHA,Upperclass,Single,0
+,425,SHA,Upperclass,Single,0
+,500,SHA,Upperclass,Single,0
+,501,SHA,Upperclass,Single,0
+,502,SHA,Upperclass,Single,0
+,503,SHA,Upperclass,Single,0
+,504,SHA,Upperclass,Single,0
+,RD APT,SHA,Upperclass,4-person Apartment,0
+,2,STO,First Year,Triple,0
+,3,STO,First Year,Triple,0
+,4,STO,First Year,Triple,0
+,5,STO,First Year,Triple,0
+,8,STO,First Year,Triple,0
+,9,STO,Residential Staff,Single,0
+,105,STO,Upperclass,Single,0
+,108,STO,Upperclass,Single,0
+,101,STO,First Year,Triple,0
+,102,STO,First Year,Triple,0
+,106,STO,Upperclass,Single,0
+,109,STO,Upperclass,Single,0
+,112,STO,First Year,Double,0
+,110,STO,Upperclass,Single,0
+,111,STO,Upperclass,Single,0
+,114,STO,First Year,Double,0
+,115,STO,Upperclass,Single,0
+,118,STO,Upperclass,Triple,0
+,113,STO,Upperclass,Double,0
+,207,STO,First Year,Double,0
+,201,STO,First Year,Triple,0
+,202,STO,First Year,Triple,0
+,206,STO,Upperclass,Single,0
+,208,STO,Upperclass,Single,0
+,215,STO,First Year,Double,0
+,209,STO,Upperclass,Single,0
+,211,STO,Upperclass,Single,0
+,212,STO,Upperclass,Single,0
+,213,STO,Academic Success Coach,Single,0
+,214,STO,Residential Staff,Single,0
+,218,STO,First Year,Double,0
+,219,STO,First Year,Double,0
+,220,STO,Upperclass,Single,0
+,221,STO,Upperclass,Single,0
+,223,STO,Upperclass,Single,0
+,222,STO,Upperclass,Double,0
+,228,STO,Upperclass,Single,0
+,224,STO,Upperclass,Single,0
+,225,STO,Upperclass,Single,0
+,227,STO,Upperclass,Single,0
+,230,STO,Upperclass,Single,0
+,226,STO,Upperclass,Double,0
+,305,STO,Residential Staff,Single,0
+,302,STO,Upperclass,Single,0
+,303,STO,Upperclass,Single,0
+,308,STO,Upperclass,Double,0
+,309,STO,Upperclass,Double,0
+,315,STO,Residential Staff,Single,0
+,314,STO,Upperclass,Single,0
+,310,STO,Upperclass,Single,0
+,311,STO,Upperclass,Double,0
+,313,STO,Upperclass,Double,0
+,316,STO,Upperclass,Double,0
+,319,STO,Upperclass,Single,0
+,320,STO,Upperclass,Single,0
+,321,STO,Upperclass,Single,0
+,322,STO,Upperclass,Single,0
+,317,STO,Upperclass,Single,0
+,318,STO,Upperclass,Single,0
+,324,STO,Upperclass,Single,0
+,323,STO,Upperclass,Single,0
+,326,STO,Upperclass,Single,0
+,327,STO,Upperclass,Single,0
+,328,STO,Upperclass,Single,0
+,330,STO,Upperclass,Double,0
+,407,STO,Residential Staff,Single,0
+,402,STO,Upperclass,Single,0
+,405,STO,Upperclass,Single,0
+,406,STO,Upperclass,Double,0
+,404,STO,Upperclass,Double,0
+,408,STO,Upperclass,Double,0
+,413,STO,Upperclass,Single,0
+,414,STO,Upperclass,Single,0
+,415,STO,Upperclass,Single,0
+,410,STO,Upperclass,Double,0
+,411,STO,Upperclass,Single,0
+,412,STO,Upperclass,Double,0
+,231,STO,Upperclass,Single,0
+,232,STO,Upperclass,Single,0
+,233,STO,Upperclass,Single,0
+,234,STO,Upperclass,Single,0
+,236,STO,Upperclass,Double,0
+,101,TCE,Upperclass,Single,0
+,106,TCE,Upperclass,Single,0
+,102,TCE,Upperclass,Double,0
+,103,TCE,Upperclass,Double,0
+,104,TCE,Upperclass,Double,0
+,110,TCE,Residential Staff,Single,0
+,107,TCE,Upperclass,Single,0
+,108,TCE,Upperclass,Single,0
+,109,TCE,Upperclass,Single,0
+,112,TCE,Upperclass,Single,0
+,111,TCE,Upperclass,Single,0
+,113,TCE,Upperclass,Single,0
+,114,TCE,Upperclass,Single,0
+,115,TCE,Upperclass,Single,0
+,116,TCE,Upperclass,Single,0
+,202,TCE,First Year,Double,0
+,203,TCE,First Year,Double,0
+,201,TCE,Upperclass,Single,0
+,204,TCE,First Year,Double,0
+,206,TCE,Upperclass,Double,0
+,208,TCE,First Year,Double,0
+,209,TCE,Residential Staff,Single,0
+,205,TCE,Academic Success Coach,Single,0
+,207,TCE,Upperclass,Single,0
+,210,TCE,First Year,Double,0
+,212,TCE,First Year,Double,0
+,214,TCE,First Year,Double,0
+,211,TCE,Upperclass,Single,0
+,213,TCE,Upperclass,Double,0
+,215,TCE,Upperclass,Double,0
+,216,TCE,First Year,Double,0
+,217,TCE,First Year,Double,0
+,218,TCE,First Year,Double,0
+,220,TCE,First Year,Triple,0
+,219,TCE,Upperclass,Double,0
+,221,TCE,Upperclass,Suite for 2 with Bath,0
+,223,TCE,Upperclass,Suite for 2 with Bath,0
+,302,TCE,First Year,Double,0
+,303,TCE,First Year,Double,0
+,304,TCE,First Year,Double,0
+,301,TCE,Upperclass,Single,0
+,305,TCE,Upperclass,Single,0
+,306,TCE,Upperclass,Double,0
+,307,TCE,Upperclass,Single,0
+,308,TCE,Upperclass,Double,0
+,309,TCE,Upperclass,Single,0
+,310,TCE,Upperclass,Double,0
+,311,TCE,Upperclass,Single,0
+,312,TCE,Upperclass,Double,0
+,313,TCE,Upperclass,Single,0
+,314,TCE,Upperclass,Double,0
+,316,TCE,Upperclass,Double,0
+,318,TCE,First Year,Double,0
+,317,TCE,Residential Staff,Single,0
+,315,TCE,Upperclass,Single,0
+,319,TCE,Upperclass,Double,0
+,322,TCE,First Year,Double,0
+,320,TCE,First Year,Triple,0
+,328,TCE,Upperclass,Single,0
+,326,TCE,Upperclass,Single,0
+,323,TCE,Upperclass,Suite for 2 with Bath,0
+,321,TCE,Upperclass,Suite for 2 with Bath,0
+,325,TCE,Upperclass,Suite for 3 with Bath,0
+,327,TCE,Upperclass,Suite for 3 with Bath,0
+,408,TCE,Upperclass,Double,0
+,410,TCE,Upperclass,Double,0
+,405,TCE,Upperclass,Single,0
+,407,TCE,Upperclass,Single,0
+,412,TCE,Upperclass,Double,0
+,414,TCE,Upperclass,Double,0
+,409,TCE,Upperclass,Single,0
+,411,TCE,Upperclass,Single,0
+,413,TCE,Upperclass,Single,0
+,415,TCE,Upperclass,Single,0
+,416,TCE,Upperclass,Double,0
+,418,TCE,Upperclass,Double,0
+,417,TCE,Residential Staff,Single,0
+,420,TCE,Upperclass,Triple,0
+,419,TCE,Upperclass,Double,0
+,422,TCE,Upperclass,Double,0
+,421,TCE,Upperclass,Suite for 2 with Bath,0
+,423,TCE,Upperclass,Suite for 2 with Bath,0
+,428,TCE,Upperclass,Single,0
+,425,TCE,Upperclass,Single,0
+,426,TCE,Upperclass,Single,0
+,427,TCE,Upperclass,Single,0
+,424,TCE,Upperclass,Double,0
+,523,TCE,Upperclass,Double,0
+,526,TCE,Upperclass,Single,0
+,528,TCE,Upperclass,Single,0
+,525,TCE,Upperclass,Triple,0
+,521,TCE,Upperclass,Double,0
+,403,TCE,Upperclass,Single,0
+,404,TCE,Upperclass,Double,0
+,406,TCE,Upperclass,Double,0
+,401,TCE,Upperclass,Single,0
+,402,TCE,Upperclass,Double,0
+,515,TCE,Upperclass,Single,0
+,524,TCE,Upperclass,Double,0
+,508,TCE,Upperclass,Triple,0
+,507,TCE,Upperclass,Double,0
+,519,TCE,Residential Staff,Single,0
+,517,TCE,Upperclass,Single,0
+,520,TCE,Upperclass,Double,0
+,522,TCE,Upperclass,Double,0
+,RD APT,TCE,Upperclass,4-person Apartment,0
+,626,TCW,Upperclass,Single,0
+,628,TCW,Upperclass,Single,0
+,630,TCW,Upperclass,Single,0
+,632,TCW,Upperclass,Single,0
+,625,TCW,Upperclass,Triple,0
+,631,TCW,Upperclass,Triple,0
+,118,TCW,Residential Staff,Single,0
+,142,TCW,First Year,Double,0
+,144,TCW,First Year,Double,0
+,140,TCW,Upperclass,Single,0
+,141,TCW,Upperclass,Single,0
+,143,TCW,Upperclass,Single,0
+,145,TCW,First Year,Double,0
+,148,TCW,Residential Staff,Single,0
+,146,TCW,Upperclass,Single,0
+,147,TCW,Upperclass,Single,0
+,149,TCW,Upperclass,Single,0
+,152,TCW,First Year,Double,0
+,153,TCW,First Year,Double,0
+,154,TCW,First Year,Double,0
+,150,TCW,Upperclass,Single,0
+,155,TCW,Upperclass,Single,0
+,238,TCW,First Year,Double,0
+,239,TCW,First Year,Double,0
+,236,TCW,First Year,Quad with Bath,0
+,234,TCW,First Year,Triple,0
+,237,TCW,Upperclass,Double,0
+,240,TCW,First Year,Double,0
+,242,TCW,First Year,Double,0
+,244,TCW,First Year,Double,0
+,241,TCW,Residential Staff,Single,0
+,243,TCW,Upperclass,Double,0
+,245,TCW,Upperclass,Double,0
+,246,TCW,First Year,Double,0
+,248,TCW,First Year,Double,0
+,250,TCW,Upperclass,Double,0
+,252,TCW,Upperclass,Double,0
+,247,TCW,Upperclass,Single,0
+,249,TCW,Upperclass,Single,0
+,251,TCW,Upperclass,Single,0
+,254,TCW,First Year,Double,0
+,253,TCW,Upperclass,Single,0
+,255,TCW,Upperclass,Single,0
+,257,TCW,Upperclass,Single,0
+,331,TCW,Upperclass,Suite for 3 with Bath,0
+,329,TCW,Upperclass,Suite for 3 with Bath,0
+,333,TCW,First Year,Double,0
+,334,TCW,First Year,Triple,0
+,330,TCW,Upperclass,Single,0
+,332,TCW,Upperclass,Single,0
+,335,TCW,Upperclass,Suite for 2 with Bath,0
+,336,TCW,Upperclass,Suite for 2 with Bath,0
+,338,TCW,First Year,Double,0
+,337,TCW,First Year,Double,0
+,339,TCW,Residential Staff,Single,0
+,341,TCW,Academic Success Coach,Single,0
+,340,TCW,First Year,Double,0
+,342,TCW,Upperclass,Double,0
+,343,TCW,Upperclass,Single,0
+,345,TCW,Upperclass,Single,0
+,344,TCW,Upperclass,Double,0
+,346,TCW,Upperclass,Double,0
+,347,TCW,Upperclass,Single,0
+,349,TCW,Upperclass,Single,0
+,348,TCW,Upperclass,Double,0
+,350,TCW,Upperclass,Double,0
+,351,TCW,Upperclass,Single,0
+,352,TCW,First Year,Double,0
+,353,TCW,First Year,Double,0
+,354,TCW,First Year,Double,0
+,355,TCW,Upperclass,Single,0
+,429,TCW,Upperclass,Single,0
+,430,TCW,Upperclass,Single,0
+,432,TCW,Upperclass,Single,0
+,431,TCW,Upperclass,Double,0
+,433,TCW,Upperclass,Double,0
+,439,TCW,Residential Staff,Single,0
+,441,TCW,Upperclass,Double,0
+,434,TCW,Upperclass,Triple,0
+,437,TCW,Upperclass,Double,0
+,438,TCW,Upperclass,Double,0
+,435,TCW,Upperclass,Suite for 2 with Bath,0
+,436,TCW,Upperclass,Suite for 2 with Bath,0
+,440,TCW,Upperclass,Double,0
+,442,TCW,Upperclass,Double,0
+,443,TCW,Upperclass,Single,0
+,445,TCW,Upperclass,Single,0
+,447,TCW,Upperclass,Single,0
+,449,TCW,Upperclass,Single,0
+,444,TCW,Upperclass,Double,0
+,446,TCW,Upperclass,Double,0
+,448,TCW,Upperclass,Double,0
+,450,TCW,Upperclass,Double,0
+,451,TCW,Upperclass,Single,0
+,455,TCW,Upperclass,Single,0
+,453,TCW,Upperclass,Single,0
+,452,TCW,Upperclass,Double,0
+,454,TCW,Upperclass,Double,0
+,530,TCW,Upperclass,Single,0
+,532,TCW,Residential Staff,Single,0
+,531,TCW,Upperclass,Triple,0
+,535,TCW,Upperclass,Double,0
+,536,TCW,Upperclass,Double,0
+,537,TCW,Residential Staff,Single,0
+,538,TCW,Upperclass,Double,0
+,539,TCW,Upperclass,Single,0
+,540,TCW,Upperclass,Double,0
+,541,TCW,Upperclass,Single,0
+,542,TCW,Upperclass,Double,0
+,553,TCW,Upperclass,Triple,0
+,555,TCW,Upperclass,Double,0

@@ -3,20 +3,26 @@
 
 use wendi_db;
 
-load data local infile 'cleaned_dorm_data.csv' 
-into table room
+load data local infile 'sample_data/cleaned_hall_data.csv' 
+into table `hall`
 fields terminated by ',' 
 lines terminated by '\n'
 ignore 1 lines;
 
-load data local infile 'address.csv' 
-into table `address`
+load data local infile 'sample_data/cleaned_dorm_data.csv' 
+into table `room`
 fields terminated by ',' 
 lines terminated by '\n'
 ignore 1 lines;
 
-load data local infile 'number.csv' 
-into table numbers
+load data local infile 'sample_data/cleaned_user_data.csv' 
+into table `user`
+fields terminated by ',' 
+lines terminated by '\n'
+ignore 1 lines;
+
+load data local infile 'sample_data/cleaned_review_data.csv' 
+into table `review`
 fields terminated by ',' 
 lines terminated by '\n'
 ignore 1 lines;
