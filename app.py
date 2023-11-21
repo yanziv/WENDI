@@ -1,100 +1,117 @@
-from flask import (Flask, render_template, make_response, url_for, request,
-                   redirect, flash, session, send_from_directory, jsonify)
+from flask import (
+    Flask,
+    render_template,
+    make_response,
+    url_for,
+    request,
+    redirect,
+    flash,
+    session,
+    send_from_directory,
+    jsonify,
+)
 from werkzeug.utils import secure_filename
+
 app = Flask(__name__)
 
 # one or the other of these. Defaults to MySQL (PyMySQL)
 # change comment characters to switch to SQLite
 
 import cs304dbi as dbi
+
 # import cs304dbi_sqlite3 as dbi
 
 import random
 import queries as queries
 
-app.secret_key = 'your secret here'
+app.secret_key = "your secret here"
 # replace that with a random key
-app.secret_key = ''.join([ random.choice(('ABCDEFGHIJKLMNOPQRSTUVXYZ' +
-                                          'abcdefghijklmnopqrstuvxyz' +
-                                          '0123456789'))
-                           for i in range(20) ])
+app.secret_key = "".join(
+    [
+        random.choice(
+            ("ABCDEFGHIJKLMNOPQRSTUVXYZ" + "abcdefghijklmnopqrstuvxyz" + "0123456789")
+        )
+        for i in range(20)
+    ]
+)
 
 # This gets us better error messages for certain common request errors
-app.config['TRAP_BAD_REQUEST_ERRORS'] = True
+app.config["TRAP_BAD_REQUEST_ERRORS"] = True
 
-@app.route('/', methods=["GET", "POST"])
+
+@app.route("/", methods=["GET", "POST"])
 def index():
-    return render_template('login.html',title='Main Page')
+    return render_template("login.html", title="Main Page")
+
 
 # You will probably not need the routes below, but they are here
 # just in case. Please delete them if you are not using them
 
-@app.route('/browse_all/')
-def landing():
-    return render_template('landing.html')
 
- 
-@app.route('/dorm/')
+@app.route("/browse_all/")
+def landing():
+    return render_template("landing.html")
+
+
+@app.route("/dorm/")
 def dorm():
     conn = dbi.connect()
     roomsList = queries.show_rooms(conn, 1)
-    return render_template('dorm.html', dorm=roomsList)
+    return render_template("dorm.html", dorm=roomsList)
 
 
-@app.route('/room/')
+@app.route("/room/")
 def room():
-    return render_template('room.html')
+    return render_template("room.html")
 
 
-@app.route('/greet/', methods=["GET", "POST"])
-def greet():
-    if request.method == 'GET':
-        return render_template('greet.html', title='Customized Greeting')
+@app.route("/login/", methods=["GET", "POST"])
+def login():
+    if request.method == "GET":
+        return render_template("login.html", title="Login Page")
     else:
-        try:
-            username = request.form['username'] # throws error if there's trouble
-            flash('form submission successful')
-            return render_template('greet.html',
-                                   title='Welcome '+username,
-                                   name=username)
+        username = request.form.get("username")
+        password = request.form.get("password")
 
-        except Exception as err:
-            flash('form submission error'+str(err))
-            return redirect( url_for('index') )
+        if queries.authenticate_user(username, password):
+            return redirect(url_for("landing"))
+        else:
+            return redirect(url_for("index"))
 
-@app.route('/formecho/', methods=['GET','POST'])
+
+@app.route("/formecho/", methods=["GET", "POST"])
 def formecho():
-    if request.method == 'GET':
-        return render_template('form_data.html',
-                               method=request.method,
-                               form_data=request.args)
-    elif request.method == 'POST':
-        return render_template('form_data.html',
-                               method=request.method,
-                               form_data=request.form)
+    if request.method == "GET":
+        return render_template(
+            "form_data.html", method=request.method, form_data=request.args
+        )
+    elif request.method == "POST":
+        return render_template(
+            "form_data.html", method=request.method, form_data=request.form
+        )
     else:
         # maybe PUT?
-        return render_template('form_data.html',
-                               method=request.method,
-                               form_data={})
+        return render_template("form_data.html", method=request.method, form_data={})
 
-@app.route('/testform/')
+
+@app.route("/testform/")
 def testform():
     # these forms go to the formecho route
-    return render_template('testform.html')
+    return render_template("testform.html")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     import sys, os
+
     if len(sys.argv) > 1:
         # arg, if any, is the desired port number
         port = int(sys.argv[1])
-        assert(port>1024)
+        assert port > 1024
     else:
         port = os.getuid()
     # set this local variable to 'wmdb' or your personal or team db
-    db_to_use = 'wendi_db' 
-    print('will connect to {}'.format(db_to_use))
+    db_to_use = "wendi_db"
+    print("will connect to {}".format(db_to_use))
     dbi.conf(db_to_use)
     app.debug = True
-    app.run('0.0.0.0',port)
+    app.run("0.0.0.0", port)
