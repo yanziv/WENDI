@@ -3,7 +3,7 @@
 {% block main_content %}
 <h1>{{dormname}}</h1>
 
-<p>this is the dorm page, which displays a list of all the rooms in the specified dorm. the page will display different info 
+<!-- <p>this is the dorm page, which displays a list of all the rooms in the specified dorm. the page will display different info 
     based on which dorm the user is looking at. clicking on the rooms will redirect to the room page, which displays all the reviews
     that have made for that room.
 </p>
@@ -11,28 +11,20 @@
 <p>select number from room where hid = [hall id] //get all the room numbers that are in the hall
     that have a review made (?? or display every room and if there's no review made for it, then room page has message saying
     there's no review for it yet)
-</p>
+</p> -->
 
-<a href="{{url_for('room')}}">sample room page</a>
 
-<h3>Rooms with reviews:</h3>
+
+<h3>All rooms in {{dormname}}:</h3>
 <div class="{{dormname}}">
 
-    {% for room in dorm%}
+    {% for room in dorm %}
     <div id="{{room.number}}" style="border:solid 2px black; margin-bottom:15px;">
-        <b>Room: {{room.number}}</b>
+        <b><a href="{{ url_for('room', hid='POM', number=room.number) }}">Room: {{room.number}}</a></b>
     </div>
     {% endfor %}
 
 </div>
-
-
-<h3>Rooms without reviews:</h3>
-{% for room in dorm %}
-<div class="{{dormname}}" id="{{room.number}}" style="border:solid 2px black; margin-bottom:15px;">
-    <b>Room: {{room.number}}</b>
-</div>
-{% endfor %}
 
 
 {% endblock %}

@@ -1,12 +1,12 @@
 import cs304dbi as dbi
 
 
-def show_rooms(conn, dormid):
-    '''return all rooms with specified dormid as the hid'''
+def show_rooms(conn, hall_id):
+    '''return all rooms with specified hall_id as the hid'''
     curs = dbi.dict_cursor(conn)
     curs.execute('''
         select number from room where hid = %s
-    ''', [dormid])
+    ''', [hall_id])
     return curs.fetchall()
 
 
