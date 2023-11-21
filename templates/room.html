@@ -1,12 +1,33 @@
 {% extends "base.html" %}
 
 {% block main_content %}
-<h1>ROOM NAME HERE</h1>
+<h1>{{dict.dormname}} {{dict.rid}}</h1>
 
 <p>have for loop that shows the diff reviews for this room</p>
 <p>select * from review where rid = [room.number] //get everything from review table
     where the rid is the selected room's number
 </p>
 <p>display the query's results in individual blocks</p>
+
+
+    {% for review in reviewList %}
+    <div id="{{review.id}}" style="border:solid 2px black; margin-bottom:15px;">
+        
+        <div id="content">
+            <b>Room: {{review.rid}}</b>
+            <p>{{review.comment}}</p>
+        </div>
+
+        <div class="comments" id="{{dict.rid}}">
+            {% for one in commentList %}
+            <p>commenter name</p>
+            <p>comment content here</p>
+    
+            {% endfor %}
+        </div>
+    </div>
+    {% endfor %}
+
+    
 
 {% endblock %}
