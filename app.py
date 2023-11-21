@@ -44,8 +44,6 @@ def index():
     return render_template("login.html", title="Main Page")
 
 
-# You will probably not need the routes below, but they are here
-# just in case. Please delete them if you are not using them
 
 THE_QUINT = ['Beebe','Cazenove','Monger','Pomeroy','Shafer']
 TOWER_COMPLEX = ['Claflin','Lake House','Severance','Tower Court']
@@ -80,16 +78,21 @@ def review():
  
 
 
-@app.route("/dorm/") 
-def dorm():
+@app.route("/dorm/<hid>")
+def dorm(hid):
     conn = dbi.connect()
-    roomsList = queries.show_rooms(conn, 1)
-    return render_template("dorm.html", dorm=roomsList)
+    roomsList = queries.show_rooms(conn, hid)
+    print("hid: " + str(hid))
+    print("roomList: " + str(roomsList))
+    return render_template("dorm.html", dorm=roomsList, dormname=hid)
 
 
-@app.route("/room/")
-def room():
-    return render_template("room.html")
+@app.route("/dorm/<hid>/room/<number>")
+def room(hid, number):
+    conn = dbi.connect()
+    reviewList = queries.show_reviews(conn, number)
+    print("reviewList: " + str(reviewList))
+    return render_template("room.html", reviews=reviewList, dormname=hid, number=number)
 
 
 @app.route("/login/", methods=["GET", "POST"])

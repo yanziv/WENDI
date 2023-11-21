@@ -13,18 +13,20 @@
     <div class="div">
       <div class="overlap-group">
         <div class="text-wrapper">WENDI</div>
-        <p class="text-wrapper">Wellesley Evaluation Network for Dorm Information</p>
+        <p class="description">Wellesley Evaluation Network for Dorm Information</p>
       </div>
     </div>
     <div class="rectangle">
-      <div class="frame">
-        <div class="text-wrapper">Browse All</div>
-      </div>
-      <div class="frame">
-        <div class="text-wrapper">My Home</div>
-      </div>
-      <div class="frame">
-        <div class="text-wrapper">About WENDI</div>
+      <div class="frame-wrapper">
+        <div class="frame">
+          <div class="text-wrapper">Browse All</div>
+        </div>
+        <div class="frame">
+          <div class="text-wrapper">My Home</div>
+        </div>
+        <div class="frame">
+          <div class="text-wrapper">About WENDI</div>
+        </div>
       </div>
       <div class="primary-button">
         <div class="text-wrapper">SUBMIT A REVIEW!</div>
@@ -34,7 +36,7 @@
         <div class="text-wrapper">Search here...</div>
         <img class="blackx" src="{{ url_for('static', filename='media/base/blackx.png') }}">
       </div>
-      <div class="frame">
+      <div class="filter-frame">
         <div class="text-wrapper">Filters</div>
         <div class="filters">
           <div class="default">
@@ -50,19 +52,17 @@
         </div>
         <div class="text-wrapper-3">Results</div>
         <div class="user">
-          <div class="text-wrapper-4">POM - 304</div>
-        </div>
-        <div class="user-2">
-          <div class="text-wrapper-4">DAV - 304</div>
-        </div>
-        <div class="user-3">
-          <div class="text-wrapper-4">CAZ - 304</div>
+          <div class="text-wrapper-4"><a href='{{ url_for("dorm", hid="POM") }}'>POM</a></div>
+          <div class="text-wrapper-4"><a href='{{ url_for("room", hid="TCW", number=532) }}'>TCW - 532</a></div>
         </div>
         <button class="button">
           <div class="text-wrapper-5">All results</div>
         </button>
       </div>
     </div>
+
+  
+    {% block main_content %}{% endblock %}
 
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     
