@@ -29,10 +29,16 @@ def index():
 # You will probably not need the routes below, but they are here
 # just in case. Please delete them if you are not using them
 
-@app.route('/browse_all/')
+@app.route('/browse_all/', methods=["GET", "POST"])
 def landing():
-    return render_template('landing.html')
+    if request.method == 'GET':
+        return render_template('landing.html')
+    else:
 
+@app.route('/review/', methods=["GET", "POST"])
+def review():
+    if request.method == 'GET':
+        return render_template('review.html')
  
 @app.route('/dorm/')
 def dorm():
