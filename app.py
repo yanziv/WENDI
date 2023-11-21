@@ -33,7 +33,7 @@ def index():
 def landing():
     if request.method == 'GET':
         return render_template('landing.html')
-    else:
+
 
 @app.route('/review/', methods=["GET", "POST"])
 def review():
