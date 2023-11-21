@@ -17,3 +17,16 @@ def show_reviews(conn, roomid):
         select * from review where rid = %s
     ''', [roomid])
     return curs.fetchall()
+
+def authenticate_user(username, password):
+    """Check if the username and password match."""
+    conn = dbi.connect()
+    curs = dbi.dict_cursor(conn)
+    curs.execute(
+        """
+        SELECT * FROM user WHERE username = %s AND password = %s
+        """,
+        [username, password],
+    )
+    result = curs.fetchone()
+    return result is not None  # It returns True if authentication successful.
