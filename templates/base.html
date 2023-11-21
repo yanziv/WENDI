@@ -1,34 +1,73 @@
-
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name=author content="Annabel Yao, Emma Lim, Hae Rin Hong, Veronica Lin">
-    <meta name=description content="">
-    <meta name=keywords content="">    
-    <title>Home</title>
-    <link rel="stylesheet" type="text/css"
-          href="/static/styling.css">
-  </head>
-  <body>
-      <!-- database is  -->
-    <div id="navigation">
-      <ul>
-        <li><a href="/">WENDI</a>
-        <li><a href="/browse_all/">Browse All</a>
-        <li><a href="/myhome/">My Home</a>
-        <li><a href="/dorm/">DORM PAGE</a>
-      </ul>
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="Annabel Yao, Emma Lim, Hae Rin Hong, Veronica Lin">
+  <meta name="description" content="">
+  <meta name="keywords" content="">    
+  <title>Home</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+  <div class="base-html">
+    <div class="div">
+      <div class="overlap-group">
+        <div class="text-wrapper">WENDI</div>
+        <p class="text-wrapper">Wellesley Evaluation Network for Dorm Information</p>
+      </div>
     </div>
-    <div id="content">
-      {% block main_content %}
-      {% endblock %}
-
+    <div class="rectangle">
+      <div class="frame">
+        <div class="text-wrapper">Browse All</div>
+      </div>
+      <div class="frame">
+        <div class="text-wrapper">My Home</div>
+      </div>
+      <div class="frame">
+        <div class="text-wrapper">About WENDI</div>
+      </div>
+      <div class="primary-button">
+        <div class="text-wrapper">SUBMIT A REVIEW!</div>
+      </div>
+      <div class="search-with-results">
+        <img class="magnifier" src="{{ url_for('static', filename='media/base/magnifier.png') }}">
+        <div class="text-wrapper">Search here...</div>
+        <img class="blackx" src="{{ url_for('static', filename='media/base/blackx.png') }}">
+      </div>
+      <div class="frame">
+        <div class="text-wrapper">Filters</div>
+        <div class="filters">
+          <div class="default">
+            <div class="div">Room</div>
+            <img class="whitex" src="{{ url_for('static', filename='media/base/whitex.png') }}">
+          </div>
+          <div class="div-wrapper">
+            <div class="text-wrapper-2">Hall</div>
+          </div>
+          <div class="div-wrapper">
+            <div class="text-wrapper-2">User</div>
+          </div>
+        </div>
+        <div class="text-wrapper-3">Results</div>
+        <div class="user">
+          <div class="text-wrapper-4">POM - 304</div>
+        </div>
+        <div class="user-2">
+          <div class="text-wrapper-4">DAV - 304</div>
+        </div>
+        <div class="user-3">
+          <div class="text-wrapper-4">CAZ - 304</div>
+        </div>
+        <button class="button">
+          <div class="text-wrapper-5">All results</div>
+        </button>
+      </div>
     </div>
 
-    <script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
     
     <!-- JS code would go here -->
     
-  </body>
+  </div>
+</body>
 </html>

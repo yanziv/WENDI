@@ -1,5 +1,5 @@
-id,username,email,classYear,numReview
-1,annaberrr,yy102,2024,1
-2,el110,el110,2024,1
-3,haerinni,hhong6,2024,1
-4,vlin,yl102,2024,1
+id,username,email,classYear,numReview,password
+1,annaberrr,yy102,2024,1,annaberrr
+2,el110,el110,2024,1,el110
+3,haerinni,hhong6,2024,1,haerinni
+4,vlin,yl102,2024,1,vlin
