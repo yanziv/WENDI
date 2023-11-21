@@ -1,5 +1,24 @@
 /* base.html */
 
+#residential-halls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.hall {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.hall img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
 .base-html {
   background-color: #ffffff;
   display: flex;

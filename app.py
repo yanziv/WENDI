@@ -47,10 +47,30 @@ def index():
 # You will probably not need the routes below, but they are here
 # just in case. Please delete them if you are not using them
 
+THE_QUINT = ['Beebe','Cazenove','Monger','Pomeroy','Shafer']
+TOWER_COMPLEX = ['Claflin','Lake House','Severance','Tower Court']
+EAST_SIDE_COMPLEX = ['Bates','Freeman','McAfee']
+SD_AND_SMALL_HALLS = ['Casa Cervantes','French House','Stone-Davis']
+ALL_HALLS = THE_QUINT + TOWER_COMPLEX + EAST_SIDE_COMPLEX + SD_AND_SMALL_HALLS
+
 @app.route('/browse_all/', methods=["GET", "POST"])
 def landing():
     if request.method == 'GET':
         return render_template('landing.html')
+    # else:
+    #     if request.form['submit'] == 'All Halls':
+    #         return render_template('landing.html')
+    #     elif request.form['submit'] == 'Tower Complex':
+    #         return render_template('landing.html')
+    #     elif request.form['submit'] == 'East Side Halls':
+    #         return render_template('landing.html')
+    #     elif request.form['submit'] == 'West Side Halls':
+    #         return render_template('landing.html')
+    #     elif request.form['submit'] == 'The Quint':
+    #         return render_template('landing.html')
+    #     elif request.form['submit'] == 'Stone-Davis and Small Halls':
+    #         return render_template('landing.html')
+    
 
 
 @app.route('/review/', methods=["GET", "POST"])
@@ -60,7 +80,7 @@ def review():
  
 
 
-@app.route("/dorm/")
+@app.route("/dorm/") 
 def dorm():
     conn = dbi.connect()
     roomsList = queries.show_rooms(conn, 1)
