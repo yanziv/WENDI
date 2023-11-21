@@ -37,13 +37,19 @@ def landing():
 @app.route('/dorm/')
 def dorm():
     conn = dbi.connect()
-    roomsList = queries.show_rooms(conn, 1)
-    return render_template('dorm.html', dorm=roomsList)
+    roomsList = queries.show_rooms(conn, "TCW")
+    print(roomsList)
+    return render_template('dorm.html', dorm=roomsList, dormname="TCW")
 
 
 @app.route('/room/')
 def room():
-    return render_template('room.html')
+    conn = dbi.connect()
+    reviewList = queries.show_reviews(conn, 532)
+    info_dict = {}
+    info_dict['dormname'] = "TCW"
+    info_dict['rid'] = 532
+    return render_template('room.html', reviewList=reviewList, dict=info_dict)
 
 
 @app.route('/greet/', methods=["GET", "POST"])

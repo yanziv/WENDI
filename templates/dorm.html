@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 
 {% block main_content %}
-<h1>DORM NAME HERE</h1>
+<h1>{{dormname}}</h1>
 
 <p>this is the dorm page, which displays a list of all the rooms in the specified dorm. the page will display different info 
     based on which dorm the user is looking at. clicking on the rooms will redirect to the room page, which displays all the reviews
@@ -13,14 +13,19 @@
     there's no review for it yet)
 </p>
 
-<a href="/room/">sample room page</a>
+<a href="{{url_for('room')}}">sample room page</a>
 
 <h3>Rooms with reviews:</h3>
-{% for room in dorm %}
-<div class="{{dormname}}" id="{{room.number}}" style="border:solid 2px black; margin-bottom:15px;">
-    <b>Room: {{room.number}}</b>
+<div class="{{dormname}}">
+
+    {% for room in dorm%}
+    <div id="{{room.number}}" style="border:solid 2px black; margin-bottom:15px;">
+        <b>Room: {{room.number}}</b>
+    </div>
+    {% endfor %}
+
 </div>
-{% endfor %}
+
 
 <h3>Rooms without reviews:</h3>
 {% for room in dorm %}
