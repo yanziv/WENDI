@@ -25,7 +25,7 @@ def review(conn,tt,title,release,addedby):
     proceed to insert this new movie into wmdb.
     """
     curs = dbi.dict_cursor(conn)
-    curs.execute('''insert into movie(tt,title,release,addedby)
+    curs.execute('''insert into review(tt,title,release,addedby)
                     values (%s, %s, %s, %s)''',[tt,title,release,addedby])
     conn.commit()
 
