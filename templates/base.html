@@ -19,8 +19,8 @@
     <div class="rectangle">
       <div class="frame-wrapper">
         <div class="frame">
-          <div class="text-wrapper">Browse All</div>
-        </div>
+          <a href="{{ url_for('landing') }}" class="text-wrapper">Browse All</a>
+        </div>        
         <div class="frame">
           <div class="text-wrapper">My Home</div>
         </div>
@@ -29,8 +29,8 @@
         </div>
       </div>
       <div class="primary-button">
-        <div class="text-wrapper">SUBMIT A REVIEW!</div>
-      </div>
+        <a href="{{ url_for('review') }}" class="text-wrapper">SUBMIT A REVIEW!</a>
+      </div>      
       <div class="search-with-results">
         <img class="magnifier" src="{{ url_for('static', filename='media/base/magnifier.png') }}">
         <div class="text-wrapper">Search here...</div>
