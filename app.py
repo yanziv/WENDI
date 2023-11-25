@@ -11,8 +11,11 @@ from flask import (
     jsonify,
 )
 from werkzeug.utils import secure_filename
+from datetime import datetime
 
 app = Flask(__name__)
+app.config["UPLOAD_FOLDER"] = "uploads"
+app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024  # 16 MB limit
 
 # one or the other of these. Defaults to MySQL (PyMySQL)
 # change comment characters to switch to SQLite
@@ -54,8 +57,10 @@ ALL_HALLS = THE_QUINT + TOWER_COMPLEX + EAST_SIDE_COMPLEX + SD_AND_SMALL_HALLS
 @app.route("/browse_all/", methods=["GET", "POST"])
 def landing():
     if request.method == "GET":
+        flash("Not Yet Implemented for the Draft Version!")
         return render_template("landing.html")
     # else:
+    # id is post id and then uid should be retrieved from cached username
     #     if request.form['submit'] == 'All Halls':
     #         return render_template('landing.html')
     #     elif request.form['submit'] == 'Tower Complex':
@@ -72,8 +77,73 @@ def landing():
 
 @app.route("/review/", methods=["GET", "POST"])
 def review():
+    conn = dbi.connect()
+    all_dorms = queries.get_all_dorms(conn)
     if request.method == "GET":
-        return render_template("review.html")
+        return render_template("form.html", dorms=all_dorms)
+
+    else:  # retrieve user input and insert review into wendi_db
+        userID = session.get("user_login_id")
+        dorm = request.form.get("res-hall")
+        flash(dorm)
+        hall_id = queries.get_hid_given_hall_name(conn, dorm)["id"]
+        flash(hall_id)
+        rid = request.form.get("rid")
+        overallRating = request.form.get("overall")
+        startDate = request.form.get("start-date")
+        length = request.form.get("length-of-stay")
+        size = request.form.get("size")
+        storage = request.form.get("storage")
+        ventilation = request.form.get("ventilation")
+        cleanliness = request.form.get("cleanliness")
+        bathroom = request.form.get("bathroom")
+        accessibility = request.form.get("accessibility")
+        sunlight = request.form.get("sunlight")
+        bugs = request.form.get("bugs")
+        window = request.form.get("window")
+        noise = request.form.get("noise")
+        comments = request.form.get("comments")
+        hasMedia = "1"  # HARD-CODE THIS TO BE 1, REMEMBER TO FIX
+        submission_time = datetime.now()
+
+        # insert review into wendi_db
+        queries.insert_review(
+            conn,
+            userID,
+            rid,
+            overallRating,
+            startDate,
+            length,
+            size,
+            storage,
+            ventilation,
+            cleanliness,
+            bathroom,
+            accessibility,
+            sunlight,
+            bugs,
+            window,
+            noise,
+            comments,
+            hasMedia,
+            submission_time,
+        )
+        flash("Thank you for submitting a review!")
+        # not sure if should use redirect here
+        return redirect(url_for("room", hid=hall_id, number=rid))
+
+
+def allowed_file(filename):
+    """
+    This is a helper function that checks whether the file the user uploads
+    has the extensions we support. Returns a boolean value.
+    """
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in {
+        "png",
+        "jpg",
+        "jpeg",
+        "gif",
+    }
 
 
 @app.route("/dorm/<hid>")
@@ -102,6 +172,8 @@ def login():
         password = request.form.get("password")
 
         if queries.authenticate_user(username, password):
+            # User authenticated successfully, store their username in the session
+            session["user_login_id"] = username
             return redirect(url_for("landing"))
         else:
             return redirect(url_for("index"))

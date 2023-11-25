@@ -1,25 +1,181 @@
-{% extends "base.html" %}
+<!-- {% extends "base.html" %}
 
-{% block main_content %}
-<h1>DORM NAME</h1>
+{% block main_content %} -->
 
-<form method="POST" action="">
+<!-- the following is a Javascript function that updates the text based on the slider's value.-->
+<script>
+    function updateSliderValue(value, outputId) {
+        document.getElementById(outputId).innerText = value;
+    }
+</script>
+    
+<h1>Room Review</h1>
+
+<form method="POST" action="{{ url_for('review') }}" enctype="multipart/form-data">
 
     <fieldset>
-        <legend>Movie Data</legend>
-            <table>
-            <tr><td><label for="movie-tt" accesskey="i">(i) Movie ID/TT:</label></td>
-                <td><input id="movie-tt" type="text" name="movie-tt"></td></tr>
-            <tr><td><label for="movie-title" accesskey="t">(t) Movie Title:</label></td>
-                <td><input id="movie-title" type="text" name="movie-title"></td></tr>
-            <tr><td><label for="movie-release" accesskey="r">(r) Movie Release Year:</label></td>
-                <td><input id="movie-release" type="text" name="movie-release"></td></tr>
-            </table>
-        </fieldset>
+        <legend>Leave A Room Review Below</legend>
+        <table>
+            <tr>
+                <td>
+                    <label for="res-hall">Residential Hall: </label>
+                    <select id="res-hall" name="res-hall" required>
+                    <option value="">Select</option>
+                    {% for dorm in dorms %}
+                        <option value={{dorm.id}}>{{dorm.name}}</option>
+                    {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="rid">Room Number:</label></td>
+                <td><input id="rid" type="number" min="101" max="600" name="rid" required></td>
+            </tr>
+            <tr>
+                <td><label for="start-date">The date you <strong>started</strong> living in the Room:</label></td>
+                <td><input id="start-date" type="date" name="start-date"></td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="length-of-stay">How long did you/are you staying in this room? </label>
+                    <select id="length-of-stay" name="length-of-stay">
+                    <option value="none">Select</option>
+                        <option value="winter">Winter</option>
+                        <option value="summer">Summer</option>
+                        <option value="spring-only">Spring Only</option>
+                        <option value="fall-only">Fall Only</option>
+                        <option value="whole-year">Whole Year</option>
+                    </select>
+                </td>
+            </tr>
 
-        <p> <input type='submit' value='Insert Movie'> </p>
+            <tr>
+                <td style="padding-top: 30px;">
+                The questions below are designed to rate various aspects of your room. 
+                Please use the slider to indicate your level of satisfaction. <strong>0 means complete 
+                dissatisfaction and 5 means complete satisfaction.</strong> Please leave a rating for
+                each aspect of your room, score 0 will be recorded if no change is made to the slider.
+                </td>
+            </tr>
+            <tr>
+                <td><label for="overall">Overall Rating of the Room:</label></td>
+                <td>
+                    <div class="slider">
+                        <input type="range" min="0" max="5" value="0" id="overallSlider" name="overall" oninput="updateSliderValue(this.value,'overallValue')" required>
+                        <p id="overallValue">0</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="size">Room Size:</label></td>
+                <td>
+                    <div class="slider">
+                        <input type="range" min="0" max="5" value="0" id="sizeSlider" name="size" oninput="updateSliderValue(this.value,'sizeValue')" required>
+                        <p id="sizeValue">0</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="storage">Storage Space:</label></td>
+                <td>
+                    <div class="slider">
+                        <input type="range" min="0" max="5" value="0" id="storageSlider" name="storage" oninput="updateSliderValue(this.value,'storageValue')" required>
+                        <p id="storageValue">0</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="ventilation">Ventilation:</label></td>
+                <td>
+                    <div class="slider">
+                        <input type="range" min="0" max="5" value="0" id="ventilationSlider" name="ventilation" oninput="updateSliderValue(this.value,'ventilationValue')" required>
+                        <p id="ventilationValue">0</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="cleanliness">Hall Cleanliness:</label></td>
+                <td>
+                    <div class="slider">
+                        <input type="range" min="0" max="5" value="0" id="cleanlinessSlider" name="cleanliness" oninput="updateSliderValue(this.value,'cleanlinessValue')" required>
+                        <p id="cleanlinessValue">0</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="bathroom">Bathroom Nearest to Your Room:</label></td>
+                <td>
+                    <div class="slider">
+                        <input type="range" min="0" max="5" value="0" id="bathroomSlider" name="bathroom" oninput="updateSliderValue(this.value,'bathroomValue')" required>
+                        <p id="bathroomValue">0</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="accessibility">Accessibility:</label></td>
+                <td>
+                    <div class="slider">
+                        <input type="range" min="0" max="5" value="0" id="accessibilitySlider" name="accessibility" oninput="updateSliderValue(this.value,'accessibilityValue')" required>
+                        <p id="accessibilityValue">0</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="sunlight">Sunlight:</label></td>
+                <td>
+                    <div class="slider">
+                        <input type="range" min="0" max="5" value="0" id="sunlightSlider" name="sunlight" oninput="updateSliderValue(this.value,'sunlightValue')" required>
+                        <p id="sunlightValue">0</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="bugs">Bug Issues (5 means no bugs):</label></td>
+                <td>
+                    <div class="slider">
+                        <input type="range" min="0" max="5" value="0" id="bugsSlider" name="bugs" oninput="updateSliderValue(this.value,'bugsValue')" required>
+                        <p id="bugsValue">0</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="window">Window(s):</label></td>
+                <td>
+                    <div class="slider">
+                        <input type="range" min="0" max="5" value="0" id="windowSlider" name="window" oninput="updateSliderValue(this.value,'windowValue')" required>
+                        <p id="windowValue">0</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="noise">Noise:</label></td>
+                <td>
+                    <div class="slider">
+                        <input type="range" min="0" max="5" value="0" id="noiseSlider" name="noise" oninput="updateSliderValue(this.value,'noiseValue')" required>
+                        <p id="noiseValue">0</p>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="comments">Comments About This Room:</label></td>
+                <td>
+                    <textarea id="comments" name="comments" rows="15" cols="60" placeholder="Enter your comments here..." required></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="roomMediaUpload">Upload Images/Videos of the Room:</label></td>
+                <td>
+                    <!-- supports multiple image uploads -->
+                    <input type="file" id="roomMediaUpload" name="roomMedia" accept="image/*" multiple>
+                </td>
+            </tr>
+
+        </table>
+    </fieldset>
+
+        <p> <input type='submit' value='Submit'> </p>
 
 </form>
+<!-- 
 
-
-{% endblock %}
+{% endblock %}  -->
