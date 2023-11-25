@@ -21,6 +21,8 @@
 
 .base-html {
   background-color: #ffffff;
+}
+
 .overlap-group .text-wrapper {
   position: fixed;
   height: 94px;

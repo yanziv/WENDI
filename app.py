@@ -44,17 +44,17 @@ def index():
     return render_template("login.html", title="Main Page")
 
 
-
-THE_QUINT = ['Beebe','Cazenove','Monger','Pomeroy','Shafer']
-TOWER_COMPLEX = ['Claflin','Lake House','Severance','Tower Court']
-EAST_SIDE_COMPLEX = ['Bates','Freeman','McAfee']
-SD_AND_SMALL_HALLS = ['Casa Cervantes','French House','Stone-Davis']
+THE_QUINT = ["Beebe", "Cazenove", "Monger", "Pomeroy", "Shafer"]
+TOWER_COMPLEX = ["Claflin", "Lake House", "Severance", "Tower Court"]
+EAST_SIDE_COMPLEX = ["Bates", "Freeman", "McAfee"]
+SD_AND_SMALL_HALLS = ["Casa Cervantes", "French House", "Stone-Davis"]
 ALL_HALLS = THE_QUINT + TOWER_COMPLEX + EAST_SIDE_COMPLEX + SD_AND_SMALL_HALLS
 
-@app.route('/browse_all/', methods=["GET", "POST"])
+
+@app.route("/browse_all/", methods=["GET", "POST"])
 def landing():
-    if request.method == 'GET':
-        return render_template('landing.html')
+    if request.method == "GET":
+        return render_template("landing.html")
     # else:
     #     if request.form['submit'] == 'All Halls':
     #         return render_template('landing.html')
@@ -68,14 +68,12 @@ def landing():
     #         return render_template('landing.html')
     #     elif request.form['submit'] == 'Stone-Davis and Small Halls':
     #         return render_template('landing.html')
-    
 
 
-@app.route('/review/', methods=["GET", "POST"])
+@app.route("/review/", methods=["GET", "POST"])
 def review():
-    if request.method == 'GET':
-        return render_template('review.html')
- 
+    if request.method == "GET":
+        return render_template("review.html")
 
 
 @app.route("/dorm/<hid>")
@@ -107,6 +105,18 @@ def login():
             return redirect(url_for("landing"))
         else:
             return redirect(url_for("index"))
+
+
+@app.route("/search", methods=["POST"])
+def search():
+    search_term = request.form.get("search_term", "").lower()
+    # Query wendi_db database to get matching results
+    conn = dbi.connect()
+    # Search by either hid or number
+    results_individual = queries.search_by_hid_or_number(conn, search_term)
+    # Search by both hid and number
+    results_combined = queries.search_by_hid_and_number(conn, search_term)
+    return jsonify({"individual": results_individual, "combined": results_combined})
 
 
 @app.route("/formecho/", methods=["GET", "POST"])

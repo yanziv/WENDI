@@ -7,6 +7,7 @@
   <meta name="keywords" content="">    
   <title>Home</title>
   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 </head>
 <body>
   <div class="base-html">
@@ -32,11 +33,13 @@
         <a href="{{ url_for('review') }}" class="text-wrapper">SUBMIT A REVIEW!</a>
       </div>      
       <div class="search-with-results">
-        <img class="magnifier" src="{{ url_for('static', filename='media/base/magnifier.png') }}">
-        <div class="text-wrapper">Search here...</div>
-        <img class="blackx" src="{{ url_for('static', filename='media/base/blackx.png') }}">
-      </div>
-      <div class="filter-frame">
+        <img id="searchIcon" class="magnifier" src="{{ url_for('static', filename='media/base/magnifier.png') }}">
+        <div id="searchContainer" class="search-bar-container">
+          <input class="frame search-input" type="text" name="search" id="searchInput" placeholder="Search here..." required>
+        </div>
+        <img id="blackxButton" class="blackx" src="{{ url_for('static', filename='media/base/blackx.png') }}">
+      </div>          
+      <div class="filter-frame" id="filter-frame">
         <div class="text-wrapper">Filters</div>
         <div class="filters">
           <div class="default">
@@ -51,23 +54,134 @@
           </div>
         </div>
         <div class="text-wrapper-3">Results</div>
-        <div class="user">
-          <div class="text-wrapper-4"><a href='{{ url_for("dorm", hid="POM") }}'>POM</a></div>
-          <div class="text-wrapper-4"><a href='{{ url_for("room", hid="TCW", number=532) }}'>TCW - 532</a></div>
+        <div class="user" id="searchResults">
+          <!-- Results will be dynamically added here -->
         </div>
         <button class="button">
           <div class="text-wrapper-5">All results</div>
         </button>
       </div>
     </div>
-
-  
-    {% block main_content %}{% endblock %}
-
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    
-    <!-- JS code would go here -->
-    
   </div>
+    {% block main_content %}
+    {% endblock %}
+    <script>
+      function toggleFilterFrame(event) {
+        var filterFrame = $("#filter-frame");
+
+        // Check if the click occurred inside the search input or result links
+        if (
+          !$("#searchInput").is(event.target) &&
+          !$("#searchResults").is(event.target) &&
+          !$("#searchResults a").is(event.target) &&
+          !$("#blackxButton").is(event.target)
+        ) {
+          filterFrame.hide();
+
+          // Clear search input value when hiding filter frame
+          $("#searchInput").val("");
+
+          // Restore placeholder text when no input
+          if ($("#searchInput").val().trim() === "") {
+            $("#searchInput").attr("placeholder", "Search here...");
+          }
+        }
+      }
+
+      $(document).ready(function () {
+        // Hide filter-frame by default
+        $("#filter-frame").hide();
+
+        // Handle search bar container click event
+        $("#searchContainer").mousedown(function (event) {
+          // Prevent default behavior to avoid issues with focus
+          event.preventDefault();
+          toggleFilterFrame(event);
+          // Focus on the search input after toggle
+          $("#searchInput").focus();
+        });
+
+        // Handle search input focus event
+        $("#searchInput").focus(function () {
+          // Clear placeholder text on focus
+          $(this).attr("placeholder", "");
+          $("#filter-frame").show();
+        });
+
+        // Handle search input blur event
+        $("#searchInput").blur(function () {
+          // Do nothing on blur
+        });
+
+        // Handle blackx button click event
+        $("#blackxButton").click(function () {
+          // Hide filter frame when blackx button is clicked
+          $("#filter-frame").hide();
+          // Clear search input value
+          $("#searchInput").val("");
+        });
+
+        // Handle input changes for search input
+        $("#searchInput").on("input", function () {
+          // Check if the input is not empty or doesn't consist of only whitespace characters
+          if ($(this).val().trim() !== "") {
+            // Simulate matching results (replace this with your actual logic)
+            var searchTerm = $(this).val().toLowerCase();
+            var results = simulateMatchingResults(searchTerm);
+
+            // Update the results in filter-frame
+            updateResults(results);
+          }
+        });
+
+
+        // Handle search icon click event
+        $("#searchIcon").click(function () {
+          // Trigger search when the icon is clicked
+          $("#searchInput").trigger("input");
+        });
+
+        function simulateMatchingResults(searchTerm) {
+          // Use jQuery's AJAX method to send a POST request to the '/search' endpoint
+          return $.ajax({
+            url: '/search',
+            type: 'POST',
+            data: { search_term: searchTerm },
+            dataType: 'json',  // Specify that the expected data type is JSON
+            success: function(results) {
+              // Handle the results returned from the server
+              updateResults(results);
+            },
+            error: function(xhr, status, error) {
+              console.error("Error:", error);
+            }
+          });
+        }
+        function updateResults(results) {
+          var resultsContainer = $("#searchResults");
+          resultsContainer.empty();
+
+          if (results.combined && results.individual) {
+            // Display combined results first if it exists
+            if (results.combined.length > 0) {
+              results.combined.forEach(result => {
+                var link = `<a href='/dorm/${result[0]}/room/${result[1]}'>${result[0]} - ${result[1]}</a>`;
+                resultsContainer.append(`<div class="text-wrapper-4">${link}</div>`);
+              });
+            }
+
+            // Display individual results next if it exists
+            if (results.individual.length > 0) {
+              results.individual.forEach(result => {
+                var link = `<a href='/dorm/${result[0]}/room/${result[1]}'>${result[0]} - ${result[1]}</a>`;
+                resultsContainer.append(`<div class="text-wrapper-4">${link}</div>`);
+              });
+            }
+          } else {
+            resultsContainer.append("<div>No results found</div>");
+          }
+        }
+      });
+  </script>    
 </body>
 </html>
