@@ -11,7 +11,7 @@
     
 <h1>Room Review</h1>
 
-<form method="POST" action="{{ url_for('review') }}">
+<form method="POST" action="{{ url_for('review') }}" enctype="multipart/form-data">
 
     <fieldset>
         <legend>Leave A Room Review Below</legend>
@@ -20,7 +20,7 @@
                 <td>
                     <label for="res-hall">Residential Hall: </label>
                     <select id="res-hall" name="res-hall" required>
-                    <option value="none">Select</option>
+                    <option value="">Select</option>
                     {% for dorm in dorms %}
                         <option value={{dorm.id}}>{{dorm.name}}</option>
                     {% endfor %}
@@ -37,34 +37,15 @@
             </tr>
             <tr>
                 <td>
-                    <label for="length-of-stay">You have stayed in the room for </label>
-                    <select id="year" name="year">
-                    <option value="none">Select Year</option>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
+                    <label for="length-of-stay">How long did you/are you staying in this room? </label>
+                    <select id="length-of-stay" name="length-of-stay">
+                    <option value="none">Select</option>
+                        <option value="winter">Winter</option>
+                        <option value="summer">Summer</option>
+                        <option value="spring-only">Spring Only</option>
+                        <option value="fall-only">Fall Only</option>
+                        <option value="whole-year">Whole Year</option>
                     </select>
-                    year and
-                    <select id="month" name="month">
-                        <option value="none">Select Month</option>
-                        <option value="0">0</option>
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <option value="6">6</option>
-                        <option value="7">7</option>
-                        <option value="8">8</option>
-                        <option value="9">9</option>
-                        <option value="10">10</option>
-                        <option value="11">11</option>
-                        <option value="12">12</option>
-
-                    </select>
-                    months.
                 </td>
             </tr>
 
@@ -72,7 +53,8 @@
                 <td style="padding-top: 30px;">
                 The questions below are designed to rate various aspects of your room. 
                 Please use the slider to indicate your level of satisfaction. <strong>0 means complete 
-                dissatisfaction and 5 means complete satisfaction.</strong>
+                dissatisfaction and 5 means complete satisfaction.</strong> Please leave a rating for
+                each aspect of your room, score 0 will be recorded if no change is made to the slider.
                 </td>
             </tr>
             <tr>
@@ -177,14 +159,14 @@
             <tr>
                 <td><label for="comments">Comments About This Room:</label></td>
                 <td>
-                    <textarea id="comments" name="comments" rows="15" cols="60" placeholder="Enter your comments here..."></textarea>
+                    <textarea id="comments" name="comments" rows="15" cols="60" placeholder="Enter your comments here..." required></textarea>
                 </td>
             </tr>
             <tr>
-                <td><label for="roomImageUpload">Upload Images/Videos of the Room:</label></td>
+                <td><label for="roomMediaUpload">Upload Images/Videos of the Room:</label></td>
                 <td>
-                    <!-- we accept both image and video uploads -->
-                    <input type="file" id="roomImageUpload" name="roomImage" accept="image/*,video/*" multiple>
+                    <!-- supports multiple image uploads -->
+                    <input type="file" id="roomMediaUpload" name="roomMedia" accept="image/*" multiple>
                 </td>
             </tr>
 

@@ -19,14 +19,27 @@ def get_hid_given_hall_name(conn,hall_name):
         where name = %s''', [hall_name])
     return curs.fetchone()
 
-def review(conn,tt,title,release,addedby):
+def insert_review(conn,uid,rid,rating,startTime,
+                    lengthOfStay,sizeScore,storageScore,ventScore,
+                    cleanScore,bathroomScore,accessibilityScore,
+                    sunlightScore,bugScore,windowScore,noiseScore,
+                    comment,hasMedia,timePosted):
     """
-    After checking tt doesn't exist in the movie table in wmdb,
-    proceed to insert this new movie into wmdb.
+    Insert user review into the review table in wendi_db.
     """
     curs = dbi.dict_cursor(conn)
-    curs.execute('''insert into review(tt,title,release,addedby)
-                    values (%s, %s, %s, %s)''',[tt,title,release,addedby])
+    curs.execute('''insert into review(uid,rid,rating,startTime,
+                    lengthOfStay,sizeScore,storageScore,ventScore,
+                    cleanScore,bathroomScore,accessibilityScore,
+                    sunlightScore,bugScore,windowScore,noiseScore,
+                    comment,hasMedia,timePosted)
+                    values (%s, %s, %s, %s,%s, %s, %s, %s,
+                    %s, %s, %s, %s,%s, %s, %s, %s, %s, %s)''',
+                    [uid,rid,rating,startTime,
+                    lengthOfStay,sizeScore,storageScore,ventScore,
+                    cleanScore,bathroomScore,accessibilityScore,
+                    sunlightScore,bugScore,windowScore,noiseScore,
+                    comment,hasMedia,timePosted])
     conn.commit()
 
 def show_rooms(conn, hall_id):

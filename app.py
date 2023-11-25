@@ -14,6 +14,8 @@ from werkzeug.utils import secure_filename
 from datetime import datetime
 
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = 'uploads'
+app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  # 16 MB limit
 
 # one or the other of these. Defaults to MySQL (PyMySQL)
 # change comment characters to switch to SQLite
@@ -78,22 +80,21 @@ def landing():
 @app.route('/review/', methods=["GET", "POST"])
 def review():
     conn = dbi.connect()
+    all_dorms = queries.get_all_dorms(conn)
     if request.method == 'GET':
-        all_dorms = queries.get_all_dorms(conn)
+        
         return render_template('form.html',dorms = all_dorms)
  
-    else: # insert review into db
+    else: # retrieve user input and insert review into wendi_db
+        userID = session.get('user_login_id')
         dorm = request.form.get('res-hall')
-        hall_id = queries.get_hid_given_hall_name(conn,dorm)
+        flash(dorm)
+        hall_id = queries.get_hid_given_hall_name(conn,dorm)['id']
+        flash(hall_id)
         rid = request.form.get('rid')
         overallRating = request.form.get('overall')
         startDate = request.form.get('start-date')
-        year = request.form.get('year')
-        month = request.form.get('month')
-        if year != '0':
-            length = year + ' year and ' + month + ' months'
-        else:
-            length = month + ' months'
+        length = request.form.get('length-of-stay')
         size = request.form.get('size')
         storage = request.form.get('storage')
         ventilation = request.form.get('ventilation')
@@ -105,14 +106,26 @@ def review():
         window = request.form.get('window')
         noise = request.form.get('noise')
         comments = request.form.get('comments')
+        hasMedia = '1' # HARD-CODE THIS TO BE 1, REMEMBER TO FIX
         submission_time = datetime.now()
-        # queries.insert_review(conn,new_tt,new_title,new_release,addedby)
+
+        # insert review into wendi_db
+        queries.insert_review(conn,userID,rid,overallRating,startDate,length,size,
+                              storage,ventilation,cleanliness,bathroom,accessibility,
+                              sunlight,bugs,window,noise,comments,hasMedia,submission_time)
         flash('Thank you for submitting a review!')
-        # render the html page for the room review user just submitted
-        return render_template( url_for('room',hid = hall_id,number = rid) )
-#   id | uid  | rid  | rating | startTime  | lengthOfStay | sizeScore | storageScore | 
-# ventScore | cleanScore | bathroomScore | accessibilityScore | sunlightScore | bugScore | 
-# windowScore | noiseScore | comment | hasMedia | timePosted
+        # not sure if should use redirect here
+        return redirect(url_for('room',hid=hall_id,number=rid))
+
+
+def allowed_file(filename):
+    """
+    This is a helper function that checks whether the file the user uploads
+    has the extensions we support. Returns a boolean value.
+    """
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in {'png', 'jpg', 'jpeg', 'gif'}
+
 
 @app.route("/dorm/<hid>")
 def dorm(hid):
@@ -140,6 +153,8 @@ def login():
         password = request.form.get("password")
 
         if queries.authenticate_user(username, password):
+            # User authenticated successfully, store their username in the session
+            session['user_login_id'] = username
             return redirect(url_for("landing"))
         else:
             return redirect(url_for("index"))
