@@ -60,7 +60,7 @@ def show_reviews(conn, roomnum):
     curs = dbi.dict_cursor(conn)
     curs.execute(
         """
-        select room.number as rid, rating, startTime, lengthOfStay, sizeScore, ventScore, accessibilityScore,
+        select room.number as rid, room.description as description, rating, startTime, lengthOfStay, sizeScore, ventScore, accessibilityScore,
         sunlightScore, bugScore, windowScore, noiseScore, comment, timePosted from review, room where review.rid = room.id and room.number = %s
     """,
         [roomnum],
