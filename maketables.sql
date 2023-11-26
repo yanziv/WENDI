@@ -12,11 +12,11 @@ DROP TABLE IF EXISTS `hall`;
 DROP TABLE IF EXISTS `user`;
 
 CREATE TABLE `user` (
-  `id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  `username` VARCHAR(12) NOT NULL,
+  `username` VARCHAR(12) NOT NULL PRIMARY KEY,
   `email` VARCHAR(50) NOT NULL,
   `classYear` CHAR(4) NOT NULL,
-  `numReview` INT NOT NULL
+  `numReview` INT NOT NULL,
+  `password` VARCHAR(20)
 )
 ENGINE = InnoDB;
 
@@ -49,7 +49,7 @@ ENGINE = InnoDB;
 
 CREATE TABLE `review` (
   `id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  `uid` INT,
+  `uid` VARCHAR(12),
   `rid` INT,
   `rating` INT,
   `startTime` DATE,
@@ -67,7 +67,7 @@ CREATE TABLE `review` (
   `comment` VARCHAR(3000),
   `hasMedia` BOOLEAN,
   `timePosted` TIMESTAMP,
-  FOREIGN KEY (`uid`) REFERENCES `user`(`id`)
+  FOREIGN KEY (`uid`) REFERENCES `user`(`username`)
         ON UPDATE RESTRICT
         ON DELETE RESTRICT,  
   FOREIGN KEY (`rid`) REFERENCES `room`(`id`)
@@ -78,12 +78,12 @@ ENGINE = InnoDB;
 
 CREATE TABLE `comment` (
   `id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  `uid` INT,
+  `uid` VARCHAR(12),
   `rid` INT,
   `content` VARCHAR(1500),
   `hasMedia` BOOLEAN,
   `timePosted` timestamp,
-  FOREIGN KEY (uid) REFERENCES user(id)
+  FOREIGN KEY (uid) REFERENCES user(username)
         ON UPDATE RESTRICT
         ON DELETE RESTRICT,
   FOREIGN KEY (rid) REFERENCES room(id)
@@ -94,9 +94,9 @@ ENGINE = InnoDB;
 
 CREATE TABLE `collection` (
   `id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  `uid` INT,
+  `uid` VARCHAR(12),
   `name` VARCHAR(50),
-  FOREIGN KEY (uid) REFERENCES user(id)
+  FOREIGN KEY (uid) REFERENCES `user`(`username`)
         ON UPDATE RESTRICT
         ON DELETE RESTRICT
 )
@@ -117,10 +117,10 @@ ENGINE = InnoDB;
 CREATE TABLE `media` (
   `id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   `url` VARCHAR(255),
-  `uid` INT,
+  `uid` VARCHAR(12),
   `rid` INT,
   `cid` INT,
-  FOREIGN KEY (uid) REFERENCES user(id)
+  FOREIGN KEY (uid) REFERENCES `user`(`username`)
         ON UPDATE RESTRICT
         ON DELETE RESTRICT,
   FOREIGN KEY (rid) REFERENCES review(id)
