@@ -179,6 +179,7 @@
 #divId {
   color: #000000;
 }
+
 /* Responsive adjustments for smaller screens */
 @media (max-width: 768px) {
   .nav-tabs {
@@ -196,7 +197,6 @@
   }
 }
 
-<<<<<<< HEAD
 /* the following is the CSS for the Range Slider for Room Review */
 .slider {
   /* position and layout styles */
@@ -204,22 +204,6 @@
   padding: 10px 0; /* added padding for visual comfort */
   background: transparent; /* no background to avoid visual clutter */
   box-shadow: none; /* removing shadow for a flatter design */
-=======
-#filter-and-results {
-  position: absolute;
-  top: 100%;
-  /* Directly below the element */
-  left: 0;
-  right: 0;
-  background-color: #ffffff;
-  border-radius: 8px;
-  border: 2px solid #d9d9d9;
-  display: none;
-  /* Start as hidden */
-  z-index: 10;
-  /* Make sure it's on top of other elements */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  /* Optional: Adds shadow for depth */
 }
 
 /* the following CSS is for landing.html */
@@ -228,7 +212,6 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 20px;
->>>>>>> 2ca453adae2373c75979c2bccf48a3b653a7c4e9
 }
 
 .hall {
