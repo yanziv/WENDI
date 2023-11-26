@@ -210,70 +210,74 @@
 
 /* the following is the CSS for the Range Slider for Room Review */
 .slider {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 500px;
-  height: 60px;
-  padding: 30px;
-  padding-left: 40px;
-  background: #fcfcfc;
-  border-radius: 20px;
-  display: flex;
-  align-items: center;
-  box-shadow: 0px 15px 40px #7E6D5766;
+  /* position and layout styles */
+  width: 100%; /* adjust as needed, but should not exceed its container's width */
+  padding: 10px 0; /* added padding for visual comfort */
+  background: transparent; /* no background to avoid visual clutter */
+  box-shadow: none; /* removing shadow for a flatter design */
 }
 
 .slider p {
-  font-size: 26px;
-  font-weight: 600;
-  font-family: 'Open Sans';
-  padding-left: 30px;
-  color: black;
+  font-size: 16px; /* Adjust font size for readability */
+  color: #333; /* standard text color for better readability */
 }
 
 .slider input[type="range"] {
-  -webkit-appearance: none !important;
-  width: 420px;
-  height: 2px;
-  background: black;
-  border: none;
-  outline: none;
+  -webkit-appearance: none; /* Reset default browser styles */
+     -moz-appearance: none;
+          appearance: none;
+  width: 100%; /* Slider takes full width of its container */
+  height: 5px; /* Standard track height */
+  background: #ddd; /* Neutral background color for the track */
+  outline: none; /* Remove focus outline */
+  opacity: 1; /* Fully opaque */
+  -webkit-transition: .2s; /* Smooth transition for thumb movement */
+  transition: opacity .2s;
 }
 
+/* Thumb styles for normal state */
 .slider input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none !important;
-  width: 30px;
-  height: 30px;
-  background: black;
-  border: 2px solid black;
-  border-radius: 50%;
-  cursor: pointer;
+  -webkit-appearance: none; /* Reset default browser styles */
+          appearance: none;
+  width: 25px; /* Width and height of the thumb */
+  height: 25px;
+  background: #007bff; /* Thumb color */
+  cursor: pointer; /* Cursor to indicate the thumb is draggable */
+  border-radius: 50%; /* Round shape of the thumb */
+  border: 0; /* No border */
 }
 
-.slider input[type="range"]::-webkit-slider-thumb:hover {
-  background: black;
+/* Thumb styles for Firefox */
+.slider input[type="range"]::-moz-range-thumb {
+  width: 25px; /* Width and height of the thumb */
+  height: 25px;
+  background: #007bff; /* Thumb color */
+  cursor: pointer; /* Cursor to indicate the thumb is draggable */
+  border-radius: 50%; /* Round shape of the thumb */
+  border: 0; /* No border */
 }
 
-/* the following CSS is for landing.html */
-#residential-halls {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
+/* Thumb styles for IE/Edge */
+.slider input[type="range"]::-ms-thumb {
+  width: 25px; /* Width and height of the thumb */
+  height: 25px;
+  background: #007bff; /* Thumb color */
+  cursor: pointer; /* Cursor to indicate the thumb is draggable */
+  border-radius: 50%; /* Round shape of the thumb */
+  border: 0; /* No border */
 }
 
-.hall {
-  border: 1px solid #ddd;
-  padding: 10px;
-  text-align: center;
+/* Track styles for Firefox */
+.slider input[type="range"]::-moz-range-track {
+  background: #ddd; /* Neutral background color for the track */
+  border: 0; /* No border */
 }
 
-.hall img {
-  width: 100%;
-  height: auto;
-  border-radius: 10px;
+/* Track styles for IE/Edge */
+.slider input[type="range"]::-ms-track {
+  background: #ddd; /* Neutral background color for the track */
+  border-color: transparent; /* No border */
+  color: transparent; /* No additional colors */
 }
 
 /* login.html */
