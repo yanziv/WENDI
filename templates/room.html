@@ -9,8 +9,23 @@
     <div id="{{one.id}}" style="border:solid 2px black; margin-bottom:15px;">
         
         <div id="content">
-            <b>Room: {{one.rid}}</b>
-            <p>{{one.comment}}</p> 
+            <p>Review for {{one.rid}} posted on {{one.timePosted}}</p>
+            <p><b>Overall Rating: </b>{{one.rating}}</p> 
+            <p><b>Comment: </b>{{one.comment}}</p>
+            <p><b>Start Time: </b>{{one.startTime}}</p> 
+            <p><b>Length of Stay: </b>{{one.lengthOfStay}}</p> 
+            <ul>
+                <li><b>Size: </b>{{one.sizeScore}}</li>
+                <li><b>Vent: </b>{{one.ventScore}}</li>
+                <li><b>Clean: </b>{{one.cleanScore}}</li>
+                <li><b>Bathroom: </b>{{one.bathroomScore}}</li>
+                <li><b>Accessibility: </b>{{one.accessibilityScore}}</li>
+                <li><b>Sunlight: </b>{{one.sunlightScore}}</li>
+                <li><b>Bug: </b>{{one.bugScore}}</li>
+                <li><b>Window: </b>{{one.windowScore}}</li>
+                <li><b>Noise: </b>{{one.noiseScore}}</li>
+            </ul>
+            <p><b>sizeScore: </b>{{one.comment}}</p> 
         </div>
 
         <!-- <div class="comments" id="{{dict.rid}}">
