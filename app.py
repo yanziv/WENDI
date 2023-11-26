@@ -47,11 +47,11 @@ def index():
     return render_template("login.html", title="Main Page")
 
 
-THE_QUINT = ["Beebe", "Cazenove", "Monger", "Pomeroy", "Shafer"]
-TOWER_COMPLEX = ["Claflin", "Lake House", "Severance", "Tower Court"]
-EAST_SIDE_COMPLEX = ["Bates", "Freeman", "McAfee"]
-SD_AND_SMALL_HALLS = ["Casa Cervantes", "French House", "Stone-Davis"]
-ALL_HALLS = THE_QUINT + TOWER_COMPLEX + EAST_SIDE_COMPLEX + SD_AND_SMALL_HALLS
+# THE_QUINT = ["Beebe", "Cazenove", "Monger", "Pomeroy", "Shafer"]
+# TOWER_COMPLEX = ["Claflin", "Lake House", "Severance", "Tower Court"]
+# EAST_SIDE_COMPLEX = ["Bates", "Freeman", "McAfee"]
+# SD_AND_SMALL_HALLS = ["Casa Cervantes", "French House", "Stone-Davis"]
+# ALL_HALLS = THE_QUINT + TOWER_COMPLEX + EAST_SIDE_COMPLEX + SD_AND_SMALL_HALLS
 
 
 @app.route("/browse_all/", methods=["GET", "POST"])
@@ -84,10 +84,7 @@ def review():
 
     else:  # retrieve user input and insert review into wendi_db
         userID = session.get("user_login_id")
-        dorm = request.form.get("res-hall")
-        flash(dorm)
-        hall_id = queries.get_hid_given_hall_name(conn, dorm)["id"]
-        flash(hall_id)
+        dorm = request.form.get("res-hall") # dorm is the 3-letter dorm encoding
         rid = request.form.get("rid")
         overallRating = request.form.get("overall")
         startDate = request.form.get("start-date")
@@ -103,7 +100,7 @@ def review():
         window = request.form.get("window")
         noise = request.form.get("noise")
         comments = request.form.get("comments")
-        hasMedia = "1"  # HARD-CODE THIS TO BE 1, REMEMBER TO FIX
+        hasMedia = "1"  # HARD-CODE THIS TO BE 1, REMEMBER TO UPDATE ONCE UPLOAD IS IMPLEMENTED
         submission_time = datetime.now()
 
         # insert review into wendi_db
@@ -129,8 +126,7 @@ def review():
             submission_time,
         )
         flash("Thank you for submitting a review!")
-        # not sure if should use redirect here
-        return redirect(url_for("room", hid=hall_id, number=rid))
+        return redirect(url_for("room", hid=dorm, number=rid))
 
 
 def allowed_file(filename):

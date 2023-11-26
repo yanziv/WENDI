@@ -33,13 +33,13 @@
             </tr>
             <tr>
                 <td><label for="start-date">The date you <strong>started</strong> living in the Room:</label></td>
-                <td><input id="start-date" type="date" name="start-date"></td>
+                <td><input id="start-date" type="date" value="none" name="start-date" required></td>
             </tr>
             <tr>
                 <td>
                     <label for="length-of-stay">How long did you/are you staying in this room? </label>
-                    <select id="length-of-stay" name="length-of-stay">
-                    <option value="none">Select</option>
+                    <select id="length-of-stay" name="length-of-stay" required>
+                    <option value="">Select</option>
                         <option value="winter">Winter</option>
                         <option value="summer">Summer</option>
                         <option value="spring-only">Spring Only</option>
@@ -130,7 +130,7 @@
                 </td>
             </tr>
             <tr>
-                <td><label for="bugs">Bug Issues (5 means no bugs):</label></td>
+                <td><label for="bugs">Bug Issues (5 means no bug issues):</label></td>
                 <td>
                     <div class="slider">
                         <input type="range" min="0" max="5" value="0" id="bugsSlider" name="bugs" oninput="updateSliderValue(this.value,'bugsValue')" required>
@@ -176,6 +176,6 @@
         <p> <input type='submit' value='Submit'> </p>
 
 </form>
-<!-- 
 
+<!-- 
 {% endblock %}  -->
