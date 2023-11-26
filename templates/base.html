@@ -63,8 +63,25 @@
       </div>
     </div>
   </div>
-    {% block main_content %}
+  <div id="content">
+
+    <div id="flashes">
+
+      {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div id="messages">
+          {% for msg in messages %}
+          <p>{{msg}}</p>
+          {% endfor %}
+        {% endif %}
+      {% endwith %}
+    </div>
+
+    {% block main_content %} 
     {% endblock %}
+
+</div>
+<script src="//code.jquery.com/jquery-3.2.1.min.js"></script>
     <script>
       function toggleFilterFrame(event) {
         var filterFrame = $("#filter-frame");
