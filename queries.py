@@ -1,4 +1,5 @@
 import cs304dbi as dbi
+from flask import flash
 
 def get_all_dorms(conn):
     """
@@ -54,14 +55,15 @@ def show_rooms(conn, hall_id):
     return curs.fetchall()
 
 
-def show_reviews(conn, roomid):
+def show_reviews(conn, roomnum):
     """return all reviews made for specified room"""
     curs = dbi.dict_cursor(conn)
     curs.execute(
         """
-        select * from review where rid = %s
+        select room.number as rid, room.description as description, rating, startTime, lengthOfStay, sizeScore, ventScore, accessibilityScore,
+        sunlightScore, bugScore, windowScore, noiseScore, comment, timePosted from review, room where review.rid = room.id and room.number = %s
     """,
-        [roomid],
+        [roomnum],
     )
     return curs.fetchall()
 
