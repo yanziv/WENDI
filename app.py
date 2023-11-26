@@ -57,7 +57,7 @@ def index():
 @app.route("/browse_all/", methods=["GET", "POST"])
 def landing():
     if request.method == "GET":
-        flash("Not Yet Implemented for the Draft Version!")
+        flash("Landing Page Not Yet Implemented for the Draft Version!")
         return render_template("landing.html")
     # else:
     # id is post id and then uid should be retrieved from cached username
