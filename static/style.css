@@ -1,4 +1,212 @@
-/* base.html */
+/* Base styles */
+.base-element {
+  background-color: #ffffff;
+}
+
+/* Header styles */
+.header-logo {
+  display: flex;
+  /* Align logo and description horizontally */
+  align-items: flex-end;
+  /* Align items to the bottom */
+  gap: 20px;
+  /* Space between logo and description */
+  padding-bottom: 10px;
+  /* Space above the navbar */
+}
+
+.header-logo .logo {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  color: #0e2c88;
+  font-size: 120px;
+  margin-bottom: 0;
+  /* Align bottom of logo with navbar */
+}
+
+.header-logo .sitename {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  color: #1c1c1c;
+  font-size: 14px;
+}
+
+/* Navbar styles */
+.nav-bar {
+  background-color: #0f2c88;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  /* Adds padding inside the navbar */
+}
+
+.nav-tabs {
+  display: flex;
+  /* Aligns children (buttons) horizontally */
+  gap: 10px;
+  /* Space between the buttons */
+}
+
+.nav-tabs .regular-button,
+.nav-tabs .primary-button {
+  background-color: #ffffff;
+  /* White background for regular buttons */
+  border-radius: 5px;
+  /* Smoothed corners */
+  border: 1px solid #ddd;
+  /* Subtle border */
+  display: flex;
+  justify-content: center;
+  /* Center horizontally */
+  align-items: center;
+  /* Center vertically */
+  padding: 10px 20px;
+  /* Adjust padding as necessary */
+}
+
+.nav-tabs .regular-button a,
+.nav-tabs .primary-button a {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  color: #000000;
+  /* Black font color for buttons */
+  text-decoration: none;
+  text-align: center;
+  /* Center text horizontally */
+  display: flex;
+  /* Use flex to center text */
+  justify-content: center;
+  /* Center content horizontally */
+  align-items: center;
+  /* Center content vertically */
+  height: 100%;
+  /* Fill the height of the parent */
+  width: 100%;
+  /* Fill the width for clickable area */
+  border-radius: 5px;
+  /* Smoothed corners for the anchor tag */
+}
+
+.nav-tabs .primary-button {
+  background-color: #d9b600;
+  /* Different background for primary button */
+  border: none;
+  /* No border for primary button */
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  /* Smoothed corners for search bar */
+  border: 2px solid #5470ff;
+  padding: 5px 10px;
+  height: 40px;
+  /* Fixed height to match buttons */
+}
+
+.search-bar .magnifier,
+.search-bar .blackx {
+  width: 24px;
+  height: 24px;
+}
+
+.search-bar .search-input {
+  border: none;
+  flex-grow: 1;
+  border-radius: 5px;
+  /* Smoothed corners for input field */
+}
+
+/* Filter and results styles */
+#filter-and-results {
+  position: absolute;
+  top: 100%;
+  /* Positioned right below the nav-bar */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 2px solid #d9d9d9;
+  display: none;
+  z-index: 1;
+}
+
+#filter-and-results .filter-header,
+#filter-and-results .result-header {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 600;
+  color: #000000;
+  font-size: 12px;
+  padding: 14px 16px;
+}
+
+#filter-and-results .filters-collection .filter {
+  background-color: #eaeaef;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+}
+
+#filter-and-results .filters-collection .filter-text {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 700;
+  color: #000000;
+  font-size: 16px;
+}
+
+#filter-and-results .filters-collection .whitex {
+  width: 9.71px;
+  height: 9.71px;
+}
+
+#filter-and-results #searchResults {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 16px;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .nav-tabs {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  .nav-bar {
+      padding: 10px;
+  }
+
+  .header-logo {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+}
+
+#filter-and-results {
+  position: absolute;
+  top: 100%;
+  /* Directly below the element */
+  left: 0;
+  right: 0;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 2px solid #d9d9d9;
+  display: none;
+  /* Start as hidden */
+  z-index: 10;
+  /* Make sure it's on top of other elements */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Optional: Adds shadow for depth */
+}
+
 
 /* the following is the CSS for the Range Slider for Room Review */
 .slider {
@@ -67,307 +275,6 @@
   height: auto;
   border-radius: 10px;
 }
-
-/* .base-html {
-  background-color: #ffffff;
-}
-
-.overlap-group .text-wrapper {
-  position: fixed;
-  height: 94px;
-  width: 296px;
-  top: 0;
-  left: 0;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 700;
-  color: #0e2c88;
-  font-size: 120px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-} */
-
-.overlap-group .description {
-  position: fixed;
-  width: 372px;
-  height: 22px;
-  top: 120px;
-  left: 331px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 400;
-  color: #1c1c1c;
-  font-size: 14px;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
-.base-html .rectangle {
-  position: fixed;
-  width: 1350px;
-  height: 79px;
-  top: 149px;
-  left: 81px;
-  background-color: #0f2c88;
-  margin-left: auto; 
-  margin-right: auto;
-}
-
-.rectangle .frame-wrapper{
-  position: fixed;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1350px;
-  height: 79px;
-  margin-left: auto;
-  margin-left: 0;
-}
-
-.rectangle .frame {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  padding: 20px;
-  background-color: #eaeaef;
-  border: 1px solid;
-  border-color: #eaeaef;
-}
-
-
-.frame .text-wrapper {
-  position: relative;
-  flex: 1;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 700;
-  color: #000000;
-  font-size: 14px;
-  text-align: center;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
-.rectangle .primary-button {
-  display: flex;
-  width: 229px;
-  height: 55px;
-  align-items: center;
-  justify-content: center;
-  padding: 0px 16px;
-  position: relative;
-  background-color: #d9b600;
-  border-radius: 5px;
-  overflow: hidden;
-  margin-left: auto; 
-  margin-right: auto;
-}
-
-.primary-button .text-wrapper {
-  position: relative;
-  width: fit-content;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 700;
-  color: #ffffff;
-  font-size: 16px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-  margin-left: auto; 
-  margin-right: auto;
-}
-
-.search-with-results {
-  display: flex;
-  width: 310px;
-  height: 55px;
-  align-items: center;
-  gap: 8px;
-  padding: 5px 16px;
-  position: relative;
-  background-color: #ffffff;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 2px solid;
-  border-color: #5470ff;
-}
-
-.search-with-results .magnifier {
-  position: relative;
-  width: 24px;
-  height: 24px;
-}
-
-.search-with-results .text-wrapper {
-  position: relative;
-  flex: 1;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 400;
-  color: #00000054;
-  font-size: 15px;
-  letter-spacing: 0;
-  line-height: 24px;
-}
-
-.search-with-results .blackx{
-  position: relative;
-  width: 9.71px;
-  height: 9.71px;
-  margin-right: -0.35px;
-}
-
-.filter-frame {
-  position: relative;
-  width: 599px;
-  height: 333px;
-  background-color: #ffffff;
-  border-radius: 8px;
-  overflow: hidden;
-  border: 2px solid;
-  border-color: #d9d9d9;
-}
-
-.filter-frame .text-wrapper{
-  top: 14px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 600;
-  color: #000000;
-  font-size: 12px;
-  letter-spacing: 0;
-  line-height: normal;
-  position: absolute;
-  left: 16px;
-}
-
-.filter-frame .filters {
-  display: inline-flex;
-  align-items: flex-start;
-  gap: 8px;
-  top: 43px;
-  position: absolute;
-  left: 16px;
-}
-
-.filter-frame .default {
-  background-color: #000000;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 16px;
-  position: relative;
-  flex: 0 0 auto;
-  border-radius: 100px;
-  overflow: hidden;
-}
-
-.filter-frame .div{
-  position: relative;
-  width: fit-content;
-  margin-top: -1px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 700;
-  color: #ffffff;
-  font-size: 16px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-}
-
-.filter-frame .whitex {
-  position: relative;
-  width: 9.71px;
-  height: 9.71px;
-  margin-right: -0.35px;
-}
-
-.filter-frame .div-wrapper {
-  background-color: #eaeaef;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 16px;
-  position: relative;
-  flex: 0 0 auto;
-  border-radius: 100px;
-  overflow: hidden;
-}
-
-.filter-frame .text-wrapper-2 {
-  position: relative;
-  width: fit-content;
-  margin-top: -1px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 700;
-  color: #000000;
-  font-size: 16px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-}
-
-.filter-frame .text-wrapper-3 {
-  position: absolute;
-  top: 96px;
-  left: 16px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 600;
-  color: #000000;
-  font-size: 12px;
-  letter-spacing: 0;
-  line-height: normal;
-}
-
-.filter-frame .user{
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  position: absolute;
-  top: 125px;
-  left: 16px;
-}
-
-.filter-frame .text-wrapper-4 {
-  position: relative;
-  width: fit-content;
-  margin-top: -1px;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 400;
-  color: #000000;
-  font-size: 15px;
-  letter-spacing: 0;
-  line-height: 22.5px;
-  white-space: nowrap;
-}
-
-.filter-frame .button {
-  display: flex;
-  width: 570px;
-  height: 40px;
-  align-items: center;
-  justify-self: center;
-  padding: 0px 16px;
-  position: absolute;
-  top: 277px;
-  left: 16px;
-  border-radius: 5px;
-  overflow: hidden;
-  border: 1px solid;
-  border-color: #000000;
-  all: unset;
-  box-sizing: border-box;
-}
-
-.filter-frame .text-wrapper-5 {
-  position: relative;
-  width: fit-content;
-  font-family: Arial, Helvetica, sans-serif;
-  font-weight: 700;
-  color: #000000;
-  font-size: 16px;
-  letter-spacing: 0;
-  line-height: normal;
-  white-space: nowrap;
-}
-
 
 /* login.html */
 
