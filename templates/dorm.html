@@ -20,7 +20,7 @@
 
     {% for room in dorm %}
     <div id="{{room.number}}" style="border:solid 2px black; margin-bottom:15px;">
-        <b><a href="{{ url_for('room', hid=dormname, number=room.number) }}">Room: {{room.number}}</a></b>
+        <p><a href="{{ url_for('room', hid=dormname, number=room.number) }}">{{dormname}} - {{room.number}}</a> ({{room.type}} {{room.description}})</p>
     </div>
     {% endfor %}
 

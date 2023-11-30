@@ -2,7 +2,7 @@
 
 {% block main_content %}
 <h1>{{dormname}} - {{number}}</h1>
-
+<p>This room is a *description*</p>
 
     {% if reviews %}
     {% for one in reviews %}
@@ -12,7 +12,7 @@
             <p>Review for {{dormname}} - {{one.rid}} ({{one.description}}) posted on {{one.timePosted}}</p>
             <p><b>Comment: </b>{{one.comment}}</p>
 
-            <p><b>Start Time: </b>{{one.startTime}}</p> 
+            <p><b>Start Date: </b>{{one.startTime}}</p> 
             <p><b>Length of Stay: </b>{{one.lengthOfStay}}</p>
             <p><b>Overall Rating: </b>{{one.rating}}</p>  
             <ul>
