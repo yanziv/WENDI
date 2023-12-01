@@ -3,6 +3,17 @@
 {% block main_content %}
 <h1>{{dormname}}</h1>
 
+<form>
+    <label for="room-type">Filter by: </label>
+    <select id="room-type" name="room-type" required>
+        <option value="All">All</option>
+            {% for item in filterContent %}
+        <option value="{{item.description}}">{{item.description}}</option>
+            {% endfor %}
+    </select>
+    <p><input type='submit' value='Submit'></p>
+</form>
+
 <!-- <p>this is the dorm page, which displays a list of all the rooms in the specified dorm. the page will display different info 
     based on which dorm the user is looking at. clicking on the rooms will redirect to the room page, which displays all the reviews
     that have made for that room.
@@ -15,8 +26,9 @@
 
 
 
-<h3>All rooms in {{dormname}}:</h3>
+<h3>Displaying {{filterType}} Rooms</h3>
 <div class="{{dormname}}">
+    
 
     {% for room in dorm %}
     <div id="{{room.number}}" style="border:solid 2px black; margin-bottom:15px;">
