@@ -142,13 +142,34 @@ def allowed_file(filename):
     }
 
 
-@app.route("/dorm/<hid>")
+@app.route("/dorm/<hid>", methods=["GET", "POST"])
 def dorm(hid):
     conn = dbi.connect()
-    roomsList = queries.show_rooms(conn, hid)
     print("hid: " + str(hid))
-    print("roomList: " + str(roomsList))
-    return render_template("dorm.html", dorm=roomsList, dormname=hid)
+
+    filterContent = queries.get_room_types(conn, hid) # dropdown menu's values for all the room types
+    print("filterContent ==== " + str(filterContent))
+    if request.method == "POST":
+        print("request.method ===== POST")
+        
+        roomsList = queries.show_rooms(conn, hid)
+        return render_template("dorm.html", dorm=roomsList, dormname=hid, filterContent=filterContent)
+    else:
+        print("request.method ===== GET")
+
+        answer = request.args.get("room-type")
+        print("room-type: " + str(answer))
+        
+        if answer == "All":
+            filteredRooms = queries.show_rooms(conn, hid)
+        else:
+            filteredRooms = queries.sort_rooms_by(conn, hid, answer)
+        print(filteredRooms)
+        
+        #print("roomList: " + str(roomsList))
+        return render_template("dorm.html", dorm=filteredRooms, dormname=hid, filterContent=filterContent, filterType=answer)
+    
+    
 
 
 @app.route("/dorm/<hid>/room/<number>")

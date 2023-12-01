@@ -48,12 +48,32 @@ def show_rooms(conn, hall_id):
     curs = dbi.dict_cursor(conn)
     curs.execute(
         """
-        select number from room where hid = %s
+        select number, type, description from room where hid = %s
     """,
         [hall_id],
     )
     return curs.fetchall()
 
+def sort_rooms_by(conn, hall_id, criteria):
+    """"returns all rooms with specified hall_id by the criteria entered"""
+    curs = dbi.dict_cursor(conn)
+    curs.execute(
+        """
+        select number, type, description from room where hid = %s and description = %s
+        """, [hall_id, criteria],
+    )
+    return curs.fetchall()
+    
+
+def get_room_types(conn, hall_id):
+    """returns all room types in specified hall"""
+    curs = dbi.dict_cursor(conn)
+    curs.execute(
+        """
+        select distinct description from room where hid = %s
+        """, [hall_id]
+    )
+    return curs.fetchall()
 
 def show_reviews(conn, roomnum):
     """return all reviews made for specified room"""
