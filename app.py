@@ -160,11 +160,11 @@ def dorm(hid):
         answer = request.args.get("room-type")
         print("room-type: " + str(answer))
         
-        if answer == "All":
+        if answer == "All" or answer == None:
             filteredRooms = queries.show_rooms(conn, hid)
         else:
             filteredRooms = queries.sort_rooms_by(conn, hid, answer)
-        print(filteredRooms)
+        #print(filteredRooms)
         
         #print("roomList: " + str(roomsList))
         return render_template("dorm.html", dorm=filteredRooms, dormname=hid, filterContent=filterContent, filterType=answer)
