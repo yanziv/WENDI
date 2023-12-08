@@ -10,12 +10,15 @@ from flask import (
     send_from_directory,
     jsonify,
 )
-from werkzeug.utils import secure_filename
+
 from datetime import datetime
+from werkzeug.utils import secure_filename
+from models import User
 
 app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = "uploads"
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024  # 16 MB limit
+
 
 # one or the other of these. Defaults to MySQL (PyMySQL)
 # change comment characters to switch to SQLite
@@ -24,6 +27,7 @@ import cs304dbi as dbi
 
 # import cs304dbi_sqlite3 as dbi
 
+import bcrypt
 import random
 import queries as queries
 
@@ -45,13 +49,6 @@ app.config["TRAP_BAD_REQUEST_ERRORS"] = True
 @app.route("/", methods=["GET", "POST"])
 def index():
     return render_template("login.html", title="Main Page")
-
-
-# THE_QUINT = ["Beebe", "Cazenove", "Monger", "Pomeroy", "Shafer"]
-# TOWER_COMPLEX = ["Claflin", "Lake House", "Severance", "Tower Court"]
-# EAST_SIDE_COMPLEX = ["Bates", "Freeman", "McAfee"]
-# SD_AND_SMALL_HALLS = ["Casa Cervantes", "French House", "Stone-Davis"]
-# ALL_HALLS = THE_QUINT + TOWER_COMPLEX + EAST_SIDE_COMPLEX + SD_AND_SMALL_HALLS
 
 
 @app.route("/browse_all/", methods=["GET", "POST"])
@@ -84,7 +81,7 @@ def review():
 
     else:  # retrieve user input and insert review into wendi_db
         userID = session.get("user_login_id")
-        dorm = request.form.get("res-hall") # dorm is the 3-letter dorm encoding
+        dorm = request.form.get("res-hall")  # dorm is the 3-letter dorm encoding
         rid = request.form.get("rid")
         overallRating = request.form.get("overall")
         startDate = request.form.get("start-date")
@@ -100,7 +97,9 @@ def review():
         window = request.form.get("window")
         noise = request.form.get("noise")
         comments = request.form.get("comments")
-        hasMedia = "1"  # HARD-CODE THIS TO BE 1, REMEMBER TO UPDATE ONCE UPLOAD IS IMPLEMENTED
+        hasMedia = (
+            "1"  # HARD-CODE THIS TO BE 1, REMEMBER TO UPDATE ONCE UPLOAD IS IMPLEMENTED
+        )
         submission_time = datetime.now()
 
         # insert review into wendi_db
@@ -147,29 +146,37 @@ def dorm(hid):
     conn = dbi.connect()
     print("hid: " + str(hid))
 
-    filterContent = queries.get_room_types(conn, hid) # dropdown menu's values for all the room types
+    filterContent = queries.get_room_types(
+        conn, hid
+    )  # dropdown menu's values for all the room types
     print("filterContent ==== " + str(filterContent))
     if request.method == "POST":
         print("request.method ===== POST")
-        
+
         roomsList = queries.show_rooms(conn, hid)
-        return render_template("dorm.html", dorm=roomsList, dormname=hid, filterContent=filterContent)
+        return render_template(
+            "dorm.html", dorm=roomsList, dormname=hid, filterContent=filterContent
+        )
     else:
         print("request.method ===== GET")
 
         answer = request.args.get("room-type")
         print("room-type: " + str(answer))
-        
+
         if answer == "All" or answer == None:
             filteredRooms = queries.show_rooms(conn, hid)
         else:
             filteredRooms = queries.sort_rooms_by(conn, hid, answer)
-        #print(filteredRooms)
-        
-        #print("roomList: " + str(roomsList))
-        return render_template("dorm.html", dorm=filteredRooms, dormname=hid, filterContent=filterContent, filterType=answer)
-    
-    
+        # print(filteredRooms)
+
+        # print("roomList: " + str(roomsList))
+        return render_template(
+            "dorm.html",
+            dorm=filteredRooms,
+            dormname=hid,
+            filterContent=filterContent,
+            filterType=answer,
+        )
 
 
 @app.route("/dorm/<hid>/room/<number>")
@@ -208,25 +215,43 @@ def search():
     return jsonify({"individual": results_individual, "combined": results_combined})
 
 
-@app.route("/formecho/", methods=["GET", "POST"])
-def formecho():
-    if request.method == "GET":
-        return render_template(
-            "form_data.html", method=request.method, form_data=request.args
-        )
-    elif request.method == "POST":
-        return render_template(
-            "form_data.html", method=request.method, form_data=request.form
-        )
-    else:
-        # maybe PUT?
-        return render_template("form_data.html", method=request.method, form_data={})
+@app.route("/register", methods=["GET", "POST"])
+def register():
+    if request.method == "POST":
+        username = request.form.get("username")
+        passwd1 = request.form.get("password1")
 
+        # Hash the password using bcrypt
+        hashed = bcrypt.hashpw(passwd1.encode("utf-8"), bcrypt.gensalt())
 
-@app.route("/testform/")
-def testform():
-    # these forms go to the formecho route
-    return render_template("testform.html")
+        # Convert the hashed password to a string for storage
+        hashed_str = hashed.decode("utf-8")
+
+        # Connect to the database
+        conn = dbi.connect()
+        curs = dbi.dict_cursor(conn)
+
+        try:
+            # Attempt to insert the new user into the database
+            curs.execute(
+                """INSERT INTO userpass(uid, username, hashed)
+                   VALUES(null, %s, %s)""",
+                [username, hashed_str],
+            )
+            conn.commit()
+
+            # Registration successful
+            flash("Registration successful! You can now log in.")
+            return redirect(url_for("login"))
+        except dbi.IntegrityError as err:
+            # Handle the case where the username is already taken
+            flash("Sorry; that username is taken")
+        except Exception as err:
+            # Handle other exceptions
+            flash("An error occurred during registration. Please try again.")
+
+    # Render the registration form for GET requests
+    return render_template("join.html")
 
 
 if __name__ == "__main__":
