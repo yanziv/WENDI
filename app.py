@@ -13,7 +13,6 @@ from flask import (
 
 from datetime import datetime
 from werkzeug.utils import secure_filename
-from models import User
 
 app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = "uploads"
@@ -215,17 +214,22 @@ def search():
     return jsonify({"individual": results_individual, "combined": results_combined})
 
 
-@app.route("/register", methods=["GET", "POST"])
+@app.route("/join", methods=["GET"])
+def show_join_form():
+    return render_template("join.html")
+
+
+@app.route("/register", methods=["POST"])
 def register():
     if request.method == "POST":
         username = request.form.get("username")
-        passwd1 = request.form.get("password1")
+        password = request.form.get("password")
 
         # Hash the password using bcrypt
-        hashed = bcrypt.hashpw(passwd1.encode("utf-8"), bcrypt.gensalt())
+        hashed_password = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
 
         # Convert the hashed password to a string for storage
-        hashed_str = hashed.decode("utf-8")
+        hashed_password_str = hashed_password.decode("utf-8")
 
         # Connect to the database
         conn = dbi.connect()
@@ -236,7 +240,7 @@ def register():
             curs.execute(
                 """INSERT INTO userpass(uid, username, hashed)
                    VALUES(null, %s, %s)""",
-                [username, hashed_str],
+                [username, hashed_password_str],
             )
             conn.commit()
 
@@ -250,8 +254,8 @@ def register():
             # Handle other exceptions
             flash("An error occurred during registration. Please try again.")
 
-    # Render the registration form for GET requests
-    return render_template("join.html")
+    # Redirect to the show_join_form route for GET requests
+    return redirect(url_for("show_join_form"))
 
 
 if __name__ == "__main__":
