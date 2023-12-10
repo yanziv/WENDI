@@ -167,9 +167,9 @@ def authenticate_user(username, password):
     curs = dbi.dict_cursor(conn)
     curs.execute(
         """
-        SELECT * FROM user WHERE username = %s AND password = %s
+        SELECT * FROM user WHERE username = %s and password=%s
         """,
-        [username, password],
+        [username,password]
     )
     result = curs.fetchone()
     return result is not None  # It returns True if authentication successful.
@@ -211,3 +211,31 @@ def search_by_hid_and_number(conn, search_term):
     cursor.close()
 
     return results
+
+def get_roomid(conn, hid, number):
+    """takes in a hid and room number and returns the rid for that room"""
+    curs = dbi.dict_cursor(conn)
+    curs.execute('''
+        SELECT id from room where hid=%s and number=%s
+    ''', [hid, number])
+    return curs.fetchone()
+
+
+def insert_comment(conn, uid, rid, comment):
+    """takes in a conn and content and inserts into content table"""
+    curs = dbi.dict_cursor(conn)
+    curs.execute('''
+        INSERT into comment(uid, rid, content)
+        values (%s, %s, %s)
+    ''', [uid,rid,comment])
+    conn.commit()
+
+
+def get_comments(conn, rid):
+    """returns dict of all comments for room with specified hid and number"""
+    curs = dbi.dict_cursor(conn)
+    curs.execute('''
+        SELECT content, timePosted FROM comment
+        WHERE rid=%s
+    ''',[rid])
+    return curs.fetchall()

@@ -182,6 +182,7 @@ def dorm(hid):
 
         if answer == "All" or answer == None:
             filteredRooms = queries.show_rooms(conn, hid)
+            answer = "All"
         else:
             filteredRooms = queries.sort_rooms_by(conn, hid, answer)
         # print(filteredRooms)
@@ -196,12 +197,33 @@ def dorm(hid):
         )
 
 
-@app.route("/dorm/<hid>/room/<number>")
+@app.route("/dorm/<hid>/room/<number>", methods=["GET","POST"])
 def room(hid, number):
     conn = dbi.connect()
     reviewList = queries.show_reviews(conn, number)
+
+
+    rid = queries.get_roomid(conn,hid,number)['id']
     print("reviewList: " + str(reviewList))
-    return render_template("room.html", reviews=reviewList, dormname=hid, number=number)
+
+    if request.method == "GET":
+        allComments = queries.get_comments(conn, rid)
+        return render_template("room.html", reviews=reviewList, dormname=hid, number=number, allComments=allComments)
+    elif request.method == "POST":
+
+        comment = request.form.get('comments')
+
+        print(rid)
+
+        print(comment)
+
+        #change later
+        uid = 'el110'
+
+        queries.insert_comment(conn, uid, rid, comment)
+        
+
+        return redirect(url_for('room', hid=hid, number=number))
 
 
 @app.route("/login/", methods=["POST"])
@@ -296,6 +318,12 @@ def register():
 
     # Redirect to the show_join_form route for GET requests
     return redirect(url_for("show_join_form"))
+
+# @app.route("/addcomment/", methods=["POST"])
+# def addcomment():
+
+#     return redirect(url_for('room'), hid=)
+
 
 
 if __name__ == "__main__":
