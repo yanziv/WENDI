@@ -82,10 +82,12 @@ def review():
     if request.method == "GET":
         return render_template("form.html", dorms=all_dorms)
 
-    else:  # retrieve user input and insert review into wendi_db
+    else:  # POST
+        # 1: retrieve user input and insert review into the review table in wendi_db
         userID = session.get("user_login_id")
         dorm = request.form.get("res-hall") # dorm is the 3-letter dorm encoding
-        rid = request.form.get("rid")
+        room_number = request.form.get("room-num")
+        rid = queries.get_rid_given_hall_and_number(conn,dorm,room_number)
         overallRating = request.form.get("overall")
         startDate = request.form.get("start-date")
         length = request.form.get("length-of-stay")
@@ -100,7 +102,7 @@ def review():
         window = request.form.get("window")
         noise = request.form.get("noise")
         comments = request.form.get("comments")
-        hasMedia = "1"  # HARD-CODE THIS TO BE 1, REMEMBER TO UPDATE ONCE UPLOAD IS IMPLEMENTED
+        # hasMedia = "1"  # HARD-CODE THIS TO BE 1, REMEMBER TO UPDATE ONCE UPLOAD IS IMPLEMENTED
         submission_time = datetime.now()
 
         # insert review into wendi_db
@@ -122,12 +124,32 @@ def review():
             window,
             noise,
             comments,
-            hasMedia,
+            # hasMedia,
             submission_time,
         )
         flash("Thank you for submitting a review!")
-        return redirect(url_for("room", hid=dorm, number=rid))
 
+        # 2: upload media into the media table
+        try:
+            session_id = int(session['id'])
+            files = request.files.getlist('roomMedia')
+            for file in files:
+                if file and allowed_file(file.filename): # check if extension is allowed
+                    filename = secure_filename(file.filename)
+                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+                    # Insert each file's information into the media table
+                    media_url = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                    queries.insert_media(conn, media_url, userID, review_id, comment_id=None)  # Assuming review_id is available
+                    return redirect(url_for("room", hid=dorm, number=rid))
+           
+            else: 
+                flash('Sorry, your session has expired. Please log in to fill out the review form again.')
+                redirect(url_for('login'))
+        
+        except Exception as err:
+            flash('Upload failed {why}'.format(why=err))
+            return render_template('form.html')
 
 def allowed_file(filename):
     """

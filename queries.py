@@ -1,6 +1,16 @@
 import cs304dbi as dbi
 from flask import flash
 
+# def upload_review_media(conn):
+#     """
+#     Uploads media to the table for room reviews.
+#     """
+#     curs = dbi.dict_cursor(conn)
+#     curs.execute('''insert into reivew(id,media) values (%s,%s)
+#                     on duplicate key update media = %s''',
+#                     [nm, filename, filename])
+#     conn.commit()
+
 def get_all_dorms(conn):
     """
     Returns info regarding all residential halls at Wellesley.
@@ -9,6 +19,20 @@ def get_all_dorms(conn):
     curs.execute('''
         select * from hall''')
     return curs.fetchall()
+
+def get_rid_given_hall_and_number(conn,hall,number):
+    """
+    Returns room id (id in the room table) given the 3-letter
+    hall encoding and specific room number.
+    """
+    curs = dbi.dict_cursor(conn)
+    curs.execute('''
+        select id from room
+        where number = %s 
+        and hid = %s''',
+        [number,hall])
+    return curs.fetchone()
+
 
 def get_hid_given_hall_name(conn,hall_name):
     """

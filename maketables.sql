@@ -65,7 +65,7 @@ CREATE TABLE `review` (
   `windowScore` FLOAT,
   `noiseScore` FLOAT,
   `comment` VARCHAR(3000),
-  `hasMedia` BOOLEAN,
+  `Media` VARCHAR(50),
   `timePosted` TIMESTAMP,
   FOREIGN KEY (`uid`) REFERENCES `user`(`username`)
         ON UPDATE RESTRICT
