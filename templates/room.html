@@ -2,9 +2,9 @@
 
 {% block main_content %}
 <h1>{{dormname}} - {{number}}</h1>
-<p>This room is a *description*</p>
+<p>This room is a ______________</p>
 
-    {% if reviews %}
+  {% if reviews %}
     {% for one in reviews %}
     <div id="{{one.id}}" style="border:solid 2px black; margin-bottom:15px;">
         
@@ -28,21 +28,46 @@
             </ul>
         </div>
 
-        <!-- <div class="comments" id="{{dict.rid}}">
-            {% for one in commentList %}
-            <p>commenter name</p>
-            <p>comment content here</p>
-    
-            {% endfor %}
-        </div> -->
+        <div class="comment-section">
+          {% for each in allComments %}
+          <div class="comment-div" id="{each.id}">
+
+            <p class="comment-header">Comment posted on {{each.timePosted}}</p>
+            <p class="comment-content">{{each.content}}</p>
+            
+          </div>
+          {% endfor %}
+        </div>
+
+
+        <div class="comments" id="{{dict.rid}}">
+            <form method="POST" action="{{ url_for('room', hid=dormname, number=number) }}">
+                <tr>
+                    <td>
+                      <p>
+                        <label for="comments">Comments:</label>
+                      </p>
+                    </td>
+                    <td>
+                      <p>
+                        <textarea id="comments" name="comments" rows="4" cols="50"></textarea>
+                        <input type="submit" value="Submit">
+                      </p>
+                    </td>
+                  </tr>
+            </form>
+        </div>
+
+        
+
     </div>
     {% endfor %}
 
-    {% else %}
+  {% else %}
 
     <p>Sorry! No reviews have been made for this room yet.</p>
 
-    {% endif %}
+  {% endif %}
 
     
 
