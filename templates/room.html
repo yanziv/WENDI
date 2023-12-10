@@ -2,11 +2,10 @@
 
 {% block main_content %}
 <h1>{{dormname}} - {{number}}</h1>
-<p>This room is a ______________</p>
 
   {% if reviews %}
     {% for one in reviews %}
-    <div id="{{one.id}}" style="border:solid 2px black; margin-bottom:15px;">
+    <div id="{{one.id}}">
         
         <div id="content">
             <p>Review for {{dormname}} - {{one.rid}} ({{one.description}}) posted on {{one.timePosted}}</p>
@@ -32,7 +31,7 @@
           {% for each in allComments %}
           <div class="comment-div" id="{each.id}">
 
-            <p class="comment-header">Comment posted on {{each.timePosted}}</p>
+            <p class="comment-header">Comment by {{usertype}} posted on {{each.timePosted}}</p>
             <p class="comment-content">{{each.content}}</p>
             
           </div>

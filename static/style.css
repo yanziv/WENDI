@@ -439,8 +439,7 @@
 
 /*COMMENT APPEARANCE - Room.html***************/
 .comment-div{
-  border-top: solid 1px blue;
-  border-bottom: solid 1px blue;
+  border-bottom: solid 1px black;
   padding: 1em;
 }
 
@@ -465,4 +464,11 @@
 }
 .roomList p{
   margin:0;
+}
+
+
+/*ROOM PAGE APPEARANGE - room.html**************/
+#content{
+  border: solid 1px black;
+  padding:1em;
 }

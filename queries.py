@@ -130,7 +130,7 @@ def show_reviews(conn, roomnum):
     curs = dbi.dict_cursor(conn)
     curs.execute(
         """
-        SELECT room.number as rid, 
+        SELECT uid, room.number as rid, 
         room.description as description, 
         rating, startTime, lengthOfStay, 
         cleanScore, bathroomScore, sizeScore, 
@@ -223,7 +223,7 @@ def get_comments(conn, rid):
         with specified hid and number"""
     curs = dbi.dict_cursor(conn)
     curs.execute('''
-        SELECT content, timePosted FROM comment
+        SELECT uid, content, timePosted FROM comment
         WHERE rid=%s
     ''',[rid])
     return curs.fetchall()
