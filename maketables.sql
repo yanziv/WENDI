@@ -10,13 +10,13 @@ DROP TABLE IF EXISTS `review`;
 DROP TABLE IF EXISTS `room`;
 DROP TABLE IF EXISTS `hall`;
 DROP TABLE IF EXISTS `user`;
+DROP TABLE IF EXISTS `userpass`;
 
 CREATE TABLE `user` (
   `username` VARCHAR(12) NOT NULL PRIMARY KEY,
   `email` VARCHAR(50) NOT NULL,
   `classYear` CHAR(4) NOT NULL,
-  `numReview` INT NOT NULL,
-  `password` VARCHAR(20)
+  `numReview` INT NOT NULL
 )
 ENGINE = InnoDB;
 
@@ -65,7 +65,7 @@ CREATE TABLE `review` (
   `windowScore` FLOAT,
   `noiseScore` FLOAT,
   `comment` VARCHAR(3000),
-  `hasMedia` BOOLEAN,
+  `Media` VARCHAR(50),
   `timePosted` TIMESTAMP,
   FOREIGN KEY (`uid`) REFERENCES `user`(`username`)
         ON UPDATE RESTRICT
@@ -131,3 +131,16 @@ CREATE TABLE `media` (
         ON DELETE RESTRICT
 )
 ENGINE = InnoDB;
+
+create table userpass(
+      uid int auto_increment,
+      username varchar(50) not null,
+      email varchar(50) not null,
+      classYear char(4) not null,
+      hashed char(60),
+      unique(username),
+      index(username),
+      primary key (uid)
+)
+ENGINE = InnoDB;
+

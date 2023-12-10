@@ -417,6 +417,7 @@
   color: #333;
 }
 
+<<<<<<< HEAD
 .comment-div{
   border-top: solid 1px blue;
   border-bottom: solid 1px blue;
@@ -435,3 +436,24 @@
   margin:0;
   padding:0;
 }
+=======
+/* star rating for the review form */
+.star-rating {
+  direction: rtl; /* Right-to-left */
+  display: inline-flex;
+  font-size: 2em;
+}
+.star-rating input[type="radio"] {
+  display: none;
+}
+.star-rating label {
+  color: #333; /* Default star color (empty star) */
+  cursor: pointer;
+  /* font-size: 2em; */
+}
+/* Style for when a radio button is checked (filled star) */
+.star-rating input[type="radio"]:checked ~ label {
+  /* color: #0056b3; Deep blue color for filled star */
+  color:orange
+}
+>>>>>>> 6534ffbdbcef0535d2bb03549a3ebcf884bdc8a3

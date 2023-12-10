@@ -29,7 +29,7 @@
                     <div class="text-wrapper">WENDI</div>
                     <p class="p">Wellesley Evaluation Network for Dorm Information</p>
                 </div>
-                <form action="/login" method="post">
+                <form action="{{ url_for('login') }}" method="post">
                     <div id="usernameContainer" class="username-container" onclick="showUsername()">
                         <input class="frame username-input" type="text" name="username" id="usernameInput" required>
                         <div class="username-placeholder">Username</div>
@@ -40,6 +40,7 @@
                     </div>
                     <div class="div-wrapper">
                         <button type="submit" class="overlap"><div class="text-wrapper-4">LOGIN</div></button>
+                        <a href="{{ url_for('show_join_form') }}" class="overlap"><div class="text-wrapper-4">JOIN</div></a>
                     </div>
                 </form>
             </div>

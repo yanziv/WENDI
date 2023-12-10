@@ -10,12 +10,14 @@ from flask import (
     send_from_directory,
     jsonify,
 )
-from werkzeug.utils import secure_filename
+
 from datetime import datetime
+from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = "uploads"
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024  # 16 MB limit
+
 
 # one or the other of these. Defaults to MySQL (PyMySQL)
 # change comment characters to switch to SQLite
@@ -24,6 +26,7 @@ import cs304dbi as dbi
 
 # import cs304dbi_sqlite3 as dbi
 
+import bcrypt
 import random
 import queries as queries
 
@@ -45,13 +48,6 @@ app.config["TRAP_BAD_REQUEST_ERRORS"] = True
 @app.route("/", methods=["GET", "POST"])
 def index():
     return render_template("login.html", title="Main Page")
-
-
-# THE_QUINT = ["Beebe", "Cazenove", "Monger", "Pomeroy", "Shafer"]
-# TOWER_COMPLEX = ["Claflin", "Lake House", "Severance", "Tower Court"]
-# EAST_SIDE_COMPLEX = ["Bates", "Freeman", "McAfee"]
-# SD_AND_SMALL_HALLS = ["Casa Cervantes", "French House", "Stone-Davis"]
-# ALL_HALLS = THE_QUINT + TOWER_COMPLEX + EAST_SIDE_COMPLEX + SD_AND_SMALL_HALLS
 
 
 @app.route("/browse_all/", methods=["GET", "POST"])
@@ -82,10 +78,12 @@ def review():
     if request.method == "GET":
         return render_template("form.html", dorms=all_dorms)
 
-    else:  # retrieve user input and insert review into wendi_db
+    else:  # POST
+        # 1: retrieve user input and insert review into the review table in wendi_db
         userID = session.get("user_login_id")
         dorm = request.form.get("res-hall") # dorm is the 3-letter dorm encoding
-        rid = request.form.get("rid")
+        room_number = request.form.get("room-num")
+        rid = queries.get_rid_given_hall_and_number(conn,dorm,room_number)
         overallRating = request.form.get("overall")
         startDate = request.form.get("start-date")
         length = request.form.get("length-of-stay")
@@ -100,11 +98,11 @@ def review():
         window = request.form.get("window")
         noise = request.form.get("noise")
         comments = request.form.get("comments")
-        hasMedia = "1"  # HARD-CODE THIS TO BE 1, REMEMBER TO UPDATE ONCE UPLOAD IS IMPLEMENTED
+        hasMedia = False # Initialize hasMedia to False
         submission_time = datetime.now()
 
-        # insert review into wendi_db
-        queries.insert_review(
+        # insert review into wendi_db and get review_id
+        review_id = queries.insert_review(
             conn,
             userID,
             rid,
@@ -125,9 +123,28 @@ def review():
             hasMedia,
             submission_time,
         )
-        flash("Thank you for submitting a review!")
-        return redirect(url_for("room", hid=dorm, number=rid))
 
+        # check uploaded files
+        try:
+            # session_id = int(session['id'])
+            files = request.files.getlist('roomMedia')
+            
+            for file in files:
+                if file and allowed_file(file.filename): # check if extension is allowed
+                    # hasMedia = True  # Set hasMedia to True as a valid file is found
+                    filename = secure_filename(file.filename)
+                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+                    # Insert each file's information into the media table
+                    media_url = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                    queries.insert_media(conn, media_url, userID, review_id, cid=None)  # Assuming review_id is available
+
+            flash("Thank you for submitting a review!")
+            return redirect(url_for('room',hid=dorm,number=room_number))
+
+        except Exception as err:
+            flash('Upload failed {why}'.format(why=err))
+            return render_template('form.html')
 
 def allowed_file(filename):
     """
@@ -147,30 +164,38 @@ def dorm(hid):
     conn = dbi.connect()
     print("hid: " + str(hid))
 
-    filterContent = queries.get_room_types(conn, hid) # dropdown menu's values for all the room types
+    filterContent = queries.get_room_types(
+        conn, hid
+    )  # dropdown menu's values for all the room types
     print("filterContent ==== " + str(filterContent))
     if request.method == "POST":
         print("request.method ===== POST")
-        
+
         roomsList = queries.show_rooms(conn, hid)
-        return render_template("dorm.html", dorm=roomsList, dormname=hid, filterContent=filterContent)
+        return render_template(
+            "dorm.html", dorm=roomsList, dormname=hid, filterContent=filterContent
+        )
     else:
         print("request.method ===== GET")
 
         answer = request.args.get("room-type")
         print("room-type: " + str(answer))
-        
+
         if answer == "All" or answer == None:
             filteredRooms = queries.show_rooms(conn, hid)
             answer = "All"
         else:
             filteredRooms = queries.sort_rooms_by(conn, hid, answer)
-        #print(filteredRooms)
-        
-        #print("roomList: " + str(roomsList))
-        return render_template("dorm.html", dorm=filteredRooms, dormname=hid, filterContent=filterContent, filterType=answer)
-    
-    
+        # print(filteredRooms)
+
+        # print("roomList: " + str(roomsList))
+        return render_template(
+            "dorm.html",
+            dorm=filteredRooms,
+            dormname=hid,
+            filterContent=filterContent,
+            filterType=answer,
+        )
 
 
 @app.route("/dorm/<hid>/room/<number>", methods=["GET","POST"])
@@ -202,20 +227,34 @@ def room(hid, number):
         return redirect(url_for('room', hid=hid, number=number))
 
 
-@app.route("/login/", methods=["GET", "POST"])
+@app.route("/login/", methods=["POST"])
 def login():
-    if request.method == "GET":
-        return render_template("login.html", title="Login Page")
+    username = request.form.get("username")
+    passwd = request.form.get("password")
+    conn = dbi.connect()
+    curs = dbi.dict_cursor(conn)
+    curs.execute("SELECT uid,hashed FROM userpass WHERE username = %s", [username])
+    row = curs.fetchone()
+    if row is None:
+        # Same response as wrong password,
+        # so no information about what went wrong
+        flash("login incorrect. Try again or join")
+        return redirect(url_for("index"))
+    stored = row["hashed"]
+    print("database has stored: {} {}".format(stored, type(stored)))
+    print("form supplied passwd: {} {}".format(passwd, type(passwd)))
+    hashed2 = bcrypt.hashpw(passwd.encode("utf-8"), stored.encode("utf-8"))
+    hashed2_str = hashed2.decode("utf-8")
+    print("rehash is: {} {}".format(hashed2_str, type(hashed2_str)))
+    if hashed2_str == stored:
+        session["username"] = username
+        session["uid"] = row["uid"]
+        session["logged_in"] = True
+        session["visits"] = 1
+        return redirect(url_for("landing", username=username))
     else:
-        username = request.form.get("username")
-        password = request.form.get("password")
-
-        if queries.authenticate_user(username, password):
-            # User authenticated successfully, store their username in the session
-            session["user_login_id"] = username
-            return redirect(url_for("landing"))
-        else:
-            return redirect(url_for("index"))
+        flash("login incorrect. Try again or join")
+        return redirect(url_for("index"))
 
 
 @app.route("/search", methods=["POST"])
@@ -230,25 +269,56 @@ def search():
     return jsonify({"individual": results_individual, "combined": results_combined})
 
 
-@app.route("/formecho/", methods=["GET", "POST"])
-def formecho():
-    if request.method == "GET":
-        return render_template(
-            "form_data.html", method=request.method, form_data=request.args
-        )
-    elif request.method == "POST":
-        return render_template(
-            "form_data.html", method=request.method, form_data=request.form
-        )
-    else:
-        # maybe PUT?
-        return render_template("form_data.html", method=request.method, form_data={})
+@app.route("/join", methods=["GET"])
+def show_join_form():
+    return render_template("join.html")
 
 
-@app.route("/testform/")
-def testform():
-    # these forms go to the formecho route
-    return render_template("testform.html")
+# Update the registration route in your Flask application
+
+
+@app.route("/register", methods=["POST"])
+def register():
+    if request.method == "POST":
+        username = request.form.get("username")
+        email = request.form.get("email")
+        classYear = request.form.get("classYear")
+        password = request.form.get("password")
+
+        # Hash the password using bcrypt
+        hashed_password = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
+
+        # Convert the hashed password to a string for storage
+        hashed_password_str = hashed_password.decode("utf-8")
+
+        # Connect to the database
+        conn = dbi.connect()
+        curs = dbi.dict_cursor(conn)
+
+        try:
+            # Check if the username already exists
+            curs.execute(
+                "SELECT * FROM userpass WHERE username = %s",
+                [username],
+            )
+            row = curs.fetchone()
+            if row is None:
+                # If the username is not taken, insert the new user into the database
+                curs.execute(
+                    "INSERT INTO userpass(uid, username, email, classYear, hashed) VALUES(null, %s, %s, %s, %s)",
+                    [username, email, classYear, hashed_password_str],
+                )
+                conn.commit()
+                flash("Registration successful! You can now log in.")
+                return redirect(url_for("login"))
+            else:
+                flash("Sorry; that username is taken")
+        except Exception as err:
+            print("Something went wrong", repr(err))
+            flash("An error occurred during registration. Please try again.")
+
+    # Redirect to the show_join_form route for GET requests
+    return redirect(url_for("show_join_form"))
 
 # @app.route("/addcomment/", methods=["POST"])
 # def addcomment():
