@@ -1,7 +1,6 @@
 import cs304dbi as dbi
 from flask import flash
 
-<<<<<<< HEAD
 # def upload_review_media(conn):
 #     """
 #     Uploads media to the table for room reviews.
@@ -11,8 +10,6 @@ from flask import flash
 #                     on duplicate key update media = %s''',
 #                     [nm, filename, filename])
 #     conn.commit()
-=======
->>>>>>> a0dc733c3d2a07ab545c5512a3882577bcee0b30
 
 def get_all_dorms(conn):
     """
@@ -25,7 +22,6 @@ def get_all_dorms(conn):
     )
     return curs.fetchall()
 
-<<<<<<< HEAD
 def get_rid_given_hall_and_number(conn,hall,number):
     """
     Returns room id (id in the room table) given the 3-letter
@@ -41,10 +37,6 @@ def get_rid_given_hall_and_number(conn,hall,number):
 
 
 def get_hid_given_hall_name(conn,hall_name):
-=======
-
-def get_hid_given_hall_name(conn, hall_name):
->>>>>>> a0dc733c3d2a07ab545c5512a3882577bcee0b30
     """
     Returns the three-letter encoding hid of a given residential hall.
     """

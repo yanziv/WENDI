@@ -81,14 +81,9 @@ def review():
     else:  # POST
         # 1: retrieve user input and insert review into the review table in wendi_db
         userID = session.get("user_login_id")
-<<<<<<< HEAD
         dorm = request.form.get("res-hall") # dorm is the 3-letter dorm encoding
         room_number = request.form.get("room-num")
         rid = queries.get_rid_given_hall_and_number(conn,dorm,room_number)
-=======
-        dorm = request.form.get("res-hall")  # dorm is the 3-letter dorm encoding
-        rid = request.form.get("rid")
->>>>>>> a0dc733c3d2a07ab545c5512a3882577bcee0b30
         overallRating = request.form.get("overall")
         startDate = request.form.get("start-date")
         length = request.form.get("length-of-stay")
@@ -103,13 +98,7 @@ def review():
         window = request.form.get("window")
         noise = request.form.get("noise")
         comments = request.form.get("comments")
-<<<<<<< HEAD
         # hasMedia = "1"  # HARD-CODE THIS TO BE 1, REMEMBER TO UPDATE ONCE UPLOAD IS IMPLEMENTED
-=======
-        hasMedia = (
-            "1"  # HARD-CODE THIS TO BE 1, REMEMBER TO UPDATE ONCE UPLOAD IS IMPLEMENTED
-        )
->>>>>>> a0dc733c3d2a07ab545c5512a3882577bcee0b30
         submission_time = datetime.now()
 
         # insert review into wendi_db
@@ -147,7 +136,7 @@ def review():
 
                     # Insert each file's information into the media table
                     media_url = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                    queries.insert_media(conn, media_url, userID, review_id, comment_id=None)  # Assuming review_id is available
+                    # queries.insert_media(conn, media_url, userID, review_id, comment_id=None)  # Assuming review_id is available
                     return redirect(url_for("room", hid=dorm, number=rid))
            
             else: 
