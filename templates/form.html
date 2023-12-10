@@ -4,14 +4,16 @@
 
 <!-- the following is a Javascript function that updates the text based on the slider's value.-->
 <script>
+    // this function updates the text to show current val of the slider
     function updateSliderValue(value, outputId) {
         document.getElementById(outputId).innerText = value;
     }
+
 </script>
     
 <h1>Room Review</h1>
 
-<form method="POST" action="{{ url_for('review') }}" enctype="multipart/form-data">
+<form method="POST" action="{{ url_for('review') }}" enctype="multipart/form-data" onsubmit="return validateForm()">
 
     <fieldset>
         <legend>Leave A Room Review Below</legend>
@@ -51,111 +53,149 @@
 
             <tr>
                 <td style="padding-top: 30px;">
-                The questions below are designed to rate various aspects of your room. 
-                Please use the slider to indicate your level of satisfaction. <strong>0 means complete 
-                dissatisfaction and 5 means complete satisfaction.</strong> Please leave a rating for
-                each aspect of your room, score 0 will be recorded if no change is made to the slider.
+                    The questions below are designed to rate various aspects of your room. 
+                    Please use the star rating system to indicate your level of satisfaction. 
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-top: 5px;">
+                    <strong>1 star represents complete dissatisfaction and 5 stars represent complete satisfaction.
+                    Please leave a rating for each aspect of your room; you will not be able to submit the form without leaving a rating.</strong>
                 </td>
             </tr>
             <tr>
                 <td><label for="overall">Overall Rating of the Room:</label></td>
                 <td>
-                    <div class="slider">
-                        <input type="range" min="0" max="5" value="0" id="overallSlider" name="overall" oninput="updateSliderValue(this.value,'overallValue')" required>
-                        <p id="overallValue">0</p>
+                    <div class="star-rating">
+                        <input type="radio" id="overall-5" name="overall" value="5" required><label for="overall-5">☆</label>
+                        <input type="radio" id="overall-4" name="overall" value="4" required><label for="overall-4">☆</label>
+                        <input type="radio" id="overall-3" name="overall" value="3" required><label for="overall-3">☆</label>
+                        <input type="radio" id="overall-2" name="overall" value="2" required><label for="overall-2">☆</label>
+                        <input type="radio" id="overall-1" name="overall" value="1" required><label for="overall-1">☆</label>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td><label for="size">Room Size:</label></td>
                 <td>
-                    <div class="slider">
-                        <input type="range" min="0" max="5" value="0" id="sizeSlider" name="size" oninput="updateSliderValue(this.value,'sizeValue')" required>
-                        <p id="sizeValue">0</p>
+                    <div class="star-rating">
+                        <input type="radio" id="size-5" name="size" value="5" required><label for="size-5">☆</label>
+                        <input type="radio" id="size-4" name="size" value="4" required><label for="size-4">☆</label>
+                        <input type="radio" id="size-3" name="size" value="3" required><label for="size-3">☆</label>
+                        <input type="radio" id="size-2" name="size" value="2" required><label for="size-2">☆</label>
+                        <input type="radio" id="size-1" name="size" value="1" required><label for="size-1">☆</label>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td><label for="storage">Storage Space:</label></td>
                 <td>
-                    <div class="slider">
-                        <input type="range" min="0" max="5" value="0" id="storageSlider" name="storage" oninput="updateSliderValue(this.value,'storageValue')" required>
-                        <p id="storageValue">0</p>
+                    <div class="star-rating">
+                        <input type="radio" id="storage-5" name="storage" value="5" required><label for="storage-5">☆</label>
+                        <input type="radio" id="storage-4" name="storage" value="4" required><label for="storage-4">☆</label>
+                        <input type="radio" id="storage-3" name="storage" value="3" required><label for="storage-3">☆</label>
+                        <input type="radio" id="storage-2" name="storage" value="2" required><label for="storage-2">☆</label>
+                        <input type="radio" id="storage-1" name="storage" value="1" required><label for="storage-1">☆</label>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td><label for="ventilation">Ventilation:</label></td>
                 <td>
-                    <div class="slider">
-                        <input type="range" min="0" max="5" value="0" id="ventilationSlider" name="ventilation" oninput="updateSliderValue(this.value,'ventilationValue')" required>
-                        <p id="ventilationValue">0</p>
+                    <div class="star-rating">
+                        <input type="radio" id="ventilation-5" name="ventilation" value="5" required><label for="ventilation-5">☆</label>
+                        <input type="radio" id="ventilation-4" name="ventilation" value="4" required><label for="ventilation-4">☆</label>
+                        <input type="radio" id="ventilation-3" name="ventilation" value="3" required><label for="ventilation-3">☆</label>
+                        <input type="radio" id="ventilation-2" name="ventilation" value="2" required><label for="ventilation-2">☆</label>
+                        <input type="radio" id="ventilation-1" name="ventilation" value="1" required><label for="ventilation-1">☆</label>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td><label for="cleanliness">Hall Cleanliness:</label></td>
                 <td>
-                    <div class="slider">
-                        <input type="range" min="0" max="5" value="0" id="cleanlinessSlider" name="cleanliness" oninput="updateSliderValue(this.value,'cleanlinessValue')" required>
-                        <p id="cleanlinessValue">0</p>
+                    <div class="star-rating">
+                        <input type="radio" id="cleanliness-5" name="cleanliness" value="5" required><label for="cleanliness-5">☆</label>
+                        <input type="radio" id="cleanliness-4" name="cleanliness" value="4" required><label for="cleanliness-4">☆</label>
+                        <input type="radio" id="cleanliness-3" name="cleanliness" value="3" required><label for="cleanliness-3">☆</label>
+                        <input type="radio" id="cleanliness-2" name="cleanliness" value="2" required><label for="cleanliness-2">☆</label>
+                        <input type="radio" id="cleanliness-1" name="cleanliness" value="1" required><label for="cleanliness-1">☆</label>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td><label for="bathroom">Bathroom Nearest to Your Room:</label></td>
                 <td>
-                    <div class="slider">
-                        <input type="range" min="0" max="5" value="0" id="bathroomSlider" name="bathroom" oninput="updateSliderValue(this.value,'bathroomValue')" required>
-                        <p id="bathroomValue">0</p>
+                    <div class="star-rating">
+                        <input type="radio" id="bathroom-5" name="bathroom" value="5" required><label for="bathroom-5">☆</label>
+                        <input type="radio" id="bathroom-4" name="bathroom" value="4" required><label for="bathroom-4">☆</label>
+                        <input type="radio" id="bathroom-3" name="bathroom" value="3" required><label for="bathroom-3">☆</label>
+                        <input type="radio" id="bathroom-2" name="bathroom" value="2" required><label for="bathroom-2">☆</label>
+                        <input type="radio" id="bathroom-1" name="bathroom" value="1" required><label for="bathroom-1">☆</label>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td><label for="accessibility">Accessibility:</label></td>
                 <td>
-                    <div class="slider">
-                        <input type="range" min="0" max="5" value="0" id="accessibilitySlider" name="accessibility" oninput="updateSliderValue(this.value,'accessibilityValue')" required>
-                        <p id="accessibilityValue">0</p>
+                    <div class="star-rating">
+                        <input type="radio" id="accessibility-5" name="accessibility" value="5" required><label for="accessibility-5">☆</label>
+                        <input type="radio" id="accessibility-4" name="accessibility" value="4" required><label for="accessibility-4">☆</label>
+                        <input type="radio" id="accessibility-3" name="accessibility" value="3" required><label for="accessibility-3">☆</label>
+                        <input type="radio" id="accessibility-2" name="accessibility" value="2" required><label for="accessibility-2">☆</label>
+                        <input type="radio" id="accessibility-1" name="accessibility" value="1" required><label for="accessibility-1">☆</label>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td><label for="sunlight">Sunlight:</label></td>
                 <td>
-                    <div class="slider">
-                        <input type="range" min="0" max="5" value="0" id="sunlightSlider" name="sunlight" oninput="updateSliderValue(this.value,'sunlightValue')" required>
-                        <p id="sunlightValue">0</p>
+                    <div class="star-rating">
+                        <input type="radio" id="sunlight-5" name="sunlight" value="5" required><label for="sunlight-5">☆</label>
+                        <input type="radio" id="sunlight-4" name="sunlight" value="4" required><label for="sunlight-4">☆</label>
+                        <input type="radio" id="sunlight-3" name="sunlight" value="3" required><label for="sunlight-3">☆</label>
+                        <input type="radio" id="sunlight-2" name="sunlight" value="2" required><label for="sunlight-2">☆</label>
+                        <input type="radio" id="sunlight-1" name="sunlight" value="1" required><label for="sunlight-1">☆</label>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td><label for="bugs">Bug Issues (5 means no bug issues):</label></td>
                 <td>
-                    <div class="slider">
-                        <input type="range" min="0" max="5" value="0" id="bugsSlider" name="bugs" oninput="updateSliderValue(this.value,'bugsValue')" required>
-                        <p id="bugsValue">0</p>
+                    <div class="star-rating">
+                        <input type="radio" id="bugs-5" name="bugs" value="5" required><label for="bugs-5">☆</label>
+                        <input type="radio" id="bugs-4" name="bugs" value="4" required><label for="bugs-4">☆</label>
+                        <input type="radio" id="bugs-3" name="bugs" value="3" required><label for="bugs-3">☆</label>
+                        <input type="radio" id="bugs-2" name="bugs" value="2" required><label for="bugs-2">☆</label>
+                        <input type="radio" id="bugs-1" name="bugs" value="1" required><label for="bugs-1">☆</label>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td><label for="window">Window(s):</label></td>
                 <td>
-                    <div class="slider">
-                        <input type="range" min="0" max="5" value="0" id="windowSlider" name="window" oninput="updateSliderValue(this.value,'windowValue')" required>
-                        <p id="windowValue">0</p>
+                    <div class="star-rating">
+                        <input type="radio" id="window-5" name="window" value="5" required><label for="window-5">☆</label>
+                        <input type="radio" id="window-4" name="window" value="4" required><label for="window-4">☆</label>
+                        <input type="radio" id="window-3" name="window" value="3" required><label for="window-3">☆</label>
+                        <input type="radio" id="window-2" name="window" value="2" required><label for="window-2">☆</label>
+                        <input type="radio" id="window-1" name="window" value="1" required><label for="window-1">☆</label>
                     </div>
                 </td>
             </tr>
             <tr>
                 <td><label for="noise">Noise:</label></td>
                 <td>
-                    <div class="slider">
-                        <input type="range" min="0" max="5" value="0" id="noiseSlider" name="noise" oninput="updateSliderValue(this.value,'noiseValue')" required>
-                        <p id="noiseValue">0</p>
+                    <div class="star-rating">
+                        <input type="radio" id="noise-5" name="noise" value="5" required><label for="noise-5">☆</label>
+                        <input type="radio" id="noise-4" name="noise" value="4" required><label for="noise-4">☆</label>
+                        <input type="radio" id="noise-3" name="noise" value="3" required><label for="noise-3">☆</label>
+                        <input type="radio" id="noise-2" name="noise" value="2" required><label for="noise-2">☆</label>
+                        <input type="radio" id="noise-1" name="noise" value="1" required><label for="noise-1">☆</label>
                     </div>
                 </td>
             </tr>
+            
             <tr>
                 <td><label for="comments">Comments About This Room:</label></td>
                 <td>

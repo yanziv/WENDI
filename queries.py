@@ -1,15 +1,15 @@
 import cs304dbi as dbi
 from flask import flash
 
-# def upload_review_media(conn):
-#     """
-#     Uploads media to the table for room reviews.
-#     """
-#     curs = dbi.dict_cursor(conn)
-#     curs.execute('''insert into reivew(id,media) values (%s,%s)
-#                     on duplicate key update media = %s''',
-#                     [nm, filename, filename])
-#     conn.commit()
+def insert_media(conn,url,uid,rid,cid):
+    """
+    Uploads media to the table for room reviews.
+    """
+    curs = dbi.dict_cursor(conn)
+    curs.execute("""insert into media(url,uid,rid,cid) 
+                    values (%s,%s,%s,%s)""",
+                    [url,uid,rid,cid])
+    conn.commit()
 
 def get_all_dorms(conn):
     """
@@ -72,7 +72,8 @@ def insert_review(
     timePosted,
 ):
     """
-    Insert user review into the review table in wendi_db.
+    Insert user review into the review table in wendi_db 
+    and return the review_id.
     """
     curs = dbi.dict_cursor(conn)
     curs.execute(
@@ -104,7 +105,11 @@ def insert_review(
             timePosted,
         ],
     )
+    # Retrieve the last insert id
+    curs.execute("select last_insert_id()")
+    row = curs.fetchone()
     conn.commit()
+    return row['last_insert_id()']
 
 
 def show_rooms(conn, hall_id):

@@ -98,11 +98,11 @@ def review():
         window = request.form.get("window")
         noise = request.form.get("noise")
         comments = request.form.get("comments")
-        # hasMedia = "1"  # HARD-CODE THIS TO BE 1, REMEMBER TO UPDATE ONCE UPLOAD IS IMPLEMENTED
+        hasMedia = False # Initialize hasMedia to False
         submission_time = datetime.now()
 
-        # insert review into wendi_db
-        queries.insert_review(
+        # insert review into wendi_db and get review_id
+        review_id = queries.insert_review(
             conn,
             userID,
             rid,
@@ -120,29 +120,28 @@ def review():
             window,
             noise,
             comments,
-            # hasMedia,
+            hasMedia,
             submission_time,
         )
-        flash("Thank you for submitting a review!")
 
-        # 2: upload media into the media table
+        # check uploaded files
         try:
-            session_id = int(session['id'])
+            # session_id = int(session['id'])
             files = request.files.getlist('roomMedia')
+            
             for file in files:
                 if file and allowed_file(file.filename): # check if extension is allowed
+                    # hasMedia = True  # Set hasMedia to True as a valid file is found
                     filename = secure_filename(file.filename)
                     file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
                     # Insert each file's information into the media table
                     media_url = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                    # queries.insert_media(conn, media_url, userID, review_id, comment_id=None)  # Assuming review_id is available
-                    return redirect(url_for("room", hid=dorm, number=rid))
-           
-            else: 
-                flash('Sorry, your session has expired. Please log in to fill out the review form again.')
-                redirect(url_for('login'))
-        
+                    queries.insert_media(conn, media_url, userID, review_id, cid=None)  # Assuming review_id is available
+
+            flash("Thank you for submitting a review!")
+            return redirect(url_for('room',hid=dorm,number=room_number))
+
         except Exception as err:
             flash('Upload failed {why}'.format(why=err))
             return render_template('form.html')
