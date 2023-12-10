@@ -1,7 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
+    <title>WENDI Login</title>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
     <script>
         function showUsername() {
@@ -9,7 +11,7 @@
             var usernameInput = document.getElementById('usernameInput');
             usernameContainer.classList.add('active');
             usernameInput.focus();
-}
+        }
 
         function showPassword() {
             var passwordContainer = document.getElementById('passwordContainer');
@@ -20,31 +22,42 @@
         }
     </script>
 </head>
-<body>
+
+<body id="login">
     <div class="login-page">
-        <div class="group-wrapper">
-            <div class="group">
-                <img class="rectangle" src="{{ url_for('static', filename='media/login/wellesleylogo.png') }}">
-                <div class="div">
-                    <div class="text-wrapper">WENDI</div>
-                    <p class="p">Wellesley Evaluation Network for Dorm Information</p>
-                </div>
-                <form action="{{ url_for('login') }}" method="post">
-                    <div id="usernameContainer" class="username-container" onclick="showUsername()">
-                        <input class="frame username-input" type="text" name="username" id="usernameInput" required>
-                        <div class="username-placeholder">Username</div>
-                    </div>                    
-                    <div id="passwordContainer" class="password-container" onclick="showPassword()">
-                        <input class="frame password-input" type="password" name="password" id="passwordInput" required>
-                        <div class="password-placeholder">Password</div>	
-                    </div>
-                    <div class="div-wrapper">
-                        <button type="submit" class="overlap"><div class="text-wrapper-4">LOGIN</div></button>
-                        <a href="{{ url_for('join') }}" class="overlap"><div class="text-wrapper-4">JOIN</div></a>
-                    </div>
-                </form>
-            </div>
+        <img class="logo-image" src="{{ url_for('static', filename='media/login/wellesleylogo.png') }}">
+        <div>
+            <div id="WENDI-text">WENDI</div>
+            <div id="WENDI-fullname">Wellesley Evaluation Network for Dorm Information</p>
         </div>
+
+        {% with messages = get_flashed_messages() %}
+        <div class="flash_msg">
+            {% for m in messages %}
+            <div class="alert">{{ m }}</div>
+            {% endfor %}
+        </div>
+        {% endwith %}
+
+        <form action="{{ url_for('login') }}" method="post">
+            <div class="field-container">
+                <div id="usernameContainer" class="username-container" onclick="showUsername()">
+                    <input class="username-input" type="text" name="username" id="usernameInput" required>
+                    <div class="username-placeholder">Username</div>
+                </div>
+                <div id="passwordContainer" class="password-container" onclick="showPassword()">
+                    <input class="password-input" type="password" name="password" id="passwordInput" required>
+                    <div class="password-placeholder">Password</div>
+                </div>
+            </div>
+            <div class="login-buttons">
+                <button type="submit" class="overlap">
+                    <div class="text">LOGIN</div>
+                </button>
+                <a href="{{ url_for('join') }}" class="join-link">Join / Set Up Account</a>
+            </div>
+        </form>
     </div>
 </body>
+
 </html>

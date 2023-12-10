@@ -46,7 +46,7 @@ app.config["TRAP_BAD_REQUEST_ERRORS"] = True
 
 
 @app.route("/", methods=["GET", "POST"])
-def index():
+def index(): 
     return render_template("login.html", title="Main Page")
 
 
