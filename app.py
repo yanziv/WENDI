@@ -70,6 +70,36 @@ def landing():
             return render_template('landing.html')
 
 
+@app.route("/login/", methods=["POST"])
+def login():
+    username = request.form.get("username")
+    passwd = request.form.get("password")
+    conn = dbi.connect()
+    curs = dbi.dict_cursor(conn)
+    curs.execute("SELECT uid,hashed FROM userpass WHERE username = %s", [username])
+    row = curs.fetchone()
+    if row is None:
+        # Same response as wrong password,
+        # so no information about what went wrong
+        flash("login incorrect. Try again or join")
+        return redirect(url_for("index"))
+    stored = row["hashed"]
+    print("database has stored: {} {}".format(stored, type(stored)))
+    print("form supplied passwd: {} {}".format(passwd, type(passwd)))
+    hashed2 = bcrypt.hashpw(passwd.encode("utf-8"), stored.encode("utf-8"))
+    hashed2_str = hashed2.decode("utf-8")
+    print("rehash is: {} {}".format(hashed2_str, type(hashed2_str)))
+    if hashed2_str == stored:
+        session["username"] = username
+        session["uid"] = row["uid"]
+        session["logged_in"] = True
+        session["visits"] = 1
+        return redirect(url_for("landing", username=username))
+    else:
+        flash("login incorrect. Try again or join")
+        return redirect(url_for("index"))
+
+
 @app.route("/review/", methods=["GET", "POST"])
 def review():
     conn = dbi.connect()
@@ -79,7 +109,7 @@ def review():
 
     else:  # POST
         # 1: retrieve user input and insert review into the review table in wendi_db
-        userID = session.get("user_login_id")
+        userID = session.get("uid")
         dorm = request.form.get("res-hall") # dorm is the 3-letter dorm encoding
         room_number = request.form.get("room-num")
         rid = queries.get_rid_given_hall_and_number(conn,dorm,room_number)
@@ -124,23 +154,23 @@ def review():
         )
 
         # check uploaded files
-        try:
-            # session_id = int(session['id'])
-            files = request.files.getlist('roomMedia')
+        # try:
+        #     # session_id = int(session['id'])
+        #     files = request.files.getlist('roomMedia')
             
-            for file in files:
-                if file and allowed_file(file.filename): # check if extension is allowed
-                    # hasMedia = True  # Set hasMedia to True as a valid file is found
-                    filename = secure_filename(file.filename)
-                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        #     for file in files:
+        #         if file and allowed_file(file.filename): # check if extension is allowed
+        #             # hasMedia = True  # Set hasMedia to True as a valid file is found
+        #             filename = secure_filename(file.filename)
+        #             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-                    # Insert each file's information into the media table
-                    media_url = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                    queries.insert_media(conn, media_url, userID, review_id, cid=None)  # Assuming review_id is available
+        #             # Insert each file's information into the media table
+        #             media_url = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        #             queries.insert_media(conn, media_url, userID, review_id, cid=None)  # Assuming review_id is available
 
-        except Exception as err:
-            flash('Upload failed {why}'.format(why=err))
-            return render_template('form.html')
+        # except Exception as err:
+        #     flash('Upload failed {why}'.format(why=err))s
+        #     return render_template('form.html')
 
         flash("Thank you for submitting a review!")
         return redirect(url_for('room',hid=dorm,number=room_number))
@@ -224,36 +254,6 @@ def room(hid, number):
         
 
         return redirect(url_for('room', hid=hid, number=number))
-
-
-@app.route("/login/", methods=["POST"])
-def login():
-    username = request.form.get("username")
-    passwd = request.form.get("password")
-    conn = dbi.connect()
-    curs = dbi.dict_cursor(conn)
-    curs.execute("SELECT uid,hashed FROM userpass WHERE username = %s", [username])
-    row = curs.fetchone()
-    if row is None:
-        # Same response as wrong password,
-        # so no information about what went wrong
-        flash("login incorrect. Try again or join")
-        return redirect(url_for("index"))
-    stored = row["hashed"]
-    print("database has stored: {} {}".format(stored, type(stored)))
-    print("form supplied passwd: {} {}".format(passwd, type(passwd)))
-    hashed2 = bcrypt.hashpw(passwd.encode("utf-8"), stored.encode("utf-8"))
-    hashed2_str = hashed2.decode("utf-8")
-    print("rehash is: {} {}".format(hashed2_str, type(hashed2_str)))
-    if hashed2_str == stored:
-        session["username"] = username
-        session["uid"] = row["uid"]
-        session["logged_in"] = True
-        session["visits"] = 1
-        return redirect(url_for("landing", username=username))
-    else:
-        flash("login incorrect. Try again or join")
-        return redirect(url_for("index"))
 
 
 @app.route("/search", methods=["POST"])
