@@ -79,7 +79,7 @@ def review():
 
     else:  # POST
         # 1: retrieve user input and insert review into the review table in wendi_db
-        userID = session.get("user_login_id")
+        userID = session.get("uid")
         dorm = request.form.get("res-hall")  # dorm is the 3-letter dorm encoding
         room_number = request.form.get("room-num")
         rid = queries.get_rid_given_hall_and_number(conn, dorm, room_number)
@@ -206,60 +206,37 @@ def dorm(hid):
 def room(hid, number):
     conn = dbi.connect()
     reviewList = queries.show_reviews(conn, number)
-<<<<<<< HEAD
     print("reviewList: " + str(reviewList))
-    #change later
-    uid = 'el110'
+
+    uid = queries.get_username(conn,session.get('uid'))
+
+    print("SESSION UID========" + str(session.get("uid")))
+    print("USERNAME======"+str(uid))
 
     rid = queries.get_roomid(conn,hid,number)['id']
-=======
-
-    rid = queries.get_roomid(conn, hid, number)["id"]
->>>>>>> 7b7c6de06a2236457da8dc4dd6b85e19ce155779
-    print("reviewList: " + str(reviewList))
 
     if request.method == "GET":
         allComments = queries.get_comments(conn, rid)
-<<<<<<< HEAD
         
-
         if uid == reviewList[0]['uid']:
             commenterType = "Reviewer"
         else:
             commenterType = "Commenter"
 
-        return render_template("room.html", reviews=reviewList, 
-        dormname=hid, number=number, allComments=allComments,
-        usertype=commenterType)
-=======
         return render_template(
             "room.html",
             reviews=reviewList,
             dormname=hid,
             number=number,
             allComments=allComments,
+            usertype=commenterType
         )
->>>>>>> 7b7c6de06a2236457da8dc4dd6b85e19ce155779
     elif request.method == "POST":
         comment = request.form.get("comments")
-
-        print(rid)
-        print(comment)
-
-<<<<<<< HEAD
-    
-
-        queries.insert_comment(conn, uid, rid, comment)
-        
-        return redirect(url_for('room', hid=hid, number=number))
-=======
-        # change later
-        uid = "el110"
-
+        uid = uid['username']
         queries.insert_comment(conn, uid, rid, comment)
 
         return redirect(url_for("room", hid=hid, number=number))
->>>>>>> 7b7c6de06a2236457da8dc4dd6b85e19ce155779
 
 
 @app.route("/login/", methods=["GET", "POST"])

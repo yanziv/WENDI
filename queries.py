@@ -227,3 +227,13 @@ def get_comments(conn, rid):
         WHERE rid=%s
     ''',[rid])
     return curs.fetchall()
+
+def get_username(conn, sessionUid):
+    """returns username of user with corresponding
+        session uid"""
+    curs = dbi.dict_cursor(conn)
+    curs.execute("""
+        SELECT username from userpass
+        WHERE uid=%s    
+    """,[sessionUid])
+    return curs.fetchone()
