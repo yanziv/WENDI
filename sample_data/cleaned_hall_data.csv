@@ -1,21 +1,21 @@
-id,name,mediaFilepath,toQuad,toGym,toDining,toSci,toShuttle,toLulu,toParking
-MUN,Munger,,5,5,7,10,5,5,5
-TCW,Tower Court West,,5,10,0,15,5,5,5
-FHC,French House,,0,0,0,0,0,0,0
-POM,Pomeroy,,5,5,5,12,3,3,3
-CED,Cedar Lodge,,,,,,,,
-DOW,Dower,,12,17,0,5,5,15,15
-CAZ,Cazenove,,5,10,0,15,5,5,5
-MCA,McAfee,,12,17,0,5,5,15,15
-CER,Casa Cervantes,,5,10,0,15,5,5,5
-LAK,Lake House,,5,10,0,15,5,5,5
-SEV,Severance,,5,10,0,15,5,5,5
-SHA,Shafer,,5,5,5,12,3,3,3
-BEB,Beebe,,5,5,5,12,3,3,3
-DAV,Davis,,10,17,0,5,3,15,15
-TCE,Tower Court East,,5,10,0,15,5,5,5
-BAT,Bates,,12,17,0,5,5,15,15
-FHM,French House,,20,20,20,20,20,20,20
-FRE,Freeman,,12,17,0,5,5,15,15
-STO,Stone,,10,17,0,5,3,15,15
-CLA,Claflin,,5,10,0,15,5,5,5
+id,name,complex,mediaFilepath,toQuad,toGym,toDining,toSci,toShuttle,toLulu,toParking
+MUN,Munger,The Quint,,5,5,7,10,5,5,5
+TCW,Tower Court West,Tower Court,,5,10,0,15,5,5,5
+FHC,French House,Stone-Davis and Small Halls,,0,0,0,0,0,0,0
+POM,Pomeroy,The Quint,,5,5,5,12,3,3,3
+CED,Cedar Lodge,,,,,,,,,
+DOW,Dower,,,12,17,0,5,5,15,15
+CAZ,Cazenove,The Quint,,5,10,0,15,5,5,5
+MCA,McAfee,East Side Complex,,12,17,0,5,5,15,15
+CER,Casa Cervantes,Stone-Davis and Small Complex,,5,10,0,15,5,5,5
+LAK,Lake House,Tower Complex,,5,10,0,15,5,5,5
+SEV,Severance,Tower Complex,,5,10,0,15,5,5,5
+SHA,Shafer,The Quint,,5,5,5,12,3,3,3
+BEB,Beebe,The Quint,,5,5,5,12,3,3,3
+DAV,Davis,Stone-Davis and Small Halls,,10,17,0,5,3,15,15
+TCE,Tower Court East,Tower Complex,,5,10,0,15,5,5,5
+BAT,Bates,East Side Complex,,12,17,0,5,5,15,15
+FHM,French House,Stone-Davis and Small Halls,,20,20,20,20,20,20,20
+FRE,Freeman,East Side Complex,,12,17,0,5,5,15,15
+STO,Stone,Stone-Davis and Small Halls,,10,17,0,5,3,15,15
+CLA,Claflin,Tower Complex,,5,10,0,15,5,5,5

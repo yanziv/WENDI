@@ -23,6 +23,7 @@ ENGINE = InnoDB;
 CREATE TABLE `hall` (
   `id` CHAR(3) PRIMARY KEY,
   `name` VARCHAR(20),
+  `complex` VARCHAR(30),
   `mediaFilepath` VARCHAR(255),
   `toQuad` INT,
   `toGym` INT,
