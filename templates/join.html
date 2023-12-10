@@ -13,20 +13,41 @@
                     <p class="p">Welcome!</p>
                 </div>
                 <div class="div-wrapper">
-                    <form method="POST" action="{{ url_for('register') }}">
-                        <label for="username">Username:</label>
-                        <input type="text" name="username" required>
+                    <form method="POST" action="{{ url_for('join') }}">
+                        <!-- Username Input -->
+                        <div id="usernamejoinContainer" class="usernamejoin-container">
+                            <div class="usernamejoin-placeholder">Username</div>
+                            <input class="frame usernamejoin-input" type="text" name="usernamejoin" id="usernamejoinInput" required>
+                        </div>  
 
-                        <label for="email">Email:</label>
-                        <input type="email" name="email" required>
-
-                        <label for="classYear">Class Year:</label>
-                        <input type="text" name="classYear" required>
-
-                        <label for="password">Password:</label>
-                        <input type="password" name="password" required>
-
-                        <button type="submit">Register</button>
+                        <!-- Email Input -->
+                        <div id="emailContainer" class="email-container">
+                            <div class="email-placeholder">Email</div>
+                            <input class="frame email-input" type="email" name="email" id="emailInput" required>
+                        </div>
+                    
+                        <!-- Class Year Input -->
+                        <div id="classYearContainer" class="classyear-container">
+                            <div class="classyear-placeholder">Class Year</div>
+                            <input class="frame classyear-input" type="text" name="classYear" id="classYearInput" required>
+                        </div>
+                    
+                        <!-- Password Input -->
+                        <div id="password1Container" class="password1-container">
+                            <div class="password1-placeholder">Password</div>
+                            <input class="frame password1-input" type="password" name="password1" id="password1Input" required>
+                        </div>
+                    
+                        <!-- Confirm Password Input -->
+                        <div id="password2Container" class="password2-container">
+                            <div class="password2-placeholder">Confirm Password</div>
+                            <input class="frame password2-input" type="password" name="password2" id="password2Input" required>
+                        </div>
+                    
+                        <!-- Submit Button -->
+                        <div class="div-wrapper">
+                            <button type="submit" class="overlap"><div class="text-wrapper-4">JOIN</div></button>
+                        </div>
                     </form>
                 </div>
                 <!-- Back to login link -->
@@ -35,6 +56,17 @@
                 </div>
             </div>
         </div>
+
+        <!-- Display flashed messages -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="flashes">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
     </div>
 </body>
 </html>

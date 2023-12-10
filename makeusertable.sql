@@ -10,3 +10,4 @@ create table userpass(
       index(username),
       primary key (uid)
 )
+ENGINE = InnoDB;
