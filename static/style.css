@@ -255,7 +255,7 @@
 
 #WENDI-text {
   padding-top: 10px;
-  font-size: 85px; 
+  font-size: 100px; 
   font-weight: bold; 
   color: #0d2269;
 }
@@ -265,6 +265,7 @@
   color: black; 
   margin: 0; 
   align-self: center; 
+  padding-bottom: 5px;
 }
 
 .alert {
@@ -273,6 +274,7 @@
 }
 
 .login-buttons {
+  padding-top: 30px;
   flex-direction: column; 
   gap: 10px; 
 }
@@ -347,7 +349,7 @@
 }
 
 .username-container:hover, .password-container:hover {
-  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2); /* Slightly darker shadow on hover */
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2); 
 }
 
 /* star rating for the review form */
@@ -404,4 +406,125 @@
 #content{
   border: solid 1px black;
   padding:1em;
+}
+
+
+/* JOIN page css */
+body.join {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-color: #e6e6e6;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.join-page {
+  width: 100%;
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.join-page h1 {
+  color: #333;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.account-form form {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+
+.usernamejoin-container,
+.email-container,
+.classyear-container,
+.password1-container,
+.password2-container {
+  background-color: #f2f2f2;
+  border-radius: 20px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  margin-bottom: 15px;
+  width: 100%; 
+  max-width: 384px; 
+}
+
+.frame {
+  flex: 1;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 16px;
+  color: #333;
+  padding: 15px 0;
+}
+
+.usernamejoin-placeholder,
+.email-placeholder,
+.classyear-placeholder,
+.password1-placeholder,
+.password2-placeholder {
+  color: #aaa;
+}
+
+.usernamejoin-container.active,
+.email-container.active,
+.classyear-container.active,
+.password1-container.active,
+.password2-container.active {
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.frame:focus + .placeholder,
+.frame:hover + .placeholder {
+  color: #0d2269;
+}
+
+.join-page .overlap {
+  background-color: #0d2269;
+  height: 55px;
+  border-radius: 13px;
+  width: 100%;
+  max-width: 384px;
+  margin: 0 auto;
+}
+
+.join-page .overlap .text {
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.overlap:hover {
+  background-color: #0f4983;
+}
+
+.back-to-login {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.back-to-login .text {
+  color: #0055a2;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.join-page .flash_msg .alert {
+  color: #d9534f;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  text-align: center;
 }
