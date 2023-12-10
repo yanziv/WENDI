@@ -1,6 +1,7 @@
 import cs304dbi as dbi
 from flask import flash
 
+<<<<<<< HEAD
 # def upload_review_media(conn):
 #     """
 #     Uploads media to the table for room reviews.
@@ -10,16 +11,21 @@ from flask import flash
 #                     on duplicate key update media = %s''',
 #                     [nm, filename, filename])
 #     conn.commit()
+=======
+>>>>>>> a0dc733c3d2a07ab545c5512a3882577bcee0b30
 
 def get_all_dorms(conn):
     """
     Returns info regarding all residential halls at Wellesley.
     """
     curs = dbi.dict_cursor(conn)
-    curs.execute('''
-        select * from hall''')
+    curs.execute(
+        """
+        select * from hall"""
+    )
     return curs.fetchall()
 
+<<<<<<< HEAD
 def get_rid_given_hall_and_number(conn,hall,number):
     """
     Returns room id (id in the room table) given the 3-letter
@@ -35,37 +41,79 @@ def get_rid_given_hall_and_number(conn,hall,number):
 
 
 def get_hid_given_hall_name(conn,hall_name):
+=======
+
+def get_hid_given_hall_name(conn, hall_name):
+>>>>>>> a0dc733c3d2a07ab545c5512a3882577bcee0b30
     """
     Returns the three-letter encoding hid of a given residential hall.
     """
     curs = dbi.dict_cursor(conn)
-    curs.execute('''
+    curs.execute(
+        """
         select id from hall
-        where name = %s''', [hall_name])
+        where name = %s""",
+        [hall_name],
+    )
     return curs.fetchone()
 
-def insert_review(conn,uid,rid,rating,startTime,
-                    lengthOfStay,sizeScore,storageScore,ventScore,
-                    cleanScore,bathroomScore,accessibilityScore,
-                    sunlightScore,bugScore,windowScore,noiseScore,
-                    comment,hasMedia,timePosted):
+
+def insert_review(
+    conn,
+    uid,
+    rid,
+    rating,
+    startTime,
+    lengthOfStay,
+    sizeScore,
+    storageScore,
+    ventScore,
+    cleanScore,
+    bathroomScore,
+    accessibilityScore,
+    sunlightScore,
+    bugScore,
+    windowScore,
+    noiseScore,
+    comment,
+    hasMedia,
+    timePosted,
+):
     """
     Insert user review into the review table in wendi_db.
     """
     curs = dbi.dict_cursor(conn)
-    curs.execute('''insert into review(uid,rid,rating,startTime,
+    curs.execute(
+        """insert into review(uid,rid,rating,startTime,
                     lengthOfStay,sizeScore,storageScore,ventScore,
                     cleanScore,bathroomScore,accessibilityScore,
                     sunlightScore,bugScore,windowScore,noiseScore,
                     comment,hasMedia,timePosted)
                     values (%s, %s, %s, %s,%s, %s, %s, %s,
-                    %s, %s, %s, %s,%s, %s, %s, %s, %s, %s)''',
-                    [uid,rid,rating,startTime,
-                    lengthOfStay,sizeScore,storageScore,ventScore,
-                    cleanScore,bathroomScore,accessibilityScore,
-                    sunlightScore,bugScore,windowScore,noiseScore,
-                    comment,hasMedia,timePosted])
+                    %s, %s, %s, %s,%s, %s, %s, %s, %s, %s)""",
+        [
+            uid,
+            rid,
+            rating,
+            startTime,
+            lengthOfStay,
+            sizeScore,
+            storageScore,
+            ventScore,
+            cleanScore,
+            bathroomScore,
+            accessibilityScore,
+            sunlightScore,
+            bugScore,
+            windowScore,
+            noiseScore,
+            comment,
+            hasMedia,
+            timePosted,
+        ],
+    )
     conn.commit()
+
 
 def show_rooms(conn, hall_id):
     """return all rooms with specified hall_id as the hid"""
@@ -78,16 +126,18 @@ def show_rooms(conn, hall_id):
     )
     return curs.fetchall()
 
+
 def sort_rooms_by(conn, hall_id, criteria):
-    """"returns all rooms with specified hall_id by the criteria entered"""
+    """ "returns all rooms with specified hall_id by the criteria entered"""
     curs = dbi.dict_cursor(conn)
     curs.execute(
         """
         select number, type, description from room where hid = %s and description = %s
-        """, [hall_id, criteria],
+        """,
+        [hall_id, criteria],
     )
     return curs.fetchall()
-    
+
 
 def get_room_types(conn, hall_id):
     """returns all room types in specified hall"""
@@ -95,9 +145,11 @@ def get_room_types(conn, hall_id):
     curs.execute(
         """
         select distinct description from room where hid = %s
-        """, [hall_id]
+        """,
+        [hall_id],
     )
     return curs.fetchall()
+
 
 def show_reviews(conn, roomnum):
     """return all reviews made for specified room"""

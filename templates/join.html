@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="join-page">
+        <div class="group-wrapper">
+            <div class="group">
+                <div class="div">
+                    <div class="text-wrapper">JOIN</div>
+                    <p class="p">Welcome!</p>
+                </div>
+                <div class="div-wrapper">
+                    <form method="POST" action="{{ url_for('register') }}">
+                        <label for="username">Username:</label>
+                        <input type="text" name="username" required>
+
+                        <label for="email">Email:</label>
+                        <input type="email" name="email" required>
+
+                        <label for="classYear">Class Year:</label>
+                        <input type="text" name="classYear" required>
+
+                        <label for="password">Password:</label>
+                        <input type="password" name="password" required>
+
+                        <button type="submit">Register</button>
+                    </form>
+                </div>
+                <!-- Back to login link -->
+                <div class="div-wrapper">
+                    <a href="{{ url_for('index') }}" class="overlap"><div class="text-wrapper-4">BACK TO LOGIN</div></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
