@@ -5,4 +5,28 @@
 <h1>Browse All</h1>
 <p>this is the landing page.</p>
 
+<h1>{{hid}}</h1>
+
+<form>
+    <label for="hall-type">Hall Type: </label>
+    <select id="hall-type" name="hall-type" required>
+        <option value="All">All</option>
+            {% for item in filterContent %}
+        <option value="{{item.description}}">{{item.description}}</option>
+            {% endfor %}
+    </select>
+    <p><input type='submit' value='Submit'></p>
+</form>
+
+<h3>Displaying {{filterType}} Halls</h3>
+<div class="{{hid}}">
+    
+
+    {% for hall in halls %}
+    <div id="{{room.number}}" style="border:solid 2px black; margin-bottom:15px;">
+        <p><a href="{{ url_for('dorm', hid=hid) }}">{{dormname}} - {{room.number}}</a> ({{room.type}} {{room.description}})</p>
+    </div>
+    {% endfor %}
+
+</div>
 {% endblock %}
