@@ -186,20 +186,34 @@ def room(hid, number):
     return render_template("room.html", reviews=reviewList, dormname=hid, number=number)
 
 
-@app.route("/login/", methods=["GET", "POST"])
+@app.route("/login/", methods=["POST"])
 def login():
-    if request.method == "GET":
-        return render_template("login.html", title="Login Page")
+    username = request.form.get("username")
+    passwd = request.form.get("password")
+    conn = dbi.connect()
+    curs = dbi.dict_cursor(conn)
+    curs.execute("SELECT uid,hashed FROM userpass WHERE username = %s", [username])
+    row = curs.fetchone()
+    if row is None:
+        # Same response as wrong password,
+        # so no information about what went wrong
+        flash("login incorrect. Try again or join")
+        return redirect(url_for("index"))
+    stored = row["hashed"]
+    print("database has stored: {} {}".format(stored, type(stored)))
+    print("form supplied passwd: {} {}".format(passwd, type(passwd)))
+    hashed2 = bcrypt.hashpw(passwd.encode("utf-8"), stored.encode("utf-8"))
+    hashed2_str = hashed2.decode("utf-8")
+    print("rehash is: {} {}".format(hashed2_str, type(hashed2_str)))
+    if hashed2_str == stored:
+        session["username"] = username
+        session["uid"] = row["uid"]
+        session["logged_in"] = True
+        session["visits"] = 1
+        return redirect(url_for("landing", username=username))
     else:
-        username = request.form.get("username")
-        password = request.form.get("password")
-
-        if queries.authenticate_user(username, password):
-            # User authenticated successfully, store their username in the session
-            session["user_login_id"] = username
-            return redirect(url_for("landing"))
-        else:
-            return redirect(url_for("index"))
+        flash("login incorrect. Try again or join")
+        return redirect(url_for("index"))
 
 
 @app.route("/search", methods=["POST"])
@@ -219,10 +233,15 @@ def show_join_form():
     return render_template("join.html")
 
 
+# Update the registration route in your Flask application
+
+
 @app.route("/register", methods=["POST"])
 def register():
     if request.method == "POST":
         username = request.form.get("username")
+        email = request.form.get("email")
+        classYear = request.form.get("classYear")
         password = request.form.get("password")
 
         # Hash the password using bcrypt
@@ -236,22 +255,25 @@ def register():
         curs = dbi.dict_cursor(conn)
 
         try:
-            # Attempt to insert the new user into the database
+            # Check if the username already exists
             curs.execute(
-                """INSERT INTO userpass(uid, username, hashed)
-                   VALUES(null, %s, %s)""",
-                [username, hashed_password_str],
+                "SELECT * FROM userpass WHERE username = %s",
+                [username],
             )
-            conn.commit()
-
-            # Registration successful
-            flash("Registration successful! You can now log in.")
-            return redirect(url_for("login"))
-        except dbi.IntegrityError as err:
-            # Handle the case where the username is already taken
-            flash("Sorry; that username is taken")
+            row = curs.fetchone()
+            if row is None:
+                # If the username is not taken, insert the new user into the database
+                curs.execute(
+                    "INSERT INTO userpass(uid, username, email, classYear, hashed) VALUES(null, %s, %s, %s, %s)",
+                    [username, email, classYear, hashed_password_str],
+                )
+                conn.commit()
+                flash("Registration successful! You can now log in.")
+                return redirect(url_for("login"))
+            else:
+                flash("Sorry; that username is taken")
         except Exception as err:
-            # Handle other exceptions
+            print("Something went wrong", repr(err))
             flash("An error occurred during registration. Please try again.")
 
     # Redirect to the show_join_form route for GET requests
