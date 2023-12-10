@@ -416,3 +416,22 @@
   font-size: 12px;
   color: #333;
 }
+
+.comment-div{
+  border-top: solid 1px blue;
+  border-bottom: solid 1px blue;
+  padding: 1em;
+  margin-bottom:5px;
+}
+
+.comment-header{
+  font-weight: bold;
+  margin:0;
+  padding:0;
+}
+
+.comment-content{
+  font-weight:normal;
+  margin:0;
+  padding:0;
+}
