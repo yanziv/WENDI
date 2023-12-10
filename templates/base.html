@@ -17,6 +17,14 @@
       <div class="logo">WENDI</div>
       <p class="sitename">Wellesley Evaluation Network for Dorm Information</p>
     </div>
+    {% if session.logged_in %}
+      <form method="post" action="{{ url_for('logout') }}">
+          <button type="submit">Logout</button>
+      </form>
+    {% else %}
+        <!-- Content for users who are not logged in -->
+        <p>You are not logged in. Please <a href="{{ url_for('join') }}">join</a> or <a href="{{ url_for('login') }}">log in.</a></p>
+    {% endif %}
   </div>
   <div class="nav-bar">
     <div class="nav-tabs">

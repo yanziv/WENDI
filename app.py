@@ -55,19 +55,19 @@ def landing():
     if request.method == "GET":
         return render_template("landing.html")
     else:
-    # id is post id and then uid should be retrieved from cached username
-        if request.form['submit'] == 'All Halls':
-            return render_template('landing.html')
-        elif request.form['submit'] == 'Tower Complex':
-            return render_template('landing.html')
-        elif request.form['submit'] == 'East Side Halls':
-            return render_template('landing.html')
-        elif request.form['submit'] == 'West Side Halls':
-            return render_template('landing.html')
-        elif request.form['submit'] == 'The Quint':
-            return render_template('landing.html')
-        elif request.form['submit'] == 'Stone-Davis and Small Halls':
-            return render_template('landing.html')
+        # id is post id and then uid should be retrieved from cached username
+        if request.form["submit"] == "All Halls":
+            return render_template("landing.html")
+        elif request.form["submit"] == "Tower Complex":
+            return render_template("landing.html")
+        elif request.form["submit"] == "East Side Halls":
+            return render_template("landing.html")
+        elif request.form["submit"] == "West Side Halls":
+            return render_template("landing.html")
+        elif request.form["submit"] == "The Quint":
+            return render_template("landing.html")
+        elif request.form["submit"] == "Stone-Davis and Small Halls":
+            return render_template("landing.html")
 
 
 @app.route("/review/", methods=["GET", "POST"])
@@ -80,9 +80,9 @@ def review():
     else:  # POST
         # 1: retrieve user input and insert review into the review table in wendi_db
         userID = session.get("user_login_id")
-        dorm = request.form.get("res-hall") # dorm is the 3-letter dorm encoding
+        dorm = request.form.get("res-hall")  # dorm is the 3-letter dorm encoding
         room_number = request.form.get("room-num")
-        rid = queries.get_rid_given_hall_and_number(conn,dorm,room_number)
+        rid = queries.get_rid_given_hall_and_number(conn, dorm, room_number)
         overallRating = request.form.get("overall")
         startDate = request.form.get("start-date")
         length = request.form.get("length-of-stay")
@@ -97,7 +97,7 @@ def review():
         window = request.form.get("window")
         noise = request.form.get("noise")
         comments = request.form.get("comments")
-        hasMedia = '0' # Initialize hasMedia to False
+        hasMedia = "0"  # Initialize hasMedia to False
         submission_time = datetime.now()
 
         # insert review into wendi_db and get review_id
@@ -126,25 +126,30 @@ def review():
         # check uploaded files
         try:
             # session_id = int(session['id'])
-            files = request.files.getlist('roomMedia')
-            
+            files = request.files.getlist("roomMedia")
+
             for file in files:
-                if file and allowed_file(file.filename): # check if extension is allowed
+                if file and allowed_file(
+                    file.filename
+                ):  # check if extension is allowed
                     # hasMedia = True  # Set hasMedia to True as a valid file is found
                     filename = secure_filename(file.filename)
-                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                    file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
 
                     # Insert each file's information into the media table
-                    media_url = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                    queries.insert_media(conn, media_url, userID, review_id, cid=None)  # Assuming review_id is available
+                    media_url = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+                    queries.insert_media(
+                        conn, media_url, userID, review_id, cid=None
+                    )  # Assuming review_id is available
 
         except Exception as err:
-            flash('Upload failed {why}'.format(why=err))
-            return render_template('form.html')
+            flash("Upload failed {why}".format(why=err))
+            return render_template("form.html")
 
         flash("Thank you for submitting a review!")
-        return redirect(url_for('room',hid=dorm,number=room_number))
-    
+        return redirect(url_for("room", hid=dorm, number=room_number))
+
+
 def allowed_file(filename):
     """
     This is a helper function that checks whether the file the user uploads
@@ -197,19 +202,25 @@ def dorm(hid):
         )
 
 
-@app.route("/dorm/<hid>/room/<number>", methods=["GET","POST"])
+@app.route("/dorm/<hid>/room/<number>", methods=["GET", "POST"])
 def room(hid, number):
     conn = dbi.connect()
     reviewList = queries.show_reviews(conn, number)
+<<<<<<< HEAD
     print("reviewList: " + str(reviewList))
     #change later
     uid = 'el110'
 
     rid = queries.get_roomid(conn,hid,number)['id']
+=======
+
+    rid = queries.get_roomid(conn, hid, number)["id"]
+>>>>>>> 7b7c6de06a2236457da8dc4dd6b85e19ce155779
     print("reviewList: " + str(reviewList))
 
     if request.method == "GET":
         allComments = queries.get_comments(conn, rid)
+<<<<<<< HEAD
         
 
         if uid == reviewList[0]['uid']:
@@ -220,47 +231,118 @@ def room(hid, number):
         return render_template("room.html", reviews=reviewList, 
         dormname=hid, number=number, allComments=allComments,
         usertype=commenterType)
+=======
+        return render_template(
+            "room.html",
+            reviews=reviewList,
+            dormname=hid,
+            number=number,
+            allComments=allComments,
+        )
+>>>>>>> 7b7c6de06a2236457da8dc4dd6b85e19ce155779
     elif request.method == "POST":
-
-        comment = request.form.get('comments')
+        comment = request.form.get("comments")
 
         print(rid)
         print(comment)
 
+<<<<<<< HEAD
     
 
         queries.insert_comment(conn, uid, rid, comment)
         
         return redirect(url_for('room', hid=hid, number=number))
+=======
+        # change later
+        uid = "el110"
+
+        queries.insert_comment(conn, uid, rid, comment)
+
+        return redirect(url_for("room", hid=hid, number=number))
+>>>>>>> 7b7c6de06a2236457da8dc4dd6b85e19ce155779
 
 
-@app.route("/login/", methods=["POST"])
+@app.route("/login/", methods=["GET", "POST"])
 def login():
-    username = request.form.get("username")
-    passwd = request.form.get("password")
-    conn = dbi.connect()
-    curs = dbi.dict_cursor(conn)
-    curs.execute("SELECT uid,hashed FROM userpass WHERE username = %s", [username])
-    row = curs.fetchone()
-    if row is None:
-        # Same response as wrong password,
-        # so no information about what went wrong
-        flash("login incorrect. Try again or join")
-        return redirect(url_for("index"))
-    stored = row["hashed"]
-    print("database has stored: {} {}".format(stored, type(stored)))
-    print("form supplied passwd: {} {}".format(passwd, type(passwd)))
-    hashed2 = bcrypt.hashpw(passwd.encode("utf-8"), stored.encode("utf-8"))
-    hashed2_str = hashed2.decode("utf-8")
-    print("rehash is: {} {}".format(hashed2_str, type(hashed2_str)))
-    if hashed2_str == stored:
+    if request.method == "POST":
+        username = request.form.get("username")
+        passwd = request.form.get("password")
+        conn = dbi.connect()
+        curs = dbi.dict_cursor(conn)
+        curs.execute("SELECT uid, hashed FROM userpass WHERE username = %s", [username])
+        row = curs.fetchone()
+        if row is None:
+            flash("Login incorrect. Try again or join.")
+            return redirect(url_for("index"))
+        stored = row["hashed"]
+        hashed2 = bcrypt.hashpw(passwd.encode("utf-8"), stored.encode("utf-8"))
+        hashed2_str = hashed2.decode("utf-8")
+        if hashed2_str == stored:
+            session["username"] = username
+            session["uid"] = row["uid"]
+            session["logged_in"] = True
+            session["visits"] = 1
+            return redirect(url_for("landing", username=username))
+        else:
+            flash("Login incorrect. Try again or join.")
+            return redirect(url_for("index"))
+    else:
+        # Handle the GET request
+        return render_template("login.html")
+
+
+@app.route("/join/", methods=["GET", "POST"])
+def join():
+    if request.method == "POST":
+        username = request.form.get("username")
+        email = request.form.get("email")
+        classYear = request.form.get("classYear")
+        passwd1 = request.form.get("password1")
+        passwd2 = request.form.get("password2")
+
+        if passwd1 != passwd2:
+            flash("Passwords do not match")
+            return redirect(url_for("join"))
+
+        hashed = bcrypt.hashpw(passwd1.encode("utf-8"), bcrypt.gensalt())
+        hashed_password_str = hashed.decode("utf-8")
+
+        conn = dbi.connect()
+        curs = dbi.cursor(conn)
+
+        try:
+            curs.execute(
+                """INSERT INTO userpass(uid, username, email, classYear, hashed)
+                            VALUES(null, %s, %s, %s, %s)""",
+                [username, email, classYear, hashed_password_str],
+            )
+            conn.commit()
+        except Exception as err:
+            flash("That username is taken: {}".format(repr(err)))
+            return redirect(url_for("join"))
+
+        curs.execute("SELECT last_insert_id()")
+        row = curs.fetchone()
+        uid = row[0]
+
+        flash("FYI, you were issued UID {}".format(uid))
         session["username"] = username
-        session["uid"] = row["uid"]
+        session["uid"] = uid
         session["logged_in"] = True
         session["visits"] = 1
-        return redirect(url_for("landing", username=username))
+
+        return redirect(url_for("user", username=username))
     else:
-        flash("login incorrect. Try again or join")
+        return render_template("join.html")
+
+
+@app.route("/logout/", methods=["GET", "POST"])
+def logout():
+    if "username" in session:
+        session.pop("username")
+        session.pop("uid")
+        session.pop("logged_in")
+        flash("You are logged out")
         return redirect(url_for("index"))
 
 
@@ -276,63 +358,10 @@ def search():
     return jsonify({"individual": results_individual, "combined": results_combined})
 
 
-@app.route("/join", methods=["GET"])
-def show_join_form():
-    return render_template("join.html")
-
-
-# Update the registration route in your Flask application
-
-
-@app.route("/register", methods=["POST"])
-def register():
-    if request.method == "POST":
-        username = request.form.get("username")
-        email = request.form.get("email")
-        classYear = request.form.get("classYear")
-        password = request.form.get("password")
-
-        # Hash the password using bcrypt
-        hashed_password = bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt())
-
-        # Convert the hashed password to a string for storage
-        hashed_password_str = hashed_password.decode("utf-8")
-
-        # Connect to the database
-        conn = dbi.connect()
-        curs = dbi.dict_cursor(conn)
-
-        try:
-            # Check if the username already exists
-            curs.execute(
-                "SELECT * FROM userpass WHERE username = %s",
-                [username],
-            )
-            row = curs.fetchone()
-            if row is None:
-                # If the username is not taken, insert the new user into the database
-                curs.execute(
-                    "INSERT INTO userpass(uid, username, email, classYear, hashed) VALUES(null, %s, %s, %s, %s)",
-                    [username, email, classYear, hashed_password_str],
-                )
-                conn.commit()
-                flash("Registration successful! You can now log in.")
-                return redirect(url_for("login"))
-            else:
-                flash("Sorry; that username is taken")
-        except Exception as err:
-            print("Something went wrong", repr(err))
-            flash("An error occurred during registration. Please try again.")
-
-    # Redirect to the show_join_form route for GET requests
-    return redirect(url_for("show_join_form"))
-
 # @app.route("/addcomment/", methods=["POST"])
 # def addcomment():
 
 #     return redirect(url_for('room'), hid=)
-
-
 
 if __name__ == "__main__":
     import sys, os
