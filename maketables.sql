@@ -23,6 +23,7 @@ ENGINE = InnoDB;
 CREATE TABLE `hall` (
   `id` CHAR(3) PRIMARY KEY,
   `name` VARCHAR(20),
+  `complex` VARCHAR(30),
   `mediaFilepath` VARCHAR(255),
   `toQuad` INT,
   `toGym` INT,
@@ -65,7 +66,7 @@ CREATE TABLE `review` (
   `windowScore` FLOAT,
   `noiseScore` FLOAT,
   `comment` VARCHAR(3000),
-  `Media` VARCHAR(50),
+  `hasMedia` BOOLEAN,
   `timePosted` TIMESTAMP,
   FOREIGN KEY (`uid`) REFERENCES `user`(`username`)
         ON UPDATE RESTRICT

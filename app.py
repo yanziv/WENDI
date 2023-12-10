@@ -53,22 +53,21 @@ def index():
 @app.route("/browse_all/", methods=["GET", "POST"])
 def landing():
     if request.method == "GET":
-        flash("Landing Page Not Yet Implemented for the Draft Version!")
         return render_template("landing.html")
-    # else:
+    else:
     # id is post id and then uid should be retrieved from cached username
-    #     if request.form['submit'] == 'All Halls':
-    #         return render_template('landing.html')
-    #     elif request.form['submit'] == 'Tower Complex':
-    #         return render_template('landing.html')
-    #     elif request.form['submit'] == 'East Side Halls':
-    #         return render_template('landing.html')
-    #     elif request.form['submit'] == 'West Side Halls':
-    #         return render_template('landing.html')
-    #     elif request.form['submit'] == 'The Quint':
-    #         return render_template('landing.html')
-    #     elif request.form['submit'] == 'Stone-Davis and Small Halls':
-    #         return render_template('landing.html')
+        if request.form['submit'] == 'All Halls':
+            return render_template('landing.html')
+        elif request.form['submit'] == 'Tower Complex':
+            return render_template('landing.html')
+        elif request.form['submit'] == 'East Side Halls':
+            return render_template('landing.html')
+        elif request.form['submit'] == 'West Side Halls':
+            return render_template('landing.html')
+        elif request.form['submit'] == 'The Quint':
+            return render_template('landing.html')
+        elif request.form['submit'] == 'Stone-Davis and Small Halls':
+            return render_template('landing.html')
 
 
 @app.route("/review/", methods=["GET", "POST"])
@@ -98,7 +97,7 @@ def review():
         window = request.form.get("window")
         noise = request.form.get("noise")
         comments = request.form.get("comments")
-        hasMedia = False # Initialize hasMedia to False
+        hasMedia = '0' # Initialize hasMedia to False
         submission_time = datetime.now()
 
         # insert review into wendi_db and get review_id
@@ -139,13 +138,13 @@ def review():
                     media_url = os.path.join(app.config['UPLOAD_FOLDER'], filename)
                     queries.insert_media(conn, media_url, userID, review_id, cid=None)  # Assuming review_id is available
 
-            flash("Thank you for submitting a review!")
-            return redirect(url_for('room',hid=dorm,number=room_number))
-
         except Exception as err:
             flash('Upload failed {why}'.format(why=err))
             return render_template('form.html')
 
+        flash("Thank you for submitting a review!")
+        return redirect(url_for('room',hid=dorm,number=room_number))
+    
 def allowed_file(filename):
     """
     This is a helper function that checks whether the file the user uploads
