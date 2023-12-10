@@ -52,24 +52,11 @@ def get_hid_given_hall_name(conn,hall_name):
 
 def insert_review(
     conn,
-    uid,
-    rid,
-    rating,
-    startTime,
-    lengthOfStay,
-    sizeScore,
-    storageScore,
-    ventScore,
-    cleanScore,
-    bathroomScore,
-    accessibilityScore,
-    sunlightScore,
-    bugScore,
-    windowScore,
-    noiseScore,
-    comment,
-    hasMedia,
-    timePosted,
+    uid,rid,rating,startTime,
+    lengthOfStay,sizeScore,storageScore,ventScore,
+    cleanScore,bathroomScore,accessibilityScore,
+    sunlightScore,bugScore,windowScore,noiseScore,
+    comment,hasMedia,timePosted
 ):
     """
     Insert user review into the review table in wendi_db 
@@ -85,30 +72,17 @@ def insert_review(
                     values (%s, %s, %s, %s,%s, %s, %s, %s,
                     %s, %s, %s, %s,%s, %s, %s, %s, %s, %s)""",
         [
-            uid,
-            rid,
-            rating,
-            startTime,
-            lengthOfStay,
-            sizeScore,
-            storageScore,
-            ventScore,
-            cleanScore,
-            bathroomScore,
-            accessibilityScore,
-            sunlightScore,
-            bugScore,
-            windowScore,
-            noiseScore,
-            comment,
-            hasMedia,
-            timePosted,
+            uid,rid,rating,startTime,
+            lengthOfStay,sizeScore,storageScore,ventScore,
+            cleanScore,bathroomScore,accessibilityScore,
+            sunlightScore,bugScore,windowScore,noiseScore,
+            comment,hasMedia,timePosted
         ],
     )
+    conn.commit()
     # Retrieve the last insert id
     curs.execute("select last_insert_id()")
     row = curs.fetchone()
-    conn.commit()
     return row['last_insert_id()']
 
 
@@ -125,11 +99,13 @@ def show_rooms(conn, hall_id):
 
 
 def sort_rooms_by(conn, hall_id, criteria):
-    """ "returns all rooms with specified hall_id by the criteria entered"""
+    """returns all rooms with specified hall_id 
+        by the criteria entered"""
     curs = dbi.dict_cursor(conn)
     curs.execute(
         """
-        select number, type, description from room where hid = %s and description = %s
+        SELECT number, type, description FROM room 
+        WHERE hid = %s AND description = %s
         """,
         [hall_id, criteria],
     )
@@ -141,7 +117,8 @@ def get_room_types(conn, hall_id):
     curs = dbi.dict_cursor(conn)
     curs.execute(
         """
-        select distinct description from room where hid = %s
+        SELECT distinct description FROM room
+        WHERE hid = %s
         """,
         [hall_id],
     )
@@ -153,8 +130,14 @@ def show_reviews(conn, roomnum):
     curs = dbi.dict_cursor(conn)
     curs.execute(
         """
-        select room.number as rid, room.description as description, rating, startTime, lengthOfStay, cleanScore, bathroomScore, sizeScore, ventScore, accessibilityScore,
-        sunlightScore, bugScore, windowScore, noiseScore, comment, timePosted from review, room where review.rid = room.id and room.number = %s
+        SELECT room.number as rid, 
+        room.description as description, 
+        rating, startTime, lengthOfStay, 
+        cleanScore, bathroomScore, sizeScore, 
+        ventScore, accessibilityScore,
+        sunlightScore, bugScore, windowScore, 
+        noiseScore, comment, timePosted
+        FROM review, room WHERE review.rid = room.id AND room.number = %s
     """,
         [roomnum],
     )
@@ -167,7 +150,7 @@ def authenticate_user(username, password):
     curs = dbi.dict_cursor(conn)
     curs.execute(
         """
-        SELECT * FROM user WHERE username = %s and password=%s
+        SELECT * FROM user WHERE username = %s AND password=%s
         """,
         [username,password]
     )
@@ -194,11 +177,13 @@ def search_by_hid_and_number(conn, search_term):
 
     # Use individual terms to search for both hid and number
     if len(terms) >= 2:
-        query = "SELECT hid, number FROM room WHERE hid LIKE %s AND number LIKE %s"
+        query = """SELECT hid, number FROM room 
+                WHERE hid LIKE %s AND number LIKE %s"""
         params = ("%" + terms[0] + "%", "%" + terms[1] + "%")
     elif len(terms) == 1:
         # Handle the case where there's only one term
-        query = "SELECT hid, number FROM room WHERE hid LIKE %s OR number LIKE %s"
+        query = """SELECT hid, number FROM room 
+                WHERE hid LIKE %s OR number LIKE %s"""
         params = ("%" + terms[0] + "%", "%" + terms[0] + "%")
     else:
         # Handle the case where there are no terms
@@ -213,7 +198,8 @@ def search_by_hid_and_number(conn, search_term):
     return results
 
 def get_roomid(conn, hid, number):
-    """takes in a hid and room number and returns the rid for that room"""
+    """takes in a hid and room number and 
+        returns the rid for that room"""
     curs = dbi.dict_cursor(conn)
     curs.execute('''
         SELECT id from room where hid=%s and number=%s
@@ -222,7 +208,8 @@ def get_roomid(conn, hid, number):
 
 
 def insert_comment(conn, uid, rid, comment):
-    """takes in a conn and content and inserts into content table"""
+    """takes in a conn and content and 
+        inserts into content table"""
     curs = dbi.dict_cursor(conn)
     curs.execute('''
         INSERT into comment(uid, rid, content)
@@ -232,7 +219,8 @@ def insert_comment(conn, uid, rid, comment):
 
 
 def get_comments(conn, rid):
-    """returns dict of all comments for room with specified hid and number"""
+    """returns dict of all comments for room 
+        with specified hid and number"""
     curs = dbi.dict_cursor(conn)
     curs.execute('''
         SELECT content, timePosted FROM comment

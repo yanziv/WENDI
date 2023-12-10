@@ -14,24 +14,11 @@
     <p><input type='submit' value='Submit'></p>
 </form>
 
-<!-- <p>this is the dorm page, which displays a list of all the rooms in the specified dorm. the page will display different info 
-    based on which dorm the user is looking at. clicking on the rooms will redirect to the room page, which displays all the reviews
-    that have made for that room.
-</p>
-
-<p>select number from room where hid = [hall id] //get all the room numbers that are in the hall
-    that have a review made (?? or display every room and if there's no review made for it, then room page has message saying
-    there's no review for it yet)
-</p> -->
-
-
-
 <h3>Displaying {{filterType}} Rooms</h3>
 <div class="{{dormname}}">
-    
 
     {% for room in dorm %}
-    <div id="{{room.number}}" style="border:solid 2px black; margin-bottom:15px;">
+    <div class="roomList" id="{{room.number}}">
         <p><a href="{{ url_for('room', hid=dormname, number=room.number) }}">{{dormname}} - {{room.number}}</a> ({{room.type}} {{room.description}})</p>
     </div>
     {% endfor %}
