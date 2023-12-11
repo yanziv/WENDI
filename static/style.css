@@ -544,3 +544,22 @@ body.join {
   border-color: #ebccd1;
   text-align: center;
 }
+
+.review-table{
+  border: solid 1px black;
+  margin-bottom:1em;
+}
+
+.review-table td{
+  padding-right:1em;
+}
+
+.review-table-header{
+  border-bottom: solid 1px black;
+  font-weight:bold;
+}
+
+.room-content-header{
+  font-weight:bold;
+}
+
