@@ -217,6 +217,16 @@ def insert_comment(conn, uid, rid, comment):
     ''', [uid,rid,comment])
     conn.commit()
 
+# def insert_comment(conn, rid, comment):
+#     """takes in a conn and content and 
+#         inserts into content table"""
+#     curs = dbi.dict_cursor(conn)
+#     curs.execute('''
+#         INSERT into comment(rid, content)
+#         values ( %s, %s)
+#     ''', [rid,comment])
+#     conn.commit()
+
 
 def get_comments(conn, rid):
     """returns dict of all comments for room 
@@ -236,4 +246,4 @@ def get_username(conn, sessionUid):
         SELECT username from userpass
         WHERE uid=%s    
     """,[sessionUid])
-    return curs.fetchone()
+    return curs.fetchall()
