@@ -51,36 +51,42 @@ def index():
 
 
 @app.route("/browse_all/<complex>", methods=["GET", "POST"])
-def landing():
+def landing(complex):
     conn = dbi.connect()
     if request.method == "GET":
-        halls = queries.get_hall_names_given_complex(conn,"All Halls")
-        return render_template("landing.html",hallType="All Halls",halls=halls)
-    else:
-        hall_type = request.form["submit"]
+        halls = queries.get_hall_names_given_complex(conn,complex)
+        return render_template("landing.html", halls=halls, complex='all-halls')
+    # redirect('landing',complex='all-halls')
+    # render_template("landing.html", complex=complex, halls=halls)
+        # return render_template("landing.html",complex=complex,hallType='All Halls',halls=halls)
 
-        if hall_type == "All Halls":
-            return redirect(url_for('landing'))
+
+    # else:
+    #     hall_type = request.form["hall-type"]
+    #     halls = queries.get_hall_names_given_complex(conn, hall_type)
+
+    #     if hall_type == "All Halls":
+    #         return render_template("landing.html", hallType=hall_type, halls=halls)
         
-        elif hall_type == "Tower Complex":
-            halls = queries.get_hall_names_given_complex(conn,"Tower Complex")
-            return render_template("landing.html",hallType="Tower Complex",halls=halls)
+        # elif hall_type == "Tower Complex":
+        #     halls = queries.get_hall_names_given_complex(conn,"Tower Complex")
+        #     return render_template("landing.html",complex="Tower Complex",halls=halls)
         
-        elif hall_type == "East Side Complex":
-            halls = queries.get_hall_names_given_complex(conn,"East Side Complex")
-            return render_template("landing.html",hallType="East Side Complex",halls=halls)
+        # elif hall_type == "East Side Complex":
+        #     halls = queries.get_hall_names_given_complex(conn,"East Side Complex")
+        #     return render_template("landing.html",hallType="East Side Complex",halls=halls)
         
-        elif hall_type == "West Side Complex":
-            halls = queries.get_hall_names_given_complex(conn,"West Side Complex")
-            return render_template("landing.html",hallType="West Side Complex",halls=halls)
+        # elif hall_type == "West Side Complex":
+        #     halls = queries.get_hall_names_given_complex(conn,"West Side Complex")
+        #     return render_template("landing.html",hallType="West Side Complex",halls=halls)
         
-        elif hall_type == "The Quint":
-            halls = queries.get_hall_names_given_complex(conn,"The Quint")
-            return render_template("landing.html",hallType="The Quint",halls=halls)
+        # elif hall_type == "The Quint":
+        #     halls = queries.get_hall_names_given_complex(conn,"The Quint")
+        #     return render_template("landing.html",hallType="The Quint",halls=halls)
         
-        elif hall_type == "Stone-Davis and Small Halls":
-            halls = queries.get_hall_names_given_complex(conn,"Stone-Davis and Small Halls")
-            return render_template("landing.html",hallType="Stone-Davis and Small Halls",halls=halls)
+        # elif hall_type == "Stone-Davis and Small Halls":
+        #     halls = queries.get_hall_names_given_complex(conn,"Stone-Davis and Small Halls")
+        #     return render_template("landing.html",hallType="Stone-Davis and Small Halls",halls=halls)
 
 
 @app.route("/login/", methods=["POST"])
@@ -107,7 +113,7 @@ def login():
         session["uid"] = row["uid"]
         session["logged_in"] = True
         session["visits"] = 1
-        return redirect(url_for("landing", username=username))
+        return redirect(url_for("landing",complex='all-halls'))
     else:
         flash("login incorrect. Try again or join")
         return redirect(url_for("index"))

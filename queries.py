@@ -243,13 +243,22 @@ def get_hall_names_given_complex(conn,complex):
     Returns dictionary that includes the names of halls in
     a given complex.
     """
+    # Mapping of URL-friendly names to actual complex names
+    complex_mapping = {
+        "tower-complex": "Tower Complex",
+        "east-side-halls": "East Side Halls",
+        "west-side-halls": "West Side Halls",
+        "the-quint": "The Quint",
+        "stone-davis-small-halls": "Stone-Davis and Small Halls",
+    }
+
     curs = dbi.dict_cursor(conn)
-    if complex == "All Halls":
+    if complex == "all-halls":
         curs.execute("""SELECT name from hall""")
     else:
         curs.execute("""
             SELECT name from hall
             WHERE complex = %s    
-            """,[complex])
+            """,[complex_mapping[complex]])
         
-    return curs.fetchone()
+    return curs.fetchall()
