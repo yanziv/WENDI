@@ -32,11 +32,13 @@
         </div>
 
         {% with messages = get_flashed_messages() %}
+        {% if messages %}
         <div class="flash_msg">
             {% for m in messages %}
             <div class="alert">{{ m }}</div>
             {% endfor %}
         </div>
+        {% endif %}
         {% endwith %}
 
         <form action="{{ url_for('login') }}" method="post">
@@ -54,7 +56,7 @@
                 <button type="submit" class="overlap">
                     <div class="text">LOGIN</div>
                 </button>
-                <a href="{{ url_for('join') }}" class="join-link">Join / Set Up Account</a>
+                <a href="{{ url_for('join') }}" class="join-link">Create an Account</a>
             </div>
         </form>
     </div>
