@@ -410,12 +410,8 @@ body.base{
 
 
 /*ROOM PAGE APPEARANGE - room.html**************/
-<<<<<<< HEAD
 #room-content{
   border: solid 1px black;
-=======
-#content{
->>>>>>> 310b2eab2ca08fbac909a07435bb1c3cb679dad2
   padding:1em;
 }
 

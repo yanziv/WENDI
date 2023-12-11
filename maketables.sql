@@ -83,7 +83,7 @@ CREATE TABLE `comment` (
   `content` VARCHAR(1500),
   `hasMedia` BOOLEAN,
   `timePosted` timestamp,
-  FOREIGN KEY (uid) REFERENCES user(username)
+  FOREIGN KEY (uid) REFERENCES userpass(username)
         ON UPDATE RESTRICT
         ON DELETE RESTRICT,
   FOREIGN KEY (rid) REFERENCES room(id)

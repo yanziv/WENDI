@@ -217,16 +217,6 @@ def insert_comment(conn, uid, rid, comment):
     ''', [uid,rid,comment])
     conn.commit()
 
-# def insert_comment(conn, rid, comment):
-#     """takes in a conn and content and 
-#         inserts into content table"""
-#     curs = dbi.dict_cursor(conn)
-#     curs.execute('''
-#         INSERT into comment(rid, content)
-#         values ( %s, %s)
-#     ''', [rid,comment])
-#     conn.commit()
-
 
 def get_comments(conn, rid):
     """returns dict of all comments for room 
@@ -246,4 +236,30 @@ def get_username(conn, sessionUid):
         SELECT username from userpass
         WHERE uid=%s    
     """,[sessionUid])
+    return curs.fetchall()
+
+
+def get_hall_names_given_complex(conn,complex):
+    """
+    Returns dictionary that includes the names of halls in
+    a given complex.
+    """
+    # Mapping of URL-friendly names to actual complex names
+    complex_mapping = {
+        "tower-complex": "Tower Complex",
+        "east-side-halls": "East Side Halls",
+        "west-side-halls": "West Side Halls",
+        "the-quint": "The Quint",
+        "stone-davis-small-halls": "Stone-Davis and Small Halls",
+    }
+
+    curs = dbi.dict_cursor(conn)
+    if complex == "all-halls":
+        curs.execute("""SELECT name from hall""")
+    else:
+        curs.execute("""
+            SELECT name from hall
+            WHERE complex = %s    
+            """,[complex_mapping[complex]])
+        
     return curs.fetchall()

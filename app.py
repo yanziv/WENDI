@@ -263,20 +263,25 @@ def room(hid, number):
     #     username = uid[0]['username']
     # else:
     #     username = "NOT LOGGED IN"
-
+    session_uid = session.get("uid")
     print("SESSION UID========" + str(session.get("uid")))
     print("USERNAME======"+str(currentsession))
     print("UID===========" + str(uid))
     rid = queries.get_roomid(conn,hid,number)['id']
 
-    
+    session_username = queries.get_username(conn, session_uid)[0]['username']
+    print("SESSION USERNAME============" + str(session_username))
     if request.method == "GET":
         allComments = queries.get_comments(conn, rid)
+
+
         
-        if uid in reviewList:
+        if session_uid in reviewList:
             commenterType = "Reviewer"
         else:
             commenterType = "Commenter"
+        
+        print("COMMENTERTYPE===========" + commenterType)
 
         return render_template(
             "room.html",
@@ -289,7 +294,7 @@ def room(hid, number):
     elif request.method == "POST":
         comment = request.form.get("comments")
 
-        queries.insert_comment(conn, uid, rid, comment)
+        queries.insert_comment(conn, session_uid, rid, comment)
 
         return redirect(url_for("room", hid=hid, number=number))
 
