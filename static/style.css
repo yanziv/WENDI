@@ -416,6 +416,7 @@ body.base{
 /*ROOM PAGE APPEARANGE - room.html**************/
 #room-content{
   border: solid 1px black;
+  padding-left:1em;
 }
 
 #content{
