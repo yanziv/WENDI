@@ -264,27 +264,17 @@ def room(hid, number):
     print("UID===========" + str(uid))
     rid = queries.get_roomid(conn,hid,number)['id']
 
-    session_username = queries.get_username(conn, session_uid)[0]['username']
-    print("SESSION USERNAME============" + str(session_username))
+    # session_username = queries.get_username(conn, session_uid)[0]['username']
+    # print("SESSION USERNAME============" + str(session_username))
     if request.method == "GET":
         allComments = queries.get_comments(conn, rid)
-
-
-        
-        if session_uid in reviewList:
-            commenterType = "Reviewer"
-        else:
-            commenterType = "Commenter"
-        
-        print("COMMENTERTYPE===========" + commenterType)
 
         return render_template(
             "room.html",
             reviews=reviewList,
             dormname=hid,
             number=number,
-            allComments=allComments,
-            usertype=commenterType
+            allComments=allComments
         )
     elif request.method == "POST":
         comment = request.form.get("comments")
