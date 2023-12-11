@@ -237,3 +237,19 @@ def get_username(conn, sessionUid):
         WHERE uid=%s    
     """,[sessionUid])
     return curs.fetchone()
+
+def get_hall_names_given_complex(conn,complex):
+    """
+    Returns dictionary that includes the names of halls in
+    a given complex.
+    """
+    curs = dbi.dict_cursor(conn)
+    if complex == "All Halls":
+        curs.execute("""SELECT name from hall""")
+    else:
+        curs.execute("""
+            SELECT name from hall
+            WHERE complex = %s    
+            """,[complex])
+        
+    return curs.fetchone()

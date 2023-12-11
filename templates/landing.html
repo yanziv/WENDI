@@ -10,23 +10,25 @@
 <form>
     <label for="hall-type">Hall Type: </label>
     <select id="hall-type" name="hall-type" required>
-        <option value="All">All</option>
-            {% for item in filterContent %}
-        <option value="{{item.description}}">{{item.description}}</option>
-            {% endfor %}
+        <option value="All Halls">All Halls</option>
+        <option value="Tower Complex">Tower Complex</option>
+        <option value="East Side Halls">East Side Halls</option>
+        <option value="West Side Halls">West Side Halls</option>
+        <option value="The Quint">The Quint</option>
+        <option value="Stone-Davis and Small Halls">Stone-Davis and Small Halls</option>
     </select>
     <p><input type='submit' value='Submit'></p>
 </form>
 
-<h3>Displaying {{filterType}} Halls</h3>
+<h3>Displaying {{hallType}}</h3>
 <div class="{{hid}}">
     
 
     {% for hall in halls %}
-    <div id="{{room.number}}" style="border:solid 2px black; margin-bottom:15px;">
-        <p><a href="{{ url_for('dorm', hid=hid) }}">{{dormname}} - {{room.number}}</a> ({{room.type}} {{room.description}})</p>
+    <div id="{{hall.name}}" style="border:solid 2px black; margin-bottom:15px;">
+        <p><a href="{{ url_for('landing')}}">{{hall.name}}</a> </p>
     </div>
-    {% endfor %}
+    {% endfor %} 
 
 </div>
 {% endblock %}
