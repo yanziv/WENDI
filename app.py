@@ -35,7 +35,9 @@ app.secret_key = "your secret here"
 app.secret_key = "".join(
     [
         random.choice(
-            ("ABCDEFGHIJKLMNOPQRSTUVXYZ" + "abcdefghijklmnopqrstuvxyz" + "0123456789")
+            ("ABCDEFGHIJKLMNOPQRSTUVXYZ" + 
+            "abcdefghijklmnopqrstuvxyz" +
+             "0123456789")
         )
         for i in range(20)
     ]
@@ -144,6 +146,7 @@ def review():
         hasMedia = "0"  # set hasMedia to False
         submission_time = datetime.now()
 
+
         # insert review into wendi_db and get review_id
         review_id = queries.insert_review(
             conn,
@@ -248,17 +251,24 @@ def room(hid, number):
     reviewList = queries.show_reviews(conn, number)
     print("reviewList: " + str(reviewList))
 
-    uid = queries.get_username(conn,session.get('uid'))
+    currentsession = session['username']
+    print("CURRENTSESSION==========" + str(currentsession))
+    uid = currentsession
+    # if uid:
+    #     username = uid[0]['username']
+    # else:
+    #     username = "NOT LOGGED IN"
 
     print("SESSION UID========" + str(session.get("uid")))
-    print("USERNAME======"+str(uid))
-
+    print("USERNAME======"+str(currentsession))
+    print("UID===========" + str(uid))
     rid = queries.get_roomid(conn,hid,number)['id']
 
+    
     if request.method == "GET":
         allComments = queries.get_comments(conn, rid)
         
-        if uid == reviewList[0]['uid']:
+        if uid in reviewList:
             commenterType = "Reviewer"
         else:
             commenterType = "Commenter"
@@ -273,40 +283,10 @@ def room(hid, number):
         )
     elif request.method == "POST":
         comment = request.form.get("comments")
-        uid = uid['username']
+
         queries.insert_comment(conn, uid, rid, comment)
 
         return redirect(url_for("room", hid=hid, number=number))
-
-
-# @app.route("/login/", methods=["GET", "POST"])
-# def login():
-#     if request.method == "POST":
-#         username = request.form.get("username")
-#         passwd = request.form.get("password")
-#         conn = dbi.connect()
-#         curs = dbi.dict_cursor(conn)
-#         curs.execute("SELECT uid, hashed FROM userpass WHERE username = %s", [username])
-#         row = curs.fetchone()
-#         if row is None:
-#             flash("Login incorrect. Try again or join.")
-#             return redirect(url_for("index"))
-#         stored = row["hashed"]
-#         hashed2 = bcrypt.hashpw(passwd.encode("utf-8"), stored.encode("utf-8"))
-#         hashed2_str = hashed2.decode("utf-8")
-#         if hashed2_str == stored:
-#             session["username"] = username
-#             session["uid"] = row["uid"]
-#             session["logged_in"] = True
-#             session["visits"] = 1
-#             return redirect(url_for("landing", username=username))
-#         else:
-#             flash("Login incorrect. Try again or join.")
-#             return redirect(url_for("index"))
-#     else:
-#         # Handle the GET request
-#         return render_template("login.html")
-
 
 @app.route("/join/", methods=["GET", "POST"])
 def join():

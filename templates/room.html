@@ -7,7 +7,7 @@
     {% for one in reviews %}
     <div id="{{one.id}}">
         
-        <div id="content">
+        <div id="room-content">
             <p>Review for {{dormname}} - {{one.rid}} ({{one.description}}) posted on {{one.timePosted}}</p>
             <p><b>Comment: </b>{{one.comment}}</p>
 
@@ -44,7 +44,7 @@
                 <tr>
                     <td>
                       <p>
-                        <label for="comments">Comments:</label>
+                        <label for="comments">Write a comment:</label>
                       </p>
                     </td>
                     <td>

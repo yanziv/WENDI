@@ -67,7 +67,7 @@ CREATE TABLE `review` (
   `comment` VARCHAR(3000),
   `hasMedia` BOOLEAN,
   `timePosted` TIMESTAMP,
-  FOREIGN KEY (`uid`) REFERENCES `user`(`username`)
+  FOREIGN KEY (`uid`) REFERENCES `userpass`(`username`)
         ON UPDATE RESTRICT
         ON DELETE RESTRICT,  
   FOREIGN KEY (`rid`) REFERENCES `room`(`id`)
@@ -96,7 +96,7 @@ CREATE TABLE `collection` (
   `id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
   `uid` VARCHAR(12),
   `name` VARCHAR(50),
-  FOREIGN KEY (uid) REFERENCES `user`(`username`)
+  FOREIGN KEY (uid) REFERENCES `userpass`(`username`)
         ON UPDATE RESTRICT
         ON DELETE RESTRICT
 )
@@ -120,7 +120,7 @@ CREATE TABLE `media` (
   `uid` VARCHAR(12),
   `rid` INT,
   `cid` INT,
-  FOREIGN KEY (uid) REFERENCES `user`(`username`)
+  FOREIGN KEY (uid) REFERENCES `userpass`(`username`)
         ON UPDATE RESTRICT
         ON DELETE RESTRICT,
   FOREIGN KEY (rid) REFERENCES review(id)
