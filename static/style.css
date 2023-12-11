@@ -544,3 +544,22 @@ body.join {
   border-color: #ebccd1;
   text-align: center;
 }
+
+.hall-image {
+  max-width: 450px; /* Adjust the max width as needed */
+  max-height: 250px; /* Adjust the max height as needed */
+  width: auto;
+  height: auto;
+  display: block;
+  margin: 0 auto; /* Center the image */
+}
+
+.hall-container {
+  border: solid 2px black;
+  margin-bottom: 15px;
+  text-align: center;
+  padding: 10px;
+  margin: 10px;
+  flex-basis: calc(33% - 20px); /* Adjust this to control the number of items per row */
+  max-width: 450px; /* Maximum width of each hall container */
+}
