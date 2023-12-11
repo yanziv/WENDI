@@ -18,14 +18,14 @@
         <div class="logo">WENDI</div>
         <p class="sitename">Wellesley Evaluation Network for Dorm Information</p>
       </div>
-  
+
       {% if session.logged_in %}
       <form method="post" action="{{ url_for('logout') }}" class="logout-form">
         <button type="submit" class="logout-button">LOG OUT</button>
       </form>
       {% else %}
       <!-- Content for users who are not logged in -->
-      <p class="not-logged-in">You are not logged in. Please <a href="{{ url_for('join') }}">register</a> 
+      <p class="not-logged-in">You are not logged in. Please <a href="{{ url_for('join') }}">register</a>
         with us or <a href="{{ url_for('index') }}">log in</a>.</p>
       {% endif %}
     </div>
@@ -54,6 +54,7 @@
         </div>
       </div>
       <div class="filter-and-results" id="filter-and-results">
+        <!-- TO BE REFINED IN BETA VERSION
         <div class="filter-header">Filters</div>
         <div class="filters-collection">
           <div class="filter">
@@ -66,14 +67,15 @@
           <div class="filter">
             <div class="filter-text">User</div>
           </div>
-        </div>
+        </div> -->
         <div class="result-header">Results</div>
         <div class="user" id="searchResults">
           <!-- Results are dynamically added here -->
         </div>
+        <!-- TO BE REFINED IN BETA VERSION
         <button class="button">
           <div class="button-text">All results</div>
-        </button>
+        </button> -->
       </div>
     </div>
   </div>
@@ -168,14 +170,13 @@
 
       // Handle input changes for search input
       $("#searchInput").on("input", function () {
-        // Checks whether the value of the search input, after trimming whitespaces, is not empty. 
+        // Check if the search input value is not empty after trimming whitespaces.
         if ($(this).val().trim() !== "") {
-          // Simulate matching results
+          // Get the lowercase search term
           var searchTerm = $(this).val().toLowerCase();
-          var results = simulateMatchingResults(searchTerm);
 
-          // Update the results in filter-and-results
-          updateResults(results);
+          // Call the function to simulate matching results
+          simulateMatchingResults(searchTerm);
         }
       });
 
@@ -209,43 +210,32 @@
       }
 
       /**
-       * Function to update the search results in the filter-and-results container.
-       * @param {Object} results - The search results object containing combined and individual results.
-       */
+     * Function to update the search results in the filter-and-results container.
+     * @param {Object} results - The search results object containing combined and individual results.
+     */
       function updateResults(results) {
         var resultsContainer = $("#searchResults");
-        // Clears any previous content inside the searchResults container
-        resultsContainer.empty();
+        resultsContainer.empty(); // Clear previous results
 
-        // checks if both combined and individual results exist in the results object.
-        if (results.combined && results.individual) {
-          // Display combined results first if it exists
-          if (results.combined.length > 0) {
-            results.combined.forEach(result => {
-              var link = `<a href='/dorm/${result[0]}/room/${result[1]}'>${result[0]} - ${result[1]}</a>`;
-              // text() function to ensure that any potentially harmful HTML characters are properly escaped.
-              var linkElement = $(link).text(`${result[0]} - ${result[1]}`);
-              // Add an id to the dynamically created div
-              var divId = `result-${result[0]}-${result[1]}`;
-              resultsContainer.append(`<div id="${divId}"></div>`).find(`#${divId}`).append(linkElement);
-            });
-          }
-
-          // Display individual results next if it exists
-          if (results.individual.length > 0) {
-            results.individual.forEach(result => {
-              var link = `<a href='/dorm/${result[0]}/room/${result[1]}'>${result[0]} - ${result[1]}</a>`;
-              // text() function to ensure that any potentially harmful HTML characters are properly escaped.
-              var linkElement = $(link).text(`${result[0]} - ${result[1]}`);
-              // Add an id to the dynamically created div
-              var divId = `result-${result[0]}-${result[1]}`;
-              resultsContainer.append(`<div id="${divId}"></div>`).find(`#${divId}`).append(linkElement);
-            });
-          }
-        } else {
-          // If both are empty
-          resultsContainer.append(`<div id="${divId}">No results found.</div>`);
+        // Append links for each result
+        if (results.combined && results.combined.length > 0) {
+          results.combined.forEach(result => appendLink(resultsContainer, result));
         }
+        if (results.individual && results.individual.length > 0) {
+          results.individual.forEach(result => appendLink(resultsContainer, result));
+        }
+      }
+
+      /**
+       * Helper function to append a link to the results container.
+       * @param {jQuery Object} container - The jQuery object of the container where the link will be appended.
+       * @param {Array} result - The result data.
+       */
+      function appendLink(container, result) {
+        var linkText = `${result[0]} - ${result[1]}`;
+        var link = `<a href='/dorm/${result[0]}/room/${result[1]}'>${linkText}</a>`;
+        var divId = `result-${result[0]}-${result[1]}`;
+        container.append(`<div id="${divId}">${link}</div>`);
       }
     });
   </script>
