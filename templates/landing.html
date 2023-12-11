@@ -23,8 +23,13 @@
     <div id="{{ hall.name }}" style="border:solid 2px black; margin-bottom:15px;">
         <!-- <p>{{hall.name}}</p> -->
         <p><a href="{{ url_for('dorm', hid=hall.id ) }}">{{ hall.name }} ({{hall.id}})</a></p>
+
+        <img src="{{ url_for('static', filename=hall.id + '.png') }}" alt="{{ hall.name }}" />
+
     </div>
     {% endfor %} 
 </div> 
 
 {% endblock %}
+
+107.21.104.61 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC37ygYtCw6qOCtRG1TL/HspG5pVa9zO6SP/IacFEnWrQ7xY3AuqL1folD4RIfBi36CgkstSivdDYsvIWBMEB1FaXsgHd6uv0BqYv9Xuywl/D1zDrjNbd3Z8cqGzChVZtlwIvH9N9dkEhZpkq3uvea7MaE8nDn9WcsPUQhvDdazT6BaJeMbWQSpif5ZEuk5OxQo9L8jdEOxxaR4wEs2T7z2SubSXoqjWNxZ6pw2Llm8YnV/xg+a6P4t7q+U71u5GWqsB+ecYm8EzOmqpvAN8LCGA1qqaK0mdIFPZLG7IZmrLfwnpcE2o4iE5VXDnUZB+TUQ7CEeBQfkbRT5oJhBhNPP
