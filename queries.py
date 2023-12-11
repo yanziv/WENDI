@@ -50,40 +50,28 @@ def get_hid_given_hall_name(conn,hall_name):
     return curs.fetchone()
 
 
-def insert_review(
-    conn,
-    uid,rid,rating,startTime,
-    lengthOfStay,sizeScore,storageScore,ventScore,
-    cleanScore,bathroomScore,accessibilityScore,
-    sunlightScore,bugScore,windowScore,noiseScore,
-    comment,hasMedia,timePosted
-):
+def insert_review(conn, uid, rid, rating, startTime, lengthOfStay, sizeScore, storageScore, ventScore, cleanScore,
+                  bathroomScore, accessibilityScore, sunlightScore, bugScore, windowScore, noiseScore, comment,
+                  hasMedia, timePosted):
     """
     Insert user review into the review table in wendi_db 
     and return the review_id.
     """
     curs = dbi.dict_cursor(conn)
     curs.execute(
-        """insert into review(uid,rid,rating,startTime,
-                    lengthOfStay,sizeScore,storageScore,ventScore,
-                    cleanScore,bathroomScore,accessibilityScore,
-                    sunlightScore,bugScore,windowScore,noiseScore,
-                    comment,hasMedia,timePosted)
-                    values (%s, %s, %s, %s,%s, %s, %s, %s,
-                    %s, %s, %s, %s,%s, %s, %s, %s, %s, %s)""",
-        [
-            uid,rid,rating,startTime,
-            lengthOfStay,sizeScore,storageScore,ventScore,
-            cleanScore,bathroomScore,accessibilityScore,
-            sunlightScore,bugScore,windowScore,noiseScore,
-            comment,hasMedia,timePosted
-        ],
+        """INSERT INTO review (uid, rid, rating, startTime, lengthOfStay, sizeScore, storageScore, ventScore,
+                               cleanScore, bathroomScore, accessibilityScore, sunlightScore, bugScore, windowScore,
+                               noiseScore, comment, hasMedia, timePosted)
+           VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""",
+        [uid, rid, rating, startTime, lengthOfStay, sizeScore, storageScore, ventScore, cleanScore, bathroomScore,
+         accessibilityScore, sunlightScore, bugScore, windowScore, noiseScore, comment, hasMedia, timePosted]
     )
     conn.commit()
+    
     # Retrieve the last insert id
-    curs.execute("select last_insert_id()")
+    curs.execute("SELECT LAST_INSERT_ID()")
     row = curs.fetchone()
-    return row['last_insert_id()']
+    return row['LAST_INSERT_ID()']
 
 
 def show_rooms(conn, hall_id):
@@ -264,3 +252,5 @@ def get_hall_names_given_complex(conn,complex):
             """,[complex])
         
     return curs.fetchall()
+
+
