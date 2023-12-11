@@ -64,6 +64,10 @@ body.base{
   font-weight: bold;
 }
 
+.not-logged-in {
+  align-self: flex-end;
+}
+
 .logout-button:hover {
   background-color: #0d2269;
 }
@@ -410,12 +414,11 @@ body.base{
 
 
 /*ROOM PAGE APPEARANGE - room.html**************/
-<<<<<<< HEAD
 #room-content{
   border: solid 1px black;
-=======
+}
+
 #content{
->>>>>>> 310b2eab2ca08fbac909a07435bb1c3cb679dad2
   padding:1em;
 }
 
