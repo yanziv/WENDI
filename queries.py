@@ -211,7 +211,7 @@ def get_comments(conn, rid):
         with specified hid and number"""
     curs = dbi.dict_cursor(conn)
     curs.execute('''
-        SELECT uid, content, timePosted FROM comment
+        SELECT id, uid, content, timePosted FROM comment
         WHERE rid=%s
     ''',[rid])
     return curs.fetchall()

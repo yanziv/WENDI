@@ -253,23 +253,19 @@ def dorm(hid):
 def room(hid, number):
     conn = dbi.connect()
     reviewList = queries.show_reviews(conn, number)
-    print("reviewList: " + str(reviewList))
 
     currentsession = session['username']
-    print("CURRENTSESSION==========" + str(currentsession))
     uid = currentsession
-    # if uid:
-    #     username = uid[0]['username']
-    # else:
-    #     username = "NOT LOGGED IN"
+   
     session_uid = session.get("uid")
+
+    print("CURRENTSESSION==========" + str(currentsession))
     print("SESSION UID========" + str(session.get("uid")))
     print("USERNAME======"+str(currentsession))
     print("UID===========" + str(uid))
+    
     rid = queries.get_roomid(conn,hid,number)['id']
 
-    # session_username = queries.get_username(conn, session_uid)[0]['username']
-    # print("SESSION USERNAME============" + str(session_username))
     if request.method == "GET":
         allComments = queries.get_comments(conn, rid)
 
