@@ -52,24 +52,73 @@ def index():
     return render_template("login.html", title="Main Page")
 
 
-@app.route("/browse_all/", methods=["GET", "POST"])
-def landing():
+@app.route("/browse_all/<complex>", methods=["GET", "POST"])
+def landing(complex):
+    conn = dbi.connect()
     if request.method == "GET":
-        return render_template("landing.html")
+        halls = queries.get_hall_names_given_complex(conn,complex)
+        return render_template("landing.html", halls=halls, complex='all-halls')
+    # redirect('landing',complex='all-halls')
+    # render_template("landing.html", complex=complex, halls=halls)
+        # return render_template("landing.html",complex=complex,hallType='All Halls',halls=halls)
+
+
+    # else:
+    #     hall_type = request.form["hall-type"]
+    #     halls = queries.get_hall_names_given_complex(conn, hall_type)
+
+    #     if hall_type == "All Halls":
+    #         return render_template("landing.html", hallType=hall_type, halls=halls)
+        
+        # elif hall_type == "Tower Complex":
+        #     halls = queries.get_hall_names_given_complex(conn,"Tower Complex")
+        #     return render_template("landing.html",complex="Tower Complex",halls=halls)
+        
+        # elif hall_type == "East Side Complex":
+        #     halls = queries.get_hall_names_given_complex(conn,"East Side Complex")
+        #     return render_template("landing.html",hallType="East Side Complex",halls=halls)
+        
+        # elif hall_type == "West Side Complex":
+        #     halls = queries.get_hall_names_given_complex(conn,"West Side Complex")
+        #     return render_template("landing.html",hallType="West Side Complex",halls=halls)
+        
+        # elif hall_type == "The Quint":
+        #     halls = queries.get_hall_names_given_complex(conn,"The Quint")
+        #     return render_template("landing.html",hallType="The Quint",halls=halls)
+        
+        # elif hall_type == "Stone-Davis and Small Halls":
+        #     halls = queries.get_hall_names_given_complex(conn,"Stone-Davis and Small Halls")
+        #     return render_template("landing.html",hallType="Stone-Davis and Small Halls",halls=halls)
+
+
+@app.route("/login/", methods=["POST"])
+def login():
+    username = request.form.get("username")
+    passwd = request.form.get("password")
+    conn = dbi.connect()
+    curs = dbi.dict_cursor(conn)
+    curs.execute("SELECT uid,hashed FROM userpass WHERE username = %s", [username])
+    row = curs.fetchone()
+    if row is None:
+        # Same response as wrong password,
+        # so no information about what went wrong
+        flash("login incorrect. Try again or join")
+        return redirect(url_for("index"))
+    stored = row["hashed"]
+    print("database has stored: {} {}".format(stored, type(stored)))
+    print("form supplied passwd: {} {}".format(passwd, type(passwd)))
+    hashed2 = bcrypt.hashpw(passwd.encode("utf-8"), stored.encode("utf-8"))
+    hashed2_str = hashed2.decode("utf-8")
+    print("rehash is: {} {}".format(hashed2_str, type(hashed2_str)))
+    if hashed2_str == stored:
+        session["username"] = username
+        session["uid"] = row["uid"]
+        session["logged_in"] = True
+        session["visits"] = 1
+        return redirect(url_for("landing",complex='all-halls'))
     else:
-        # id is post id and then uid should be retrieved from cached username
-        if request.form["submit"] == "All Halls":
-            return render_template("landing.html")
-        elif request.form["submit"] == "Tower Complex":
-            return render_template("landing.html")
-        elif request.form["submit"] == "East Side Halls":
-            return render_template("landing.html")
-        elif request.form["submit"] == "West Side Halls":
-            return render_template("landing.html")
-        elif request.form["submit"] == "The Quint":
-            return render_template("landing.html")
-        elif request.form["submit"] == "Stone-Davis and Small Halls":
-            return render_template("landing.html")
+        flash("login incorrect. Try again or join")
+        return redirect(url_for("index"))
 
 
 @app.route("/review/", methods=["GET", "POST"])
@@ -82,7 +131,7 @@ def review():
     else:  # POST
         # 1: retrieve user input and insert review into the review table in wendi_db
         userID = session.get("uid")
-        dorm = request.form.get("res-hall")  # dorm is the 3-letter dorm encoding
+        dorm = request.form.get("res-hall") # dorm is the 3-letter dorm encoding
         room_number = request.form.get("room-num")
         rid = queries.get_rid_given_hall_and_number(conn, dorm, room_number)
         overallRating = request.form.get("overall")
@@ -99,7 +148,7 @@ def review():
         window = request.form.get("window")
         noise = request.form.get("noise")
         comments = request.form.get("comments")
-        hasMedia = "0"  # Initialize hasMedia to False
+        hasMedia = "0"  # set hasMedia to False
         submission_time = datetime.now()
 
 
@@ -127,27 +176,23 @@ def review():
         )
 
         # check uploaded files
-        try:
-            # session_id = int(session['id'])
-            files = request.files.getlist("roomMedia")
+        # try:
+        #     # session_id = int(session['id'])
+        #     files = request.files.getlist('roomMedia')
+            
+        #     for file in files:
+        #         if file and allowed_file(file.filename): # check if extension is allowed
+        #             # hasMedia = True  # Set hasMedia to True as a valid file is found
+        #             filename = secure_filename(file.filename)
+        #             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-            for file in files:
-                if file and allowed_file(
-                    file.filename
-                ):  # check if extension is allowed
-                    # hasMedia = True  # Set hasMedia to True as a valid file is found
-                    filename = secure_filename(file.filename)
-                    file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+        #             # Insert each file's information into the media table
+        #             media_url = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        #             queries.insert_media(conn, media_url, userID, review_id, cid=None)  # Assuming review_id is available
 
-                    # Insert each file's information into the media table
-                    media_url = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-                    queries.insert_media(
-                        conn, media_url, userID, review_id, cid=None
-                    )  # Assuming review_id is available
-
-        except Exception as err:
-            flash("Upload failed {why}".format(why=err))
-            return render_template("form.html")
+        # except Exception as err:
+        #     flash('Upload failed {why}'.format(why=err))s
+        #     return render_template('form.html')
 
         flash("Thank you for submitting a review!")
         return redirect(url_for("room", hid=dorm, number=room_number))
@@ -247,37 +292,6 @@ def room(hid, number):
         queries.insert_comment(conn, uid, rid, comment)
 
         return redirect(url_for("room", hid=hid, number=number))
-
-
-@app.route("/login/", methods=["GET", "POST"])
-def login():
-    if request.method == "POST":
-        username = request.form.get("username")
-        passwd = request.form.get("password")
-        conn = dbi.connect()
-        curs = dbi.dict_cursor(conn)
-        curs.execute("SELECT uid, hashed FROM userpass WHERE username = %s"
-            , [username])
-        row = curs.fetchone()
-        if row is None:
-            flash("Login incorrect. Try again or join.")
-            return redirect(url_for("index"))
-        stored = row["hashed"]
-        hashed2 = bcrypt.hashpw(passwd.encode("utf-8"), stored.encode("utf-8"))
-        hashed2_str = hashed2.decode("utf-8")
-        if hashed2_str == stored:
-            session["username"] = username
-            session["uid"] = row["uid"]
-            session["logged_in"] = True
-            session["visits"] = 1
-            return redirect(url_for("landing", username=username))
-        else:
-            flash("Login incorrect. Try again or join.")
-            return redirect(url_for("index"))
-    else:
-        # Handle the GET request
-        return render_template("login.html")
-
 
 @app.route("/join/", methods=["GET", "POST"])
 def join():
