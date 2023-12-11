@@ -428,10 +428,30 @@ body.base{
 /*ROOM PAGE APPEARANGE - room.html**************/
 #room-content{
   border: solid 1px black;
+  margin-bottom: 1em;
+  padding-left: 1em;
 }
 
 #content{
   padding:1em;
+}
+
+.review-table{
+  border: solid 1px black;
+  margin-bottom:1em;
+}
+
+.review-table td{
+  padding-right:1em;
+}
+
+.review-table-header{
+  border-bottom: solid 1px black;
+  font-weight:bold;
+}
+
+.room-content-header{
+  font-weight:bold;
 }
 
 
@@ -555,21 +575,5 @@ body.join {
   text-align: center;
 }
 
-.review-table{
-  border: solid 1px black;
-  margin-bottom:1em;
-}
 
-.review-table td{
-  padding-right:1em;
-}
-
-.review-table-header{
-  border-bottom: solid 1px black;
-  font-weight:bold;
-}
-
-.room-content-header{
-  font-weight:bold;
-}
 
