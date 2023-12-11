@@ -236,30 +236,21 @@ def get_username(conn, sessionUid):
         SELECT username from userpass
         WHERE uid=%s    
     """,[sessionUid])
-    return curs.fetchall()
-
+    return curs.fetchone()
 
 def get_hall_names_given_complex(conn,complex):
     """
-    Returns dictionary that includes the names of halls in
+    Returns dictionary that includes the IDs and names of halls in
     a given complex.
     """
-    # Mapping of URL-friendly names to actual complex names
-    complex_mapping = {
-        "tower-complex": "Tower Complex",
-        "east-side-halls": "East Side Halls",
-        "west-side-halls": "West Side Halls",
-        "the-quint": "The Quint",
-        "stone-davis-small-halls": "Stone-Davis and Small Halls",
-    }
 
     curs = dbi.dict_cursor(conn)
-    if complex == "all-halls":
-        curs.execute("""SELECT name from hall""")
+    if complex == "All Halls":
+        curs.execute("""SELECT id,name from hall""")
     else:
         curs.execute("""
-            SELECT name from hall
+            SELECT id,name from hall
             WHERE complex = %s    
-            """,[complex_mapping[complex]])
+            """,[complex])
         
     return curs.fetchall()
