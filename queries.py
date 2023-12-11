@@ -231,7 +231,6 @@ def get_hall_names_given_complex(conn,complex):
     Returns dictionary that includes the IDs and names of halls in
     a given complex.
     """
-
     curs = dbi.dict_cursor(conn)
     if complex == "All Halls":
         curs.execute("""SELECT id,name from hall""")
@@ -242,5 +241,3 @@ def get_hall_names_given_complex(conn,complex):
             """,[complex])
         
     return curs.fetchall()
-
-

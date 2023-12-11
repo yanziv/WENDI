@@ -59,8 +59,8 @@ def landing():
     conn = dbi.connect()
     
     if request.method == "GET":
-        # halls = queries.get_hall_names_given_complex(conn,'All Halls')
-        return render_template("landing.html", browse='All Halls')
+        halls = queries.get_hall_names_given_complex(conn,'All Halls')
+        return render_template("landing.html", halls=halls, browse='All Halls')
 
     else:
         hall_type = request.form["hall-type"]
@@ -71,21 +71,6 @@ def landing():
         
         else: # specific complex halls
             return render_template("landing.html", halls=halls, browse=hall_type)
-        
-        # elif hall_type == "Tower Complex":
-        #     return render_template("landing.html", halls=halls, browse=hall_type)
-        
-        # elif hall_type == "East Side Complex":
-        #     return render_template("landing.html", halls=halls, browse=hall_type)
-        
-        # elif hall_type == "West Side Complex":
-        #     return render_template("landing.html", halls=halls, browse=hall_type)
-        
-        # elif hall_type == "The Quint":
-        #     return render_template("landing.html", halls=halls, browse=hall_type)
-        
-        # elif hall_type == "Stone-Davis and Small Halls":
-        #     return render_template("landing.html", halls=halls, browse=hall_type)
 
 
 @app.route("/login/", methods=["GET", "POST"])
