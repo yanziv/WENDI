@@ -209,6 +209,7 @@ def room(hid, number):
     print("reviewList: " + str(reviewList))
 
     uid = queries.get_username(conn,session.get('uid'))
+    
 
     print("SESSION UID========" + str(session.get("uid")))
     print("USERNAME======"+str(uid))
@@ -233,7 +234,7 @@ def room(hid, number):
         )
     elif request.method == "POST":
         comment = request.form.get("comments")
-        uid = uid['username']
+        uid = uid
         queries.insert_comment(conn, uid, rid, comment)
 
         return redirect(url_for("room", hid=hid, number=number))
