@@ -271,7 +271,7 @@ def login():
 @app.route("/join/", methods=["GET", "POST"])
 def join():
     if request.method == "POST":
-        username = request.form.get("username")
+        username = request.form.get("usernamejoin")
         email = request.form.get("email")
         classYear = request.form.get("classYear")
         passwd1 = request.form.get("password1")
@@ -289,8 +289,8 @@ def join():
 
         try:
             curs.execute(
-                """INSERT INTO userpass(uid, username, email, classYear, hashed)
-                            VALUES(null, %s, %s, %s, %s)""",
+                """INSERT INTO userpass(username, email, classYear, hashed)
+                            VALUES(%s, %s, %s, %s)""",
                 [username, email, classYear, hashed_password_str],
             )
             conn.commit()
@@ -302,13 +302,8 @@ def join():
         row = curs.fetchone()
         uid = row[0]
 
-        flash("FYI, you were issued UID {}".format(uid))
-        session["username"] = username
-        session["uid"] = uid
-        session["logged_in"] = True
-        session["visits"] = 1
-
-        return redirect(url_for("user", username=username))
+        flash("Account created successfully! Please log in with your account.")
+        return redirect(url_for("index"))
     else:
         return render_template("join.html")
 
