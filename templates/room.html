@@ -1,5 +1,7 @@
 {% extends "base.html" %}
 
+{% block title%} WENDI {{dormname}} - {{number}} {% endblock %}
+
 {% block main_content %}
 <h1>{{dormname}} - {{number}}</h1>
 
@@ -8,23 +10,37 @@
     <div id="{{one.id}}">
         
         <div id="room-content">
-            <p>Review for {{dormname}} - {{one.rid}} ({{one.description}}) posted on {{one.timePosted}} by User {{one.uid}}</p>
+            <p class="room-content-header">Review for {{dormname}} - {{one.rid}} ({{one.description}}) posted on {{one.timePosted}} by User {{one.uid}}</p>
             <p><b>Comment: </b>{{one.comment}}</p>
 
             <p><b>Start Date: </b>{{one.startTime}}</p> 
             <p><b>Length of Stay: </b>{{one.lengthOfStay}}</p>
-            <p><b>Overall Rating: </b>{{one.rating}}</p>  
-            <ul>
-                <li><b>Size: </b>{{one.sizeScore}}</li>
-                <li><b>Vent: </b>{{one.ventScore}}</li>
-                <li><b>Clean: </b>{{one.cleanScore}}</li>
-                <li><b>Bathroom: </b>{{one.bathroomScore}}</li>
-                <li><b>Accessibility: </b>{{one.accessibilityScore}}</li>
-                <li><b>Sunlight: </b>{{one.sunlightScore}}</li>
-                <li><b>Bug: </b>{{one.bugScore}}</li>
-                <li><b>Window: </b>{{one.windowScore}}</li>
-                <li><b>Noise: </b>{{one.noiseScore}}</li>
-            </ul>
+            <p><b>Overall Rating: </b>{{one.rating}}</p>
+            <table class="review-table">
+              <tr class="review-table-header">
+                <td>Size</td>
+                <td>Vent</td>
+                <td>Clean</td>
+                <td>Bathroom</td>
+                <td>Accessibility</td>
+                <td>Sunlight</td>
+                <td>Bug</td>
+                <td>Window</td>
+                <td>Noise</td>
+              </tr>  
+              <tr>
+                <td>{{one.sizeScore}}</td>
+                <td>{{one.ventScore}}</td>
+                <td>{{one.cleanScore}}</td>
+                <td>{{one.bathroomScore}}</td>
+                <td>{{one.accessibilityScore}}</td>
+                <td>{{one.sunlightScore}}</td>
+                <td>{{one.bugScore}}</td>
+                <td>{{one.windowScore}}</td>
+                <td>{{one.noiseScore}}</td>
+              </tr>  
+            </table>
+
 
         </div>
 
