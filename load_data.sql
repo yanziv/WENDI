@@ -15,12 +15,6 @@ fields terminated by ','
 lines terminated by '\n'
 ignore 1 lines;
 
-load data local infile 'sample_data/cleaned_user_data.csv' 
-into table `user`
-fields terminated by ',' 
-lines terminated by '\n'
-ignore 1 lines;
-
 load data local infile 'sample_data/cleaned_review_data.csv' 
 into table `review`
 fields terminated by ',' 

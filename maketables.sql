@@ -49,7 +49,7 @@ ENGINE = InnoDB;
 
 CREATE TABLE `review` (
   `id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  `uid` VARCHAR(12),
+  `uid` INT,
   `rid` INT,
   `rating` INT,
   `startTime` DATE,
@@ -67,7 +67,7 @@ CREATE TABLE `review` (
   `comment` VARCHAR(3000),
   `hasMedia` BOOLEAN,
   `timePosted` TIMESTAMP,
-  FOREIGN KEY (`uid`) REFERENCES `userpass`(`username`)
+  FOREIGN KEY (`uid`) REFERENCES `userpass`(`uid`)
         ON UPDATE RESTRICT
         ON DELETE RESTRICT,  
   FOREIGN KEY (`rid`) REFERENCES `room`(`id`)
@@ -78,12 +78,12 @@ ENGINE = InnoDB;
 
 CREATE TABLE `comment` (
   `id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  `uid` VARCHAR(12),
+  `uid` INT,
   `rid` INT,
   `content` VARCHAR(1500),
   `hasMedia` BOOLEAN,
   `timePosted` timestamp,
-  FOREIGN KEY (uid) REFERENCES userpass(username)
+  FOREIGN KEY (uid) REFERENCES `userpass`(`uid`)
         ON UPDATE RESTRICT
         ON DELETE RESTRICT,
   FOREIGN KEY (rid) REFERENCES room(id)
@@ -94,9 +94,9 @@ ENGINE = InnoDB;
 
 CREATE TABLE `collection` (
   `id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  `uid` VARCHAR(12),
+  `uid` INT,
   `name` VARCHAR(50),
-  FOREIGN KEY (uid) REFERENCES `userpass`(`username`)
+  FOREIGN KEY (uid) REFERENCES `userpass`(`uid`)
         ON UPDATE RESTRICT
         ON DELETE RESTRICT
 )
@@ -116,11 +116,11 @@ ENGINE = InnoDB;
 
 CREATE TABLE `media` (
   `id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  `url` VARCHAR(255),
-  `uid` VARCHAR(12),
+  `url` VARCHAR(200),
+  `uid` INT,
   `rid` INT,
   `cid` INT,
-  FOREIGN KEY (uid) REFERENCES `userpass`(`username`)
+  FOREIGN KEY (uid) REFERENCES `userpass`(`uid`)
         ON UPDATE RESTRICT
         ON DELETE RESTRICT,
   FOREIGN KEY (rid) REFERENCES review(id)

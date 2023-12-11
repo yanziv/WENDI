@@ -11,12 +11,14 @@ from flask import (
     jsonify,
 )
 
-from datetime import datetime
+from datetime import datetime, timedelta
+
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-app.config["UPLOAD_FOLDER"] = "uploads"
+app.config["UPLOAD_FOLDER"] = "media/review/"
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024  # 16 MB limit
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=1)
 
 
 # one or the other of these. Defaults to MySQL (PyMySQL)
@@ -57,8 +59,8 @@ def landing():
     conn = dbi.connect()
     
     if request.method == "GET":
-        halls = queries.get_hall_names_given_complex(conn,'All Halls')
-        return render_template("landing.html", halls=halls, browse='All Halls')
+        # halls = queries.get_hall_names_given_complex(conn,'All Halls')
+        return render_template("landing.html", browse='All Halls')
 
     else:
         hall_type = request.form["hall-type"]
@@ -86,7 +88,7 @@ def landing():
         #     return render_template("landing.html", halls=halls, browse=hall_type)
 
 
-@app.route("/login/", methods=["POST"])
+@app.route("/login/", methods=["GET", "POST"])
 def login():
     username = request.form.get("username")
     passwd = request.form.get("password")
@@ -110,6 +112,7 @@ def login():
         session["uid"] = row["uid"]
         session["logged_in"] = True
         session["visits"] = 1
+        print(session)
         return redirect(url_for("landing"))
     else:
         flash("login incorrect. Try again or join")
@@ -128,7 +131,7 @@ def review():
         userID = session.get("uid")
         dorm = request.form.get("res-hall") # dorm is the 3-letter dorm encoding
         room_number = request.form.get("room-num")
-        rid = queries.get_rid_given_hall_and_number(conn, dorm, room_number)
+        rid = queries.get_rid_given_hall_and_number(conn, dorm, room_number)['id']
         overallRating = request.form.get("overall")
         startDate = request.form.get("start-date")
         length = request.form.get("length-of-stay")
@@ -146,6 +149,7 @@ def review():
         hasMedia = "0"  # set hasMedia to False
         submission_time = datetime.now()
 
+        print(session)
 
         # insert review into wendi_db and get review_id
         review_id = queries.insert_review(
@@ -171,23 +175,23 @@ def review():
         )
 
         # check uploaded files
-        # try:
-        #     # session_id = int(session['id'])
-        #     files = request.files.getlist('roomMedia')
+        try:
+            # session_id = int(session['id'])
+            files = request.files.getlist('roomMedia')
             
-        #     for file in files:
-        #         if file and allowed_file(file.filename): # check if extension is allowed
-        #             # hasMedia = True  # Set hasMedia to True as a valid file is found
-        #             filename = secure_filename(file.filename)
-        #             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+            for file in files:
+                if file and allowed_file(file.filename): # check if extension is allowed
+                    # hasMedia = True  # Set hasMedia to True as a valid file is found
+                    filename = secure_filename(file.filename)
+                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
 
-        #             # Insert each file's information into the media table
-        #             media_url = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-        #             queries.insert_media(conn, media_url, userID, review_id, cid=None)  # Assuming review_id is available
+                    # Insert each file's information into the media table
+                    media_url = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                    queries.insert_media(conn, media_url, userID, review_id, cid=None)  # Assuming review_id is available
 
-        # except Exception as err:
-        #     flash('Upload failed {why}'.format(why=err))s
-        #     return render_template('form.html')
+        except Exception as err:
+            flash('Upload failed {why}'.format(why=err))
+            return render_template('form.html')
 
         flash("Thank you for submitting a review!")
         return redirect(url_for("room", hid=dorm, number=room_number))
