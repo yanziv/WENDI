@@ -25,42 +25,42 @@
                 <li><b>Window: </b>{{one.windowScore}}</li>
                 <li><b>Noise: </b>{{one.noiseScore}}</li>
             </ul>
+
         </div>
 
-        <div class="comment-section">
-          {% for each in allComments %}
-          <div class="comment-div" id="{each.id}">
-
-            <p class="comment-header">Comment by {{each.uid}} posted on {{each.timePosted}}</p>
-            <p class="comment-content">{{each.content}}</p>
-            
-          </div>
-          {% endfor %}
-        </div>
-
-
-        <div class="comments" id="{{dict.rid}}">
-            <form method="POST" action="{{ url_for('room', hid=dormname, number=number) }}">
-                <tr>
-                    <td>
-                      <p>
-                        <label for="comments">Write a comment:</label>
-                      </p>
-                    </td>
-                    <td>
-                      <p>
-                        <textarea id="comments" name="comments" rows="4" cols="50"></textarea>
-                        <input type="submit" value="Submit">
-                      </p>
-                    </td>
-                  </tr>
-            </form>
-        </div>
-
-        
 
     </div>
     {% endfor %}
+
+    <div class="comment-section">
+      {% for each in allComments %}
+      <div class="comment-div" id="{{each.id}}">
+
+        <p class="comment-header">Comment by {{each.uid}} posted on {{each.timePosted}}</p>
+        <p class="comment-content">{{each.content}}</p>
+        
+      </div>
+      {% endfor %}
+    </div>
+
+
+    <div class="comments">
+        <form method="POST" action="{{ url_for('room', hid=dormname, number=number) }}">
+            <tr>
+                <td>
+                  <p>
+                    <label for="comments">Write a comment:</label>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    <textarea id="comments" name="comments" rows="4" cols="50"></textarea>
+                    <input type="submit" value="Submit">
+                  </p>
+                </td>
+              </tr>
+        </form>
+    </div>
 
   {% else %}
 

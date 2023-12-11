@@ -417,6 +417,7 @@ body.base{
 #room-content{
   border: solid 1px black;
   padding-left:1em;
+  margin-bottom: 1em;
 }
 
 #content{
