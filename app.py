@@ -283,36 +283,6 @@ def room(hid, number):
 
         return redirect(url_for("room", hid=hid, number=number))
 
-
-# @app.route("/login/", methods=["GET", "POST"])
-# def login():
-#     if request.method == "POST":
-#         username = request.form.get("username")
-#         passwd = request.form.get("password")
-#         conn = dbi.connect()
-#         curs = dbi.dict_cursor(conn)
-#         curs.execute("SELECT uid, hashed FROM userpass WHERE username = %s", [username])
-#         row = curs.fetchone()
-#         if row is None:
-#             flash("Login incorrect. Try again or join.")
-#             return redirect(url_for("index"))
-#         stored = row["hashed"]
-#         hashed2 = bcrypt.hashpw(passwd.encode("utf-8"), stored.encode("utf-8"))
-#         hashed2_str = hashed2.decode("utf-8")
-#         if hashed2_str == stored:
-#             session["username"] = username
-#             session["uid"] = row["uid"]
-#             session["logged_in"] = True
-#             session["visits"] = 1
-#             return redirect(url_for("landing", username=username))
-#         else:
-#             flash("Login incorrect. Try again or join.")
-#             return redirect(url_for("index"))
-#     else:
-#         # Handle the GET request
-#         return render_template("login.html")
-
-
 @app.route("/join/", methods=["GET", "POST"])
 def join():
     if request.method == "POST":
