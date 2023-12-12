@@ -78,18 +78,18 @@ ENGINE = InnoDB;
 
 CREATE TABLE `comment` (
   `id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  `uid` INT,
+  `uid` VARCHAR(12),
   `rid` INT,
   `content` VARCHAR(1500),
   `hasMedia` BOOLEAN,
-  `timePosted` timestamp,
-  FOREIGN KEY (uid) REFERENCES `userpass`(`uid`)
-        ON UPDATE RESTRICT
-        ON DELETE RESTRICT,
-  FOREIGN KEY (rid) REFERENCES room(id)
-        ON UPDATE RESTRICT
-        ON DELETE RESTRICT
-)
+  `timePosted` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`uid`) REFERENCES `userpass`(`username`)
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT,
+  FOREIGN KEY (`rid`) REFERENCES `room`(`id`)
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT
+) 
 ENGINE = InnoDB;
 
 CREATE TABLE `collection` (
@@ -116,17 +116,17 @@ ENGINE = InnoDB;
 
 CREATE TABLE `media` (
   `id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  `url` VARCHAR(200),
-  `uid` INT,
+  `url` VARCHAR(255),
+  `uid` VARCHAR(12),
   `rid` INT,
   `cid` INT,
-  FOREIGN KEY (uid) REFERENCES `userpass`(`uid`)
+  FOREIGN KEY (`uid`) REFERENCES `userpass`(`username`)
         ON UPDATE RESTRICT
         ON DELETE RESTRICT,
-  FOREIGN KEY (rid) REFERENCES review(id)
+  FOREIGN KEY (`rid`) REFERENCES `review`(`rid`)
         ON UPDATE RESTRICT
         ON DELETE RESTRICT,
-  FOREIGN KEY (cid) REFERENCES comment(id)
+  FOREIGN KEY (`cid`) REFERENCES `comment`(`id`)
         ON UPDATE RESTRICT
         ON DELETE RESTRICT
 )
