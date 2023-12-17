@@ -593,3 +593,94 @@ body.join {
   flex-basis: calc(33% - 20px); /* Adjust this to control the number of items per row */
   max-width: 450px; /* Maximum width of each hall container */
 }
+
+
+/* User Home Page CSS */
+
+.user-details, .user-reviews, .user-comments {
+  background: #fff;
+  padding: 20px;
+  margin-top: 20px;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.user-details h2, .user-reviews h2, .user-comments h2 {
+  color: #0e2c88;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #eee;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+ul li {
+  padding: 8px;
+  background: #f2f2f2;
+  margin-bottom: 5px;
+  border-radius: 3px;
+}
+
+ul li a {
+  text-decoration: none;
+  color: #333;
+  display: block;
+}
+
+ul li a:hover {
+  background-color: #0e2c8869;
+  color: white;
+}
+
+ul li:last-child {
+  margin-bottom: 0;
+}
+
+.no-content {
+  color: #999;
+  text-align: center;
+}
+
+
+/* About WENDI page CSS */
+.about-wendi {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f9f9f9;
+  color: #444;
+  line-height: 1.6;
+  width: 80%;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.about-wendi h3 {
+  background-color: #0e2c88; 
+  color: white;
+  padding: 10px;
+  margin-top: 30px;
+  border-radius: 5px;
+}
+
+.about-wendi p {
+  padding: 15px;
+  margin: 15px 0;
+  border-left: 4px solid #0e2c8865
+}
+
+.about-wendi footer {
+  background-color: #022489;
+  color: white;
+  text-align: center;
+  padding: 10px;
+  margin-top: 30px;
+  border-radius: 5px;
+}
+
+.about-wendi footer p {
+  margin: 0;
+}

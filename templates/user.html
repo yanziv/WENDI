@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %} WENDI - My Home Page {% endblock %}
+
+{% block main_content %}
+<div class="user-details">
+    <h2>MY DETAILS</h2>
+    <p><strong>Username:</strong> {{ details.username }}</p>
+    <p><strong>Class Year:</strong> {{ details.classYear }}</p>
+    <p><strong>Email:</strong> {{ details.email }}</p>
+    <p><strong>User ID:</strong> {{ uid }}</p>
+</div>
+
+<div class="user-reviews">
+    <h2>MY REVIEWS</h2>
+    {% if reviews %}
+        <ul>
+            {% for review in reviews %}
+            <li><a href="{{ url_for('room', hid=review['hid'], number=review['number']) }}">
+                {{ review['hid'] }}-{{ review['number'] }}</a></li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No reviews available.</p>
+    {% endif %}
+</div>
+
+<div class="user-comments">
+    <h2>MY COMMENTS</h2>
+    {% if comments %}
+        <ul>
+            {% for comment in comments %}
+            <li><a href="{{ url_for('hall', hid=comment['hid'], number=comment['number']) }}">
+                {{ comment['hid'] }}-{{ comment['number'] }}</a></li>            
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No comments available.</p>
+    {% endif %}
+</div>
+
+{% endblock %}
+

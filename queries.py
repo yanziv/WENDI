@@ -350,3 +350,70 @@ def edit_comment(conn, new_comment_text, comment_id):
         [new_comment_text, comment_id],
     )
     conn.commit()
+
+def get_user_details(conn, uid):
+    """
+    Returns dictionary that includes the username, email address, and class year 
+    belonging to the given uid
+    """
+    curs = dbi.dict_cursor(conn)
+    curs.execute(
+        """SELECT username, email, classYear 
+           FROM userpass 
+           WHERE uid = %s""",
+        [uid],
+    )
+    return curs.fetchone()
+
+def get_user_reviews(conn, uid):
+    """
+    Returns a list that includes all rooms that the given user has left a 
+    review for
+    """
+    curs = dbi.dict_cursor(conn)
+    curs.execute(
+        """SELECT rid 
+           FROM review
+           WHERE uid = %s""",
+        [uid])
+    results = curs.fetchall()
+    
+    user_rooms = []
+    for row in results:
+        rid = row['rid']
+        curs.execute(
+            """SELECT hid, number 
+            FROM room
+            WHERE id = %s""",
+            [rid])
+        user_rooms.append(curs.fetchone())
+        
+    return user_rooms
+        
+def get_user_comments(conn, uid):
+    """
+    Returns a list that includes all rooms that the given user has left a 
+    comment for
+    """
+    curs = dbi.dict_cursor(conn)
+    curs.execute(
+        """SELECT rid 
+           FROM comment
+           WHERE uid = %s""",
+        [uid])
+    results = curs.fetchall()
+    
+    user_comments = []
+    for row in results:
+        rid = row['rid']
+        curs.execute(
+            """SELECT hid, number 
+            FROM room
+            WHERE id = %s""",
+            [rid])
+        user_comments.append(curs.fetchone())
+        
+    return user_comments
+        
+        
+    

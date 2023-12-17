@@ -356,6 +356,24 @@ def edit_comment(comment_id):
     return redirect(request.referrer)  # Redirect back to the same page
 
 
+@app.route("/home", methods=["GET"])
+def home():
+    userID = session["uid"]
+    
+    conn = dbi.connect()
+    user_details = queries.get_user_details(conn, userID)
+    user_reviews = queries.get_user_reviews(conn, userID)
+    user_comments = queries.get_user_comments(conn, userID)
+    
+    return render_template("user.html", uid=userID, 
+                                        details=user_details, 
+                                        reviews=user_reviews, 
+                                        comments=user_comments)
+    
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
 if __name__ == "__main__":
     import sys, os
 
