@@ -45,12 +45,13 @@
           <a href="{{ url_for('review') }}" class="button-text">SUBMIT A REVIEW!</a>
         </div>
         <div class="search-bar">
-          <img id="searchIcon" class="magnifier" src="{{ url_for('static', filename='media/base/magnifier.png') }}">
+          <label for="searchInput">
+            <img id="searchIcon" class="magnifier" src="{{ url_for('static', filename='media/base/magnifier.png') }}" alt="Search Icon">
+          </label>
           <div id="searchContainer" class="search-bar-container">
-            <input class="search-input" type="text" name="search" id="searchInput" placeholder="Search here..."
-              required>
+            <input class="search-input" type="text" name="search" id="searchInput" placeholder="Search here..." required>
           </div>
-          <img id="blackxButton" class="blackx" src="{{ url_for('static', filename='media/base/blackx.png') }}">
+          <img id="blackxButton" class="blackx" src="{{ url_for('static', filename='media/base/blackx.png') }}" alt="Close Icon">
         </div>
       </div>
       <div class="filter-and-results" id="filter-and-results">

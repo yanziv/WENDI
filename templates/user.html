@@ -29,7 +29,7 @@
     {% if comments %}
         <ul>
             {% for comment in comments %}
-            <li><a href="{{ url_for('hall', hid=comment['hid'], number=comment['number']) }}">
+            <li><a href="{{ url_for('room', hid=comment['hid'], number=comment['number']) }}">
                 {{ comment['hid'] }}-{{ comment['number'] }}</a></li>            
             {% endfor %}
         </ul>

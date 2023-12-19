@@ -302,8 +302,14 @@ def join():
         row = curs.fetchone()
         uid = row[0]
 
-        flash("Account created successfully! Please log in with your account.")
-        return redirect(url_for("index"))
+        # Set session variables for the newly created user
+        session["username"] = username
+        session["uid"] = uid  # Use the user ID from the database
+        session["logged_in"] = True
+        session["visits"] = 1
+
+        flash("Account created successfully! You are now logged in.")
+        return redirect(url_for("landing"))
     else:
         return render_template("join.html")
 
@@ -359,20 +365,25 @@ def edit_comment(comment_id):
 @app.route("/home", methods=["GET"])
 def home():
     userID = session["uid"]
-    
+
     conn = dbi.connect()
     user_details = queries.get_user_details(conn, userID)
     user_reviews = queries.get_user_reviews(conn, userID)
     user_comments = queries.get_user_comments(conn, userID)
-    
-    return render_template("user.html", uid=userID, 
-                                        details=user_details, 
-                                        reviews=user_reviews, 
-                                        comments=user_comments)
-    
+
+    return render_template(
+        "user.html",
+        uid=userID,
+        details=user_details,
+        reviews=user_reviews,
+        comments=user_comments,
+    )
+
+
 @app.route("/about")
 def about():
     return render_template("about.html")
+
 
 if __name__ == "__main__":
     import sys, os

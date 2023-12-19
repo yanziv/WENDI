@@ -25,7 +25,7 @@
 
 <body id="login">
     <div class="login-page">
-        <img class="logo-image" src="{{ url_for('static', filename='media/login/wellesleylogo.png') }}">
+        <img class="logo-image" src="{{ url_for('static', filename='media/login/wellesleylogo.png') }}" alt="Wellesley College Logo">
         <div>
             <div id="WENDI-text">WENDI</div>
             <div id="WENDI-fullname">Wellesley Evaluation Network for Dorm Information</p>
@@ -43,10 +43,12 @@
 
         <form action="{{ url_for('login') }}" method="post">
             <div class="field-container">
+                <label for="usernameInput">Username</label>
                 <div id="usernameContainer" class="username-container" onclick="showUsername()">
                     <input class="username-input" type="text" name="username" id="usernameInput" required>
                     <div class="username-placeholder">Username</div>
                 </div>
+                <label for="passwordInput">Password</label>
                 <div id="passwordContainer" class="password-container" onclick="showPassword()">
                     <input class="password-input" type="password" name="password" id="passwordInput" required>
                     <div class="password-placeholder">Password</div>

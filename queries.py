@@ -175,21 +175,17 @@ def show_reviews(conn, roomnum):
     return curs.fetchall()
 
 
-def authenticate_user(username, password):
-    """Check if the username and password match."""
-    conn = dbi.connect()
-    curs = dbi.dict_cursor(conn)
-    curs.execute(
-        """
-        SELECT * FROM user WHERE username = %s AND password=%s
-        """,
-        [username, password],
-    )
-    result = curs.fetchone()
-    return result is not None  # It returns True if authentication successful.
-
-
 def search_by_hid_or_number(conn, search_term):
+    """
+    Search for rooms in the database by either HID or number.
+
+    Args:
+        conn (object): The database connection object.
+        search_term (str): The search term to match against HID or number.
+
+    Returns:
+        list: A list of tuples containing matched HID and number pairs.
+    """
     query = "SELECT hid, number FROM room WHERE hid LIKE %s OR number LIKE %s"
     params = ("%" + search_term + "%", "%" + search_term + "%")
 
@@ -203,10 +199,20 @@ def search_by_hid_or_number(conn, search_term):
 
 
 def search_by_hid_and_number(conn, search_term):
+    """
+    Search for rooms in the database by both HID and number.
+
+    Args:
+        conn (object): The database connection object.
+        search_term (str): The search term to match against HID and number.
+
+    Returns:
+        list: A list of tuples containing matched HID and number pairs.
+    """
     # Split the search term into individual terms
     terms = search_term.split()
 
-    # Use individual terms to search for both hid and number
+    # Use individual terms to search for both HID and number
     if len(terms) >= 2:
         query = """SELECT hid, number FROM room 
                 WHERE hid LIKE %s AND number LIKE %s"""
@@ -351,9 +357,10 @@ def edit_comment(conn, new_comment_text, comment_id):
     )
     conn.commit()
 
+
 def get_user_details(conn, uid):
     """
-    Returns dictionary that includes the username, email address, and class year 
+    Returns dictionary that includes the username, email address, and class year
     belonging to the given uid
     """
     curs = dbi.dict_cursor(conn)
@@ -365,9 +372,10 @@ def get_user_details(conn, uid):
     )
     return curs.fetchone()
 
+
 def get_user_reviews(conn, uid):
     """
-    Returns a list that includes all rooms that the given user has left a 
+    Returns a list that includes all rooms that the given user has left a
     review for
     """
     curs = dbi.dict_cursor(conn)
@@ -375,24 +383,27 @@ def get_user_reviews(conn, uid):
         """SELECT rid 
            FROM review
            WHERE uid = %s""",
-        [uid])
+        [uid],
+    )
     results = curs.fetchall()
-    
+
     user_rooms = []
     for row in results:
-        rid = row['rid']
+        rid = row["rid"]
         curs.execute(
             """SELECT hid, number 
             FROM room
             WHERE id = %s""",
-            [rid])
+            [rid],
+        )
         user_rooms.append(curs.fetchone())
-        
+
     return user_rooms
-        
+
+
 def get_user_comments(conn, uid):
     """
-    Returns a list that includes all rooms that the given user has left a 
+    Returns a list that includes all rooms that the given user has left a
     comment for
     """
     curs = dbi.dict_cursor(conn)
@@ -400,20 +411,19 @@ def get_user_comments(conn, uid):
         """SELECT rid 
            FROM comment
            WHERE uid = %s""",
-        [uid])
+        [uid],
+    )
     results = curs.fetchall()
-    
+
     user_comments = []
     for row in results:
-        rid = row['rid']
+        rid = row["rid"]
         curs.execute(
             """SELECT hid, number 
             FROM room
             WHERE id = %s""",
-            [rid])
+            [rid],
+        )
         user_comments.append(curs.fetchone())
-        
+
     return user_comments
-        
-        
-    

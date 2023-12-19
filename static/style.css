@@ -292,7 +292,7 @@ body.base{
 }
 
 .alert {
-  color: red; 
+  color: rgb(132, 0, 0); 
   margin-bottom: 20px; 
 }
 
@@ -354,7 +354,7 @@ body.base{
 }
 
 .username-placeholder, .password-placeholder {
-  color: #aaa;
+  color: #aaaaaa3b;
   transition: all 0.3s ease; 
   left: 20px;
 }
@@ -518,7 +518,7 @@ body.join {
 .classyear-placeholder,
 .password1-placeholder,
 .password2-placeholder {
-  color: #aaa;
+  color: #aaaaaa3d;
 }
 
 .usernamejoin-container.active,
@@ -565,7 +565,7 @@ body.join {
 }
 
 .join-page .flash_msg .alert {
-  color: #d9534f;
+  color: #a30500;
   padding: 10px;
   margin-bottom: 20px;
   border: 1px solid transparent;
