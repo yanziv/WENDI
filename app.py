@@ -16,7 +16,7 @@ from datetime import datetime, timedelta
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-app.config["UPLOAD_FOLDER"] = "media/review/"
+app.config["UPLOAD_FOLDER"] = "static/media/uploads"
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024  # 16 MB limit
 app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(hours=1)
 
