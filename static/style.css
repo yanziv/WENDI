@@ -931,6 +931,9 @@ ul li:last-child {
   margin: 0;
 }
 
+.reviewPic{
+  width: 200px;
+}
 /* Targeting the container of flash messages */
 #flashes {
   margin: 10px 0;

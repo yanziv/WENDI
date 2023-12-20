@@ -161,19 +161,41 @@ def show_reviews(conn, roomnum):
     curs = dbi.dict_cursor(conn)
     curs.execute(
         """
-        SELECT uid, room.number as rid, 
+        SELECT review.uid as uid, room.number as rid, 
         room.description as description, 
         rating, startTime, lengthOfStay, 
         cleanScore, bathroomScore, sizeScore, 
         ventScore, accessibilityScore,
         sunlightScore, bugScore, windowScore, 
-        noiseScore, comment, timePosted
-        FROM review, room WHERE review.rid = room.id AND room.number = %s
+        noiseScore, comment, timePosted, media.url as pic
+        FROM review
+        JOIN room ON review.rid=room.id
+        LEFT JOIN media ON review.id=media.rid
+        WHERE room.number = %s
     """,
         [roomnum],
     )
     return curs.fetchall()
 
+# def show_reviews(conn, roomnum):
+#     """return all reviews made for specified room"""
+#     curs = dbi.dict_cursor(conn)
+#     curs.execute(
+#         """
+#         SELECT review.uid as uid, room.number as rid, 
+#         room.description as description, 
+#         rating, startTime, lengthOfStay, 
+#         cleanScore, bathroomScore, sizeScore, 
+#         ventScore, accessibilityScore,
+#         sunlightScore, bugScore, windowScore, 
+#         noiseScore, comment, timePosted, media.url as url
+#         FROM review JOIN room ON review.rid=room.number
+#         JOIN media on media.rid = review.id
+#         WHERE room.number = %s
+#     """,
+#         [roomnum],
+#     )
+#     return curs.fetchall()
 
 def search_by_hid_or_number(conn, search_term):
     """

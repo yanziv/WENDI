@@ -211,6 +211,7 @@ def dorm(hid):
         conn, hid
     )  # dropdown menu's values for all the room types
     print("filterContent ==== " + str(filterContent))
+    
     if request.method == "POST":
         print("request.method ===== POST")
 
@@ -245,26 +246,23 @@ def dorm(hid):
 def room(hid, number):
     conn = dbi.connect()
     reviewList = queries.show_reviews(conn, number)
-
-    currentsession = session["username"]
-    session_uid = session["uid"]
+    print("REVIEWLIST::::::"+str(reviewList))
+    print("session username:::",str(session))
+    currentsession = session.get('username')
+    #["username"]
+    session_uid = session.get('uid')
+    #["uid"]
 
     print("CURRENTSESSION==========" + str(currentsession))
     print("SESSION UID========" + str(session.get("uid")))
     print("USERNAME======" + str(currentsession))
 
     rid = queries.get_roomid(conn, hid, number)["id"]
-
+    print("rid===="+str(rid))
     if request.method == "GET":
         allComments = queries.get_comments(conn, rid)
 
-        return render_template(
-            "room.html",
-            reviews=reviewList,
-            dormname=hid,
-            number=number,
-            allComments=allComments,
-        )
+        return render_template("room.html",reviews=reviewList,dormname=hid,number=number,allComments=allComments)
     elif request.method == "POST":
         comment = request.form.get("comments")
 

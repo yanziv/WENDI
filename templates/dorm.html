@@ -8,11 +8,11 @@ WENDI {{dormname}}
 
 {% block main_content %}
 <h1>{{dormname}}</h1>
-<div class="dorm-display">
-    <form class="dorm-filter">
-        <label for="room-type">Filter by: </label>
-        <select id="room-type" name="room-type" required>
-            <option value="All">All</option>
+
+<form method="GET" action="{{url_for('dorm', hid=dormname)}}">
+    <label for="room-type">Filter by: </label>
+    <select id="room-type" name="room-type" required>
+        <option value="All">All</option>
             {% for item in filterContent %}
             <option value="{{item.description}}">{{item.description}}</option>
             {% endfor %}
