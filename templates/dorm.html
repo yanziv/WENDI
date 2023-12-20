@@ -9,7 +9,7 @@ WENDI {{dormname}}
 {% block main_content %}
 <h1>{{dormname}}</h1>
 
-<form>
+<form method="GET" action="{{url_for('dorm', hid=dormname)}}">
     <label for="room-type">Filter by: </label>
     <select id="room-type" name="room-type" required>
         <option value="All">All</option>

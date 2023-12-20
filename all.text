@@ -1,0 +1,2207 @@
+====================== app.py =====================
+from flask import (
+    Flask,
+    render_template,
+    make_response,
+    url_for,
+    request,
+    redirect,
+    flash,
+    session,
+    send_from_directory,
+    jsonify,
+)
+
+from datetime import datetime, timedelta
+
+from werkzeug.utils import secure_filename
+
+app = Flask(__name__)
+app.config["UPLOAD_FOLDER"] = "media/review/"
+app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024  # 16 MB limit
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=1)
+
+
+# one or the other of these. Defaults to MySQL (PyMySQL)
+# change comment characters to switch to SQLite
+
+import cs304dbi as dbi
+
+# import cs304dbi_sqlite3 as dbi
+
+import bcrypt
+import random
+import queries as queries
+
+app.secret_key = "your secret here"
+# replace that with a random key
+app.secret_key = "".join(
+    [
+        random.choice(
+            ("ABCDEFGHIJKLMNOPQRSTUVXYZ" + 
+            "abcdefghijklmnopqrstuvxyz" +
+             "0123456789")
+        )
+        for i in range(20)
+    ]
+)
+
+# This gets us better error messages for certain common request errors
+app.config["TRAP_BAD_REQUEST_ERRORS"] = True
+
+
+@app.route("/", methods=["GET", "POST"])
+def index(): 
+    return render_template("login.html", title="Main Page")
+
+
+@app.route("/browse-all/", methods=["GET", "POST"])
+def landing():
+    conn = dbi.connect()
+    
+    if request.method == "GET":
+        halls = queries.get_hall_names_given_complex(conn,'All Halls')
+        return render_template("landing.html", halls=halls, browse='All Halls')
+
+    else:
+        hall_type = request.form["hall-type"]
+
+        if hall_type == "All Halls":
+            return redirect(url_for('landing'))
+        
+        else: # specific complex halls
+            halls = queries.get_hall_names_given_complex(conn, hall_type)
+            return render_template("landing.html", halls=halls, browse=hall_type)
+
+
+@app.route("/login/", methods=["GET", "POST"])
+def login():
+    username = request.form.get("username")
+    passwd = request.form.get("password")
+    conn = dbi.connect()
+    curs = dbi.dict_cursor(conn)
+    curs.execute("SELECT uid,hashed FROM userpass WHERE username = %s", [username])
+    row = curs.fetchone()
+    if row is None:
+        # Same response as wrong password,
+        # so no information about what went wrong
+        flash("login incorrect. Try again or join")
+        return redirect(url_for("index"))
+    stored = row["hashed"]
+    print("database has stored: {} {}".format(stored, type(stored)))
+    print("form supplied passwd: {} {}".format(passwd, type(passwd)))
+    hashed2 = bcrypt.hashpw(passwd.encode("utf-8"), stored.encode("utf-8"))
+    hashed2_str = hashed2.decode("utf-8")
+    print("rehash is: {} {}".format(hashed2_str, type(hashed2_str)))
+    if hashed2_str == stored:
+        session["username"] = username
+        session["uid"] = row["uid"]
+        session["logged_in"] = True
+        session["visits"] = 1
+        print(session)
+        return redirect(url_for("landing"))
+    else:
+        flash("login incorrect. Try again or join")
+        return redirect(url_for("index"))
+
+
+@app.route("/review/", methods=["GET", "POST"])
+def review():
+    conn = dbi.connect()
+    all_dorms = queries.get_all_dorms(conn)
+    if request.method == "GET":
+        return render_template("form.html", dorms=all_dorms)
+
+    else:  # POST
+        # 1: retrieve user input and insert review into the review table in wendi_db
+        userID = session.get("uid")
+        dorm = request.form.get("res-hall") # dorm is the 3-letter dorm encoding
+        room_number = request.form.get("room-num")
+        rid = queries.get_rid_given_hall_and_number(conn, dorm, room_number)['id']
+        overallRating = request.form.get("overall")
+        startDate = request.form.get("start-date")
+        length = request.form.get("length-of-stay")
+        size = request.form.get("size")
+        storage = request.form.get("storage")
+        ventilation = request.form.get("ventilation")
+        cleanliness = request.form.get("cleanliness")
+        bathroom = request.form.get("bathroom")
+        accessibility = request.form.get("accessibility")
+        sunlight = request.form.get("sunlight")
+        bugs = request.form.get("bugs")
+        window = request.form.get("window")
+        noise = request.form.get("noise")
+        comments = request.form.get("comments")
+        hasMedia = "0"  # set hasMedia to False
+        submission_time = datetime.now()
+
+        print(session)
+
+        # insert review into wendi_db and get review_id
+        review_id = queries.insert_review(
+            conn,
+            userID,
+            rid,
+            overallRating,
+            startDate,
+            length,
+            size,
+            storage,
+            ventilation,
+            cleanliness,
+            bathroom,
+            accessibility,
+            sunlight,
+            bugs,
+            window,
+            noise,
+            comments,
+            hasMedia,
+            submission_time,
+        )
+
+        # check uploaded files
+        try:
+            # session_id = int(session['id'])
+            files = request.files.getlist('roomMedia')
+            
+            for file in files:
+                if file and allowed_file(file.filename): # check if extension is allowed
+                    # hasMedia = True  # Set hasMedia to True as a valid file is found
+                    filename = secure_filename(file.filename)
+                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+
+                    # Insert each file's information into the media table
+                    media_url = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+                    queries.insert_media(conn, media_url, userID, review_id, cid=None)  # Assuming review_id is available
+
+        except Exception as err:
+            flash('Upload failed {why}'.format(why=err))
+            return render_template('form.html')
+
+        flash("Thank you for submitting a review!")
+        return redirect(url_for("room", hid=dorm, number=room_number))
+
+
+def allowed_file(filename):
+    """
+    This is a helper function that checks whether the file the user uploads
+    has the extensions we support. Returns a boolean value.
+    """
+    return "." in filename and filename.rsplit(".", 1)[1].lower() in {
+        "png",
+        "jpg",
+        "jpeg",
+        "gif",
+    }
+
+
+@app.route("/dorm/<hid>", methods=["GET", "POST"])
+def dorm(hid):
+    conn = dbi.connect()
+    print("hid: " + str(hid))
+
+    filterContent = queries.get_room_types(
+        conn, hid
+    )  # dropdown menu's values for all the room types
+    print("filterContent ==== " + str(filterContent))
+    if request.method == "POST":
+        print("request.method ===== POST")
+
+        roomsList = queries.show_rooms(conn, hid)
+        return render_template(
+            "dorm.html", dorm=roomsList, dormname=hid, filterContent=filterContent
+        )
+    else:
+        print("request.method ===== GET")
+
+        answer = request.args.get("room-type")
+        print("room-type: " + str(answer))
+
+        if answer == "All" or answer == None:
+            filteredRooms = queries.show_rooms(conn, hid)
+            answer = "All"
+        else:
+            filteredRooms = queries.sort_rooms_by(conn, hid, answer)
+        # print(filteredRooms)
+
+        # print("roomList: " + str(roomsList))
+        return render_template(
+            "dorm.html",
+            dorm=filteredRooms,
+            dormname=hid,
+            filterContent=filterContent,
+            filterType=answer,
+        )
+
+
+@app.route("/dorm/<hid>/room/<number>", methods=["GET", "POST"])
+def room(hid, number):
+    conn = dbi.connect()
+    reviewList = queries.show_reviews(conn, number)
+
+    currentsession = session['username']
+    uid = currentsession
+   
+    session_uid = session.get("uid")
+
+    print("CURRENTSESSION==========" + str(currentsession))
+    print("SESSION UID========" + str(session.get("uid")))
+    print("USERNAME======"+str(currentsession))
+    print("UID===========" + str(uid))
+    
+    rid = queries.get_roomid(conn,hid,number)['id']
+
+    if request.method == "GET":
+        allComments = queries.get_comments(conn, rid)
+
+        return render_template(
+            "room.html",
+            reviews=reviewList,
+            dormname=hid,
+            number=number,
+            allComments=allComments
+        )
+    elif request.method == "POST":
+        comment = request.form.get("comments")
+
+        queries.insert_comment(conn, session_uid, rid, comment)
+
+        return redirect(url_for("room", hid=hid, number=number))
+
+@app.route("/join/", methods=["GET", "POST"])
+def join():
+    if request.method == "POST":
+        username = request.form.get("usernamejoin")
+        email = request.form.get("email")
+        classYear = request.form.get("classYear")
+        passwd1 = request.form.get("password1")
+        passwd2 = request.form.get("password2")
+
+        if passwd1 != passwd2:
+            flash("Passwords do not match")
+            return redirect(url_for("join"))
+
+        hashed = bcrypt.hashpw(passwd1.encode("utf-8"), bcrypt.gensalt())
+        hashed_password_str = hashed.decode("utf-8")
+
+        conn = dbi.connect()
+        curs = dbi.cursor(conn)
+
+        try:
+            curs.execute(
+                """INSERT INTO userpass(username, email, classYear, hashed)
+                            VALUES(%s, %s, %s, %s)""",
+                [username, email, classYear, hashed_password_str],
+            )
+            conn.commit()
+        except Exception as err:
+            flash("That username is taken: {}".format(repr(err)))
+            return redirect(url_for("join"))
+
+        curs.execute("SELECT last_insert_id()")
+        row = curs.fetchone()
+        uid = row[0]
+
+        flash("Account created successfully! Please log in with your account.")
+        return redirect(url_for("index"))
+    else:
+        return render_template("join.html")
+
+
+@app.route("/logout/", methods=["GET", "POST"])
+def logout():
+    if "username" in session:
+        session.pop("username")
+        session.pop("uid")
+        session.pop("logged_in")
+        flash("You are logged out")
+        return redirect(url_for("index"))
+
+
+@app.route("/search", methods=["POST"])
+def search():
+    search_term = request.form.get("search_term", "").lower()
+    # Query wendi_db database to get matching results
+    conn = dbi.connect()
+    # Search by either hid or number
+    results_individual = queries.search_by_hid_or_number(conn, search_term)
+    # Search by both hid and number
+    results_combined = queries.search_by_hid_and_number(conn, search_term)
+    return jsonify({"individual": results_individual, "combined": results_combined})
+
+
+# @app.route("/addcomment/", methods=["POST"])
+# def addcomment():
+
+#     return redirect(url_for('room'), hid=)
+
+if __name__ == "__main__":
+    import sys, os
+
+    if len(sys.argv) > 1:
+        # arg, if any, is the desired port number
+        port = int(sys.argv[1])
+        assert port > 1024
+    else:
+        port = os.getuid()
+    # set this local variable to 'wmdb' or your personal or team db
+    db_to_use = "wendi_db"
+    print("will connect to {}".format(db_to_use))
+    dbi.conf(db_to_use)
+    app.debug = True
+    app.run("0.0.0.0", port)
+
+====================== queries.py =====================
+import cs304dbi as dbi
+from flask import flash
+
+def insert_media(conn,url,uid,rid,cid):
+    """
+    Uploads media to the table for room reviews.
+    """
+    curs = dbi.dict_cursor(conn)
+    curs.execute("""insert into media(url,uid,rid,cid) 
+                    values (%s,%s,%s,%s)""",
+                    [url,uid,rid,cid])
+    conn.commit()
+
+def get_all_dorms(conn):
+    """
+    Returns info regarding all residential halls at Wellesley.
+    """
+    curs = dbi.dict_cursor(conn)
+    curs.execute(
+        """
+        select * from hall"""
+    )
+    return curs.fetchall()
+
+def get_rid_given_hall_and_number(conn,hall,number):
+    """
+    Returns room id (id in the room table) given the 3-letter
+    hall encoding and specific room number.
+    """
+    curs = dbi.dict_cursor(conn)
+    curs.execute('''
+        select id from room
+        where number = %s 
+        and hid = %s''',
+        [number,hall])
+    return curs.fetchone()
+
+
+def get_hid_given_hall_name(conn,hall_name):
+    """
+    Returns the three-letter encoding hid of a given residential hall.
+    """
+    curs = dbi.dict_cursor(conn)
+    curs.execute(
+        """
+        select id from hall
+        where name = %s""",
+        [hall_name],
+    )
+    return curs.fetchone()
+
+
+def insert_review(conn, uid, rid, rating, startTime, lengthOfStay, sizeScore, storageScore, ventScore, cleanScore,
+                  bathroomScore, accessibilityScore, sunlightScore, bugScore, windowScore, noiseScore, comment,
+                  hasMedia, timePosted):
+    """
+    Insert user review into the review table in wendi_db 
+    and return the review_id.
+    """
+    curs = dbi.dict_cursor(conn)
+    curs.execute(
+        """INSERT INTO review (uid, rid, rating, startTime, lengthOfStay, sizeScore, storageScore, ventScore,
+                               cleanScore, bathroomScore, accessibilityScore, sunlightScore, bugScore, windowScore,
+                               noiseScore, comment, hasMedia, timePosted)
+           VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""",
+        [uid, rid, rating, startTime, lengthOfStay, sizeScore, storageScore, ventScore, cleanScore, bathroomScore,
+         accessibilityScore, sunlightScore, bugScore, windowScore, noiseScore, comment, hasMedia, timePosted]
+    )
+    conn.commit()
+    
+    # Retrieve the last insert id
+    curs.execute("SELECT LAST_INSERT_ID()")
+    row = curs.fetchone()
+    return row['LAST_INSERT_ID()']
+
+
+def show_rooms(conn, hall_id):
+    """return all rooms with specified hall_id as the hid"""
+    curs = dbi.dict_cursor(conn)
+    curs.execute(
+        """
+        select number, type, description from room where hid = %s
+    """,
+        [hall_id],
+    )
+    return curs.fetchall()
+
+
+def sort_rooms_by(conn, hall_id, criteria):
+    """returns all rooms with specified hall_id 
+        by the criteria entered"""
+    curs = dbi.dict_cursor(conn)
+    curs.execute(
+        """
+        SELECT number, type, description FROM room 
+        WHERE hid = %s AND description = %s
+        """,
+        [hall_id, criteria],
+    )
+    return curs.fetchall()
+
+
+def get_room_types(conn, hall_id):
+    """returns all room types in specified hall"""
+    curs = dbi.dict_cursor(conn)
+    curs.execute(
+        """
+        SELECT distinct description FROM room
+        WHERE hid = %s
+        """,
+        [hall_id],
+    )
+    return curs.fetchall()
+
+
+def show_reviews(conn, roomnum):
+    """return all reviews made for specified room"""
+    curs = dbi.dict_cursor(conn)
+    curs.execute(
+        """
+        SELECT uid, room.number as rid, 
+        room.description as description, 
+        rating, startTime, lengthOfStay, 
+        cleanScore, bathroomScore, sizeScore, 
+        ventScore, accessibilityScore,
+        sunlightScore, bugScore, windowScore, 
+        noiseScore, comment, timePosted
+        FROM review, room WHERE review.rid = room.id AND room.number = %s
+    """,
+        [roomnum],
+    )
+    return curs.fetchall()
+
+
+def authenticate_user(username, password):
+    """Check if the username and password match."""
+    conn = dbi.connect()
+    curs = dbi.dict_cursor(conn)
+    curs.execute(
+        """
+        SELECT * FROM user WHERE username = %s AND password=%s
+        """,
+        [username,password]
+    )
+    result = curs.fetchone()
+    return result is not None  # It returns True if authentication successful.
+
+
+def search_by_hid_or_number(conn, search_term):
+    query = "SELECT hid, number FROM room WHERE hid LIKE %s OR number LIKE %s"
+    params = ("%" + search_term + "%", "%" + search_term + "%")
+
+    cursor = conn.cursor()
+    cursor.execute(query, params)
+
+    results = cursor.fetchall()
+    cursor.close()
+
+    return results
+
+
+def search_by_hid_and_number(conn, search_term):
+    # Split the search term into individual terms
+    terms = search_term.split()
+
+    # Use individual terms to search for both hid and number
+    if len(terms) >= 2:
+        query = """SELECT hid, number FROM room 
+                WHERE hid LIKE %s AND number LIKE %s"""
+        params = ("%" + terms[0] + "%", "%" + terms[1] + "%")
+    elif len(terms) == 1:
+        # Handle the case where there's only one term
+        query = """SELECT hid, number FROM room 
+                WHERE hid LIKE %s OR number LIKE %s"""
+        params = ("%" + terms[0] + "%", "%" + terms[0] + "%")
+    else:
+        # Handle the case where there are no terms
+        return []
+
+    cursor = conn.cursor()
+    cursor.execute(query, params)
+
+    results = cursor.fetchall()
+    cursor.close()
+
+    return results
+
+def get_roomid(conn, hid, number):
+    """takes in a hid and room number and 
+        returns the rid for that room"""
+    curs = dbi.dict_cursor(conn)
+    curs.execute('''
+        SELECT id from room where hid=%s and number=%s
+    ''', [hid, number])
+    return curs.fetchone()
+
+
+def insert_comment(conn, uid, rid, comment):
+    """takes in a conn and content and 
+        inserts into content table"""
+    curs = dbi.dict_cursor(conn)
+    curs.execute('''
+        INSERT into comment(uid, rid, content)
+        values (%s, %s, %s)
+    ''', [uid,rid,comment])
+    conn.commit()
+
+
+def get_comments(conn, rid):
+    """returns dict of all comments for room 
+        with specified hid and number"""
+    curs = dbi.dict_cursor(conn)
+    curs.execute('''
+        SELECT id, uid, content, timePosted FROM comment
+        WHERE rid=%s
+    ''',[rid])
+    return curs.fetchall()
+
+def get_username(conn, sessionUid):
+    """returns username of user with corresponding
+        session uid"""
+    curs = dbi.dict_cursor(conn)
+    curs.execute("""
+        SELECT username from userpass
+        WHERE uid=%s    
+    """,[sessionUid])
+    return curs.fetchone()
+
+def get_hall_names_given_complex(conn,complex):
+    """
+    Returns dictionary that includes the IDs and names of halls in
+    a given complex.
+    """
+    curs = dbi.dict_cursor(conn)
+    if complex == "All Halls":
+        curs.execute("""SELECT id,name from hall""")
+    else:
+        curs.execute("""
+            SELECT id,name from hall
+            WHERE complex = %s    
+            """,[complex])
+        
+    return curs.fetchall()
+====================== load_data.sql =====================
+-- This query inserts the given data to the table we created for WENDI draft version.
+-- The files are in .csv format, and has been manually cleaned before processing. 
+
+use wendi_db;
+
+load data local infile 'sample_data/cleaned_hall_data.csv' 
+into table `hall`
+fields terminated by ',' 
+lines terminated by '\n'
+ignore 1 lines;
+
+load data local infile 'sample_data/cleaned_dorm_data.csv' 
+into table `room`
+fields terminated by ',' 
+lines terminated by '\n'
+ignore 1 lines;
+
+load data local infile 'sample_data/cleaned_review_data.csv' 
+into table `review`
+fields terminated by ',' 
+lines terminated by '\n'
+ignore 1 lines;
+====================== maketables2.sql =====================
+-- maketables.sql sets up the tables for wendi_db
+
+use wendi_db;
+
+DROP TABLE IF EXISTS `media`;
+DROP TABLE IF EXISTS `collectionEntry`;
+DROP TABLE IF EXISTS `collection`;
+DROP TABLE IF EXISTS `comment`;
+
+CREATE TABLE `comment` (
+  `id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  `uid` VARCHAR(12),
+  `rid` INT,
+  `content` VARCHAR(1500),
+  `hasMedia` BOOLEAN,
+  `timePosted` timestamp,
+  FOREIGN KEY (uid) REFERENCES userpass(username)
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT,
+  FOREIGN KEY (rid) REFERENCES room(id)
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+)
+ENGINE = InnoDB;
+
+CREATE TABLE `collection` (
+  `id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  `uid` VARCHAR(12),
+  `name` VARCHAR(50),
+  FOREIGN KEY (uid) REFERENCES `userpass`(`username`)
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+)
+ENGINE = InnoDB;
+
+CREATE TABLE `collectionEntry` (
+  `cid` INT,
+  `rid` INT,
+  FOREIGN KEY (cid) REFERENCES collection(id)
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT,
+  FOREIGN KEY (rid) REFERENCES room(id)
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+)
+ENGINE = InnoDB;
+
+CREATE TABLE `media` (
+  `id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  `url` VARCHAR(255),
+  `uid` VARCHAR(12),
+  `rid` INT,
+  `cid` INT,
+  FOREIGN KEY (uid) REFERENCES `userpass`(`username`)
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT,
+  FOREIGN KEY (rid) REFERENCES review(id)
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT,
+  FOREIGN KEY (cid) REFERENCES comment(id)
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+)
+ENGINE = InnoDB;
+====================== maketables.sql =====================
+-- maketables.sql sets up the tables for wendi_db
+
+use wendi_db;
+
+DROP TABLE IF EXISTS `media`;
+DROP TABLE IF EXISTS `collectionEntry`;
+DROP TABLE IF EXISTS `collection`;
+DROP TABLE IF EXISTS `comment`;
+DROP TABLE IF EXISTS `review`;
+DROP TABLE IF EXISTS `room`;
+DROP TABLE IF EXISTS `hall`;
+DROP TABLE IF EXISTS `user`;
+
+CREATE TABLE `user` (
+  `username` VARCHAR(12) NOT NULL PRIMARY KEY,
+  `email` VARCHAR(50) NOT NULL,
+  `classYear` CHAR(4) NOT NULL,
+  `numReview` INT NOT NULL
+)
+ENGINE = InnoDB;
+
+CREATE TABLE `hall` (
+  `id` CHAR(3) PRIMARY KEY,
+  `name` VARCHAR(20),
+  `complex` VARCHAR(30),
+  `mediaFilepath` VARCHAR(255),
+  `toQuad` INT,
+  `toGym` INT,
+  `toDining` INT,
+  `toSci` INT,
+  `toShuttle` INT,
+  `toLulu` INT,
+  `toParking` INT
+)
+ENGINE = InnoDB;
+
+CREATE TABLE `room` (
+  `id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  `number` CHAR(10),
+  `hid` CHAR(3),
+  `type` ENUM ('First Year', 'Upperclass', 'Residential Staff', 'Academic Success Coach'),
+  `description` VARCHAR(30),
+  `numReviews` INT,
+  FOREIGN KEY (hid) REFERENCES hall(id)
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+)
+ENGINE = InnoDB;
+
+CREATE TABLE `review` (
+  `id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  `uid` INT,
+  `rid` INT,
+  `rating` INT,
+  `startTime` DATE,
+  `lengthOfStay` ENUM ('Winter', 'Summer', 'Spring Only', 'Fall Only', 'Whole Year'),
+  `sizeScore` FLOAT,
+  `storageScore` FLOAT,
+  `ventScore` FLOAT,
+  `cleanScore` FLOAT,
+  `bathroomScore` FLOAT,
+  `accessibilityScore` FLOAT,
+  `sunlightScore` FLOAT,
+  `bugScore` FLOAT,
+  `windowScore` FLOAT,
+  `noiseScore` FLOAT,
+  `comment` VARCHAR(3000),
+  `hasMedia` BOOLEAN,
+  `timePosted` TIMESTAMP,
+  FOREIGN KEY (`uid`) REFERENCES `userpass`(`uid`)
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT,  
+  FOREIGN KEY (`rid`) REFERENCES `room`(`id`)
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+)
+ENGINE = InnoDB;
+
+CREATE TABLE `comment` (
+  `id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  `uid` INT,
+  `rid` INT,
+  `content` VARCHAR(1500),
+  `hasMedia` BOOLEAN,
+  `timePosted` timestamp,
+  FOREIGN KEY (uid) REFERENCES `userpass`(`uid`)
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT,
+  FOREIGN KEY (rid) REFERENCES room(id)
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+)
+ENGINE = InnoDB;
+
+CREATE TABLE `collection` (
+  `id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  `uid` INT,
+  `name` VARCHAR(50),
+  FOREIGN KEY (uid) REFERENCES `userpass`(`uid`)
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+)
+ENGINE = InnoDB;
+
+CREATE TABLE `collectionEntry` (
+  `cid` INT,
+  `rid` INT,
+  FOREIGN KEY (cid) REFERENCES collection(id)
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT,
+  FOREIGN KEY (rid) REFERENCES room(id)
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+)
+ENGINE = InnoDB;
+
+CREATE TABLE `media` (
+  `id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+  `url` VARCHAR(200),
+  `uid` INT,
+  `rid` INT,
+  `cid` INT,
+  FOREIGN KEY (uid) REFERENCES `userpass`(`uid`)
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT,
+  FOREIGN KEY (rid) REFERENCES review(id)
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT,
+  FOREIGN KEY (cid) REFERENCES comment(id)
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+)
+ENGINE = InnoDB;
+
+====================== makeusertable.sql =====================
+use wendi_db;
+
+create table userpass(
+      uid int auto_increment,
+      username varchar(50) not null,
+      email varchar(50) not null,
+      classYear char(4) not null,
+      hashed char(60),
+      unique(username),
+      index(username),
+      primary key (uid)
+)
+ENGINE = InnoDB;
+====================== templates/base.html =====================
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="author" content="Annabel Yao, Emma Lim, Hae Rin Hong, Veronica Lin">
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <title>{% block title%} {% endblock %}</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</head>
+
+<body class="base">
+  <div class="base-element">
+    <div class="top-header">
+      <div class="header-logo">
+        <div class="logo">WENDI</div>
+        <p class="sitename">Wellesley Evaluation Network for Dorm Information</p>
+      </div>
+
+      {% if session.logged_in %}
+      <form method="post" action="{{ url_for('logout') }}" class="logout-form">
+        <button type="submit" class="logout-button">LOG OUT</button>
+      </form>
+      {% else %}
+      <!-- Content for users who are not logged in -->
+      <p class="not-logged-in">You are not logged in. Please <a href="{{ url_for('join') }}">register</a>
+        with us or <a href="{{ url_for('index') }}">log in</a>.</p>
+      {% endif %}
+    </div>
+
+    <div class="nav-bar">
+      <div class="nav-tabs">
+        <div class="regular-button">
+          <a href="{{ url_for('landing') }}">Browse All</a>
+        </div>
+        <div class="regular-button">
+          <div class="button-text">My Home</div>
+        </div>
+        <div class="regular-button">
+          <div class="button-text">About WENDI</div>
+        </div>
+        <div class="primary-button">
+          <a href="{{ url_for('review') }}" class="button-text">SUBMIT A REVIEW!</a>
+        </div>
+        <div class="search-bar">
+          <img id="searchIcon" class="magnifier" src="{{ url_for('static', filename='media/base/magnifier.png') }}">
+          <div id="searchContainer" class="search-bar-container">
+            <input class="search-input" type="text" name="search" id="searchInput" placeholder="Search here..."
+              required>
+          </div>
+          <img id="blackxButton" class="blackx" src="{{ url_for('static', filename='media/base/blackx.png') }}">
+        </div>
+      </div>
+      <div class="filter-and-results" id="filter-and-results">
+        <!-- TO BE REFINED IN BETA VERSION
+        <div class="filter-header">Filters</div>
+        <div class="filters-collection">
+          <div class="filter">
+            <div class="filter-text">Room</div>
+            <img class="whitex" src="{{ url_for('static', filename='media/base/whitex.png') }}">
+          </div>
+          <div class="filter">
+            <div class="filter-text">Hall</div>
+          </div>
+          <div class="filter">
+            <div class="filter-text">User</div>
+          </div>
+        </div> -->
+        <div class="result-header">Results</div>
+        <div class="user" id="searchResults">
+          <!-- Results are dynamically added here -->
+        </div>
+        <!-- TO BE REFINED IN BETA VERSION
+        <button class="button">
+          <div class="button-text">All results</div>
+        </button> -->
+      </div>
+    </div>
+  </div>
+
+  <div id="flashes">
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <div id="messages">
+      {% for msg in messages %}
+      <p>{{msg}}</p>
+      {% endfor %}
+      {% endif %}
+      {% endwith %}
+    </div>
+  </div>
+
+  {% block main_content %}
+  {% endblock %}
+
+  <script>
+    /**
+   * Function to toggle the visibility of the filter-and-results element based on user interactions.
+   * @param {Event} event - The event object representing the user interaction.
+   */
+    function toggleFilterFrame(event) {
+      var filterFrame = $("#filter-and-results");
+
+      // Executed when the click occurs outside the specified elements
+      if (
+        !$("#searchInput").is(event.target) && // search input
+        !$("#filter-and-results").is(event.target) && // filter frame
+        !$("#searchResults a").is(event.target) // result link
+      )
+      // If the click occurred outside the specified elements, hide the filter-and-results frame
+      {
+        // Clear search input value when hiding filter frame
+        $("#searchInput").val("");
+
+        // Restore placeholder text when no input
+        if ($("#searchInput").val().trim() === "") {
+          $("#searchInput").attr("placeholder", "Search here...");
+        }
+
+        filterFrame.hide();
+      } else {
+        // If the click occurred inside the specified elements, show the filter-and-results frame
+        filterFrame.show();
+      }
+    };
+
+    $(document).ready(function () {
+      // Hide filter-and-results by default
+      $("#filter-and-results").hide();
+
+      // Handle search bar container click event
+      $("#searchContainer").mousedown(function (event) {
+        // Prevent default behavior to avoid issues with focus
+        event.preventDefault();
+        toggleFilterFrame(event);
+        // Focus on the search input after toggle
+        $("#searchInput").focus();
+      });
+
+      // When the search input receives focus (when the user clicks inside it), 
+      // it shows the filter-and-results element. 
+      $("#searchInput").focus(function () {
+        // Show the filter-and-results element
+        $("#filter-and-results").show();
+      });
+
+      // Handle blackx button click event
+      $("#blackxButton").click(function () {
+        // Hide filter-and-results when blackx button is clicked
+        $("#filter-and-results").hide();
+        // Clear search input value
+        $("#searchInput").val("");
+        // Restore placeholder text
+        $("#searchInput").attr("placeholder", "Search here...");
+      });
+
+      // Add document click event to handle clicking outside the search bar and results
+      $(document).click(function (event) {
+        // Checks if the target of the click is not the searchContainer and not a descendant of the searchContainer
+        // Checks if the target is not the filter-and-results and not a descendant of the filter-and-results
+        if (
+          !$(event.target).closest("#searchContainer").length &&
+          !$(event.target).closest("#filter-and-results").length
+        ) {
+          $("#filter-and-results").hide();
+        }
+      });
+
+      // Handle input changes for search input
+      $("#searchInput").on("input", function () {
+        // Check if the search input value is not empty after trimming whitespaces.
+        if ($(this).val().trim() !== "") {
+          // Get the lowercase search term
+          var searchTerm = $(this).val().toLowerCase();
+
+          // Call the function to simulate matching results
+          simulateMatchingResults(searchTerm);
+        }
+      });
+
+      // Handle search icon (magnifier icon) click event
+      $("#searchIcon").click(function () {
+        // Trigger search when the icon is clicked
+        $("#searchInput").trigger("input");
+      });
+
+      /**
+       * Function to simulate matching results by sending a POST request to the '/search' endpoint.
+       * @param {string} searchTerm - The search term entered by the user.
+       * @returns {Promise} A promise that resolves with the search results.
+       */
+      function simulateMatchingResults(searchTerm) {
+        // sends a POST request to the '/search' endpoint
+        return $.ajax({
+          url: '/search',
+          type: 'POST', // Specifies the HTTP method
+          data: { search_term: searchTerm },
+          dataType: 'json',  // Specify that the expected data type is JSON
+          // callback function to be executed if the request is successful
+          success: function (results) {
+            // Handle the results returned from the server
+            updateResults(results);
+          },
+          error: function (xhr, status, error) {
+            console.error("Error:", error);
+          }
+        });
+      }
+
+      /**
+     * Function to update the search results in the filter-and-results container.
+     * @param {Object} results - The search results object containing combined and individual results.
+     */
+      function updateResults(results) {
+        var resultsContainer = $("#searchResults");
+        resultsContainer.empty(); // Clear previous results
+
+        // Append links for each result
+        if (results.combined && results.combined.length > 0) {
+          results.combined.forEach(result => appendLink(resultsContainer, result));
+        }
+        if (results.individual && results.individual.length > 0) {
+          results.individual.forEach(result => appendLink(resultsContainer, result));
+        }
+      }
+
+      /**
+       * Helper function to append a link to the results container.
+       * @param {jQuery Object} container - The jQuery object of the container where the link will be appended.
+       * @param {Array} result - The result data.
+       */
+      function appendLink(container, result) {
+        var linkText = `${result[0]} - ${result[1]}`;
+        var link = `<a href='/dorm/${result[0]}/room/${result[1]}'>${linkText}</a>`;
+        var divId = `result-${result[0]}-${result[1]}`;
+        container.append(`<div id="${divId}">${link}</div>`);
+      }
+    });
+  </script>
+
+</body>
+
+</html>
+====================== templates/dorm.html =====================
+{% extends "base.html" %}
+
+{% block title %}
+WENDI {{dormname}}
+{% endblock %}
+
+
+
+{% block main_content %}
+<h1>{{dormname}}</h1>
+
+<form>
+    <label for="room-type">Filter by: </label>
+    <select id="room-type" name="room-type" required>
+        <option value="All">All</option>
+            {% for item in filterContent %}
+        <option value="{{item.description}}">{{item.description}}</option>
+            {% endfor %}
+    </select>
+    <p><input type='submit' value='Submit'></p>
+</form>
+
+<h3>Displaying {{filterType}} Rooms</h3>
+<div class="{{dormname}}">
+
+    {% for room in dorm %}
+    <div class="roomList" id="{{room.number}}">
+        <p><a href="{{ url_for('room', hid=dormname, number=room.number) }}">{{dormname}} - {{room.number}}</a> ({{room.type}} {{room.description}})</p>
+    </div>
+    {% endfor %}
+
+</div>
+
+
+{% endblock %}
+====================== templates/filter.html =====================
+{% extends "base.html" %}
+<!-- NOT YET IMPLEMENTED - TODO FOR BETA VER. -->
+{% block filter_content %}
+
+
+
+{% endblock %}
+====================== templates/form.html =====================
+{% extends "base.html" %}
+{% block title%} WENDI Review Form {% endblock %}
+{% block main_content %}
+
+<!-- the following is a Javascript function that updates the text based on the slider's value.-->
+<script>
+    // this function updates the text to show current val of the slider
+    function updateSliderValue(value, outputId) {
+        document.getElementById(outputId).innerText = value;
+    }
+
+</script>
+    
+<h1>Room Review</h1>
+
+<form method="POST" action="{{ url_for('review') }}" enctype="multipart/form-data" onsubmit="return validateForm()">
+
+    <fieldset>
+        <legend>Leave A Room Review Below</legend>
+        <table>
+            <tr>
+                <td>
+                    <label for="res-hall">Residential Hall: </label>
+                    <select id="res-hall" name="res-hall" required>
+                    <option value="">Select</option>
+                    {% for dorm in dorms %}
+                        <option value={{dorm.id}}>{{dorm.name}}</option>
+                    {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="room-num">Room Number:</label></td>
+                <td><input id="room-num" type="number" min="101" max="600" name="room-num" required></td>
+            </tr>
+            <tr>
+                <td><label for="start-date">The date you <strong>started</strong> living in the Room:</label></td>
+                <td><input id="start-date" type="date" value="none" name="start-date" required></td>
+            </tr>
+            <tr>
+                <td>
+                    <label for="length-of-stay">How long did you/are you staying in this room? </label>
+                    <select id="length-of-stay" name="length-of-stay" required>
+                    <option value="">Select</option>
+                        <option value="Winter">Winter</option>
+                        <option value="Summer">Summer</option>
+                        <option value="Spring Only">Spring Only</option>
+                        <option value="Fall Only">Fall Only</option>
+                        <option value="Whole Year">Whole Year</option>
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <td style="padding-top: 30px;">
+                    The questions below are designed to rate various aspects of your room. 
+                    Please use the star rating system to indicate your level of satisfaction. 
+                </td>
+            </tr>
+            <tr>
+                <td style="padding-top: 5px;">
+                    <strong>1 star represents complete dissatisfaction and 5 stars represent complete satisfaction.
+                    Please leave a rating for each aspect of your room; you will not be able to submit the form without leaving a rating.</strong>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="overall">Overall Rating of the Room:</label></td>
+                <td>
+                    <div class="star-rating">
+                        <input type="radio" id="overall-5" name="overall" value="5" required><label for="overall-5">☆</label>
+                        <input type="radio" id="overall-4" name="overall" value="4" required><label for="overall-4">☆</label>
+                        <input type="radio" id="overall-3" name="overall" value="3" required><label for="overall-3">☆</label>
+                        <input type="radio" id="overall-2" name="overall" value="2" required><label for="overall-2">☆</label>
+                        <input type="radio" id="overall-1" name="overall" value="1" required><label for="overall-1">☆</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="size">Room Size:</label></td>
+                <td>
+                    <div class="star-rating">
+                        <input type="radio" id="size-5" name="size" value="5" required><label for="size-5">☆</label>
+                        <input type="radio" id="size-4" name="size" value="4" required><label for="size-4">☆</label>
+                        <input type="radio" id="size-3" name="size" value="3" required><label for="size-3">☆</label>
+                        <input type="radio" id="size-2" name="size" value="2" required><label for="size-2">☆</label>
+                        <input type="radio" id="size-1" name="size" value="1" required><label for="size-1">☆</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="storage">Storage Space:</label></td>
+                <td>
+                    <div class="star-rating">
+                        <input type="radio" id="storage-5" name="storage" value="5" required><label for="storage-5">☆</label>
+                        <input type="radio" id="storage-4" name="storage" value="4" required><label for="storage-4">☆</label>
+                        <input type="radio" id="storage-3" name="storage" value="3" required><label for="storage-3">☆</label>
+                        <input type="radio" id="storage-2" name="storage" value="2" required><label for="storage-2">☆</label>
+                        <input type="radio" id="storage-1" name="storage" value="1" required><label for="storage-1">☆</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="ventilation">Ventilation:</label></td>
+                <td>
+                    <div class="star-rating">
+                        <input type="radio" id="ventilation-5" name="ventilation" value="5" required><label for="ventilation-5">☆</label>
+                        <input type="radio" id="ventilation-4" name="ventilation" value="4" required><label for="ventilation-4">☆</label>
+                        <input type="radio" id="ventilation-3" name="ventilation" value="3" required><label for="ventilation-3">☆</label>
+                        <input type="radio" id="ventilation-2" name="ventilation" value="2" required><label for="ventilation-2">☆</label>
+                        <input type="radio" id="ventilation-1" name="ventilation" value="1" required><label for="ventilation-1">☆</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="cleanliness">Hall Cleanliness:</label></td>
+                <td>
+                    <div class="star-rating">
+                        <input type="radio" id="cleanliness-5" name="cleanliness" value="5" required><label for="cleanliness-5">☆</label>
+                        <input type="radio" id="cleanliness-4" name="cleanliness" value="4" required><label for="cleanliness-4">☆</label>
+                        <input type="radio" id="cleanliness-3" name="cleanliness" value="3" required><label for="cleanliness-3">☆</label>
+                        <input type="radio" id="cleanliness-2" name="cleanliness" value="2" required><label for="cleanliness-2">☆</label>
+                        <input type="radio" id="cleanliness-1" name="cleanliness" value="1" required><label for="cleanliness-1">☆</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="bathroom">Bathroom Nearest to Your Room:</label></td>
+                <td>
+                    <div class="star-rating">
+                        <input type="radio" id="bathroom-5" name="bathroom" value="5" required><label for="bathroom-5">☆</label>
+                        <input type="radio" id="bathroom-4" name="bathroom" value="4" required><label for="bathroom-4">☆</label>
+                        <input type="radio" id="bathroom-3" name="bathroom" value="3" required><label for="bathroom-3">☆</label>
+                        <input type="radio" id="bathroom-2" name="bathroom" value="2" required><label for="bathroom-2">☆</label>
+                        <input type="radio" id="bathroom-1" name="bathroom" value="1" required><label for="bathroom-1">☆</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="accessibility">Accessibility:</label></td>
+                <td>
+                    <div class="star-rating">
+                        <input type="radio" id="accessibility-5" name="accessibility" value="5" required><label for="accessibility-5">☆</label>
+                        <input type="radio" id="accessibility-4" name="accessibility" value="4" required><label for="accessibility-4">☆</label>
+                        <input type="radio" id="accessibility-3" name="accessibility" value="3" required><label for="accessibility-3">☆</label>
+                        <input type="radio" id="accessibility-2" name="accessibility" value="2" required><label for="accessibility-2">☆</label>
+                        <input type="radio" id="accessibility-1" name="accessibility" value="1" required><label for="accessibility-1">☆</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="sunlight">Sunlight:</label></td>
+                <td>
+                    <div class="star-rating">
+                        <input type="radio" id="sunlight-5" name="sunlight" value="5" required><label for="sunlight-5">☆</label>
+                        <input type="radio" id="sunlight-4" name="sunlight" value="4" required><label for="sunlight-4">☆</label>
+                        <input type="radio" id="sunlight-3" name="sunlight" value="3" required><label for="sunlight-3">☆</label>
+                        <input type="radio" id="sunlight-2" name="sunlight" value="2" required><label for="sunlight-2">☆</label>
+                        <input type="radio" id="sunlight-1" name="sunlight" value="1" required><label for="sunlight-1">☆</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="bugs">Bug Issues (5 means no bug issues):</label></td>
+                <td>
+                    <div class="star-rating">
+                        <input type="radio" id="bugs-5" name="bugs" value="5" required><label for="bugs-5">☆</label>
+                        <input type="radio" id="bugs-4" name="bugs" value="4" required><label for="bugs-4">☆</label>
+                        <input type="radio" id="bugs-3" name="bugs" value="3" required><label for="bugs-3">☆</label>
+                        <input type="radio" id="bugs-2" name="bugs" value="2" required><label for="bugs-2">☆</label>
+                        <input type="radio" id="bugs-1" name="bugs" value="1" required><label for="bugs-1">☆</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="window">Window(s):</label></td>
+                <td>
+                    <div class="star-rating">
+                        <input type="radio" id="window-5" name="window" value="5" required><label for="window-5">☆</label>
+                        <input type="radio" id="window-4" name="window" value="4" required><label for="window-4">☆</label>
+                        <input type="radio" id="window-3" name="window" value="3" required><label for="window-3">☆</label>
+                        <input type="radio" id="window-2" name="window" value="2" required><label for="window-2">☆</label>
+                        <input type="radio" id="window-1" name="window" value="1" required><label for="window-1">☆</label>
+                    </div>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="noise">Noise:</label></td>
+                <td>
+                    <div class="star-rating">
+                        <input type="radio" id="noise-5" name="noise" value="5" required><label for="noise-5">☆</label>
+                        <input type="radio" id="noise-4" name="noise" value="4" required><label for="noise-4">☆</label>
+                        <input type="radio" id="noise-3" name="noise" value="3" required><label for="noise-3">☆</label>
+                        <input type="radio" id="noise-2" name="noise" value="2" required><label for="noise-2">☆</label>
+                        <input type="radio" id="noise-1" name="noise" value="1" required><label for="noise-1">☆</label>
+                    </div>
+                </td>
+            </tr>
+            
+            <tr>
+                <td><label for="comments">Comments About This Room:</label></td>
+                <td>
+                    <textarea id="comments" name="comments" rows="15" cols="60" placeholder="Enter your comments here..." required></textarea>
+                </td>
+            </tr>
+            <tr>
+                <td><label for="roomMediaUpload">Upload Images/Videos of the Room:</label></td>
+                <td>
+                    <!-- supports multiple image uploads -->
+                    <input type="file" id="roomMediaUpload" name="roomMedia" accept="image/*" multiple>
+                </td>
+            </tr>
+
+        </table>
+    </fieldset>
+
+        <p> <input type='submit' value='Submit'> </p>
+
+</form>
+
+
+{% endblock %} 
+====================== templates/join.html =====================
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>WENDI Create My Account</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body class="join">
+    <div class="join-page">
+        <h1>Need an account to join WENDI? <br> Please register &#128150;</h1>
+
+        <!-- Display flashed messages -->
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="flash_msg">
+            {% for m in messages %}
+            <div class="alert">{{ m }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <div class="account-form">
+            <form method="POST" action="{{ url_for('join') }}">
+                <!-- Username Input -->
+                <div id="usernamejoinContainer" class="usernamejoin-container">
+                    <input class="frame usernamejoin-input" type="text" name="usernamejoin" id="usernamejoinInput"
+                        required>
+                    <div class="usernamejoin-placeholder">Username</div>
+
+                </div>
+
+                <!-- Email Input -->
+                <div id="emailContainer" class="email-container">
+                    <input class="frame email-input" type="email" name="email" id="emailInput" required>
+                    <div class="email-placeholder">Email</div>
+                </div>
+
+                <!-- Class Year Input -->
+                <div id="classYearContainer" class="classyear-container">
+                    <input class="frame classyear-input" type="text" name="classYear" id="classYearInput" required>
+                    <div class="classyear-placeholder">Class Year</div>
+                </div>
+
+                <!-- Password Input -->
+                <div id="password1Container" class="password1-container">
+                    <input class="frame password1-input" type="password" name="password1" id="password1Input" required>
+                    <div class="password1-placeholder">Password</div>
+                </div>
+
+                <!-- Confirm Password Input -->
+                <div id="password2Container" class="password2-container">
+                    <input class="frame password2-input" type="password" name="password2" id="password2Input" required>
+                    <div class="password2-placeholder">Confirm Password</div>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" class="overlap">
+                    <div class="text">Create Account</div>
+                </button>
+            </form>
+        </div>
+        <!-- Back to login link -->
+        <div class="back-to-login">
+            <a href="{{ url_for('index') }}">
+                <div class="text">BACK TO LOGIN</div>
+            </a>
+        </div>
+    </div>
+</body>
+
+</html>
+====================== templates/landing.html =====================
+{% extends "base.html" %}
+
+{% block title%} WENDI - {{complex}} {% endblock %}
+
+{% block main_content %}
+
+<h1>Browse {{browse}}</h1>
+
+<form method="POST" action="{{ url_for('landing') }}">
+    <label for="hall-type">Hall Type: </label>
+    <select id="hall-type" name="hall-type" required>
+        <option value=none disabled selected>Select</option>
+        <option value="All Halls">All Halls</option>
+        <option value="Tower Complex">Tower Complex</option>
+        <option value="East Side Complex">East Side Complex</option>
+        <option value="The Quint">The Quint</option>
+        <option value="Stone-Davis and Small Halls">Stone-Davis and Small Halls</option>
+    </select>
+    <p><input type='submit' value='Submit'></p>
+</form>
+
+
+    {% for hall in halls %}
+    <div class="hall-container" id="{{ hall.name }}">
+        <img class="hall-image" src="{{ url_for('static', filename='media/hall_pics/' + hall.id + '.png') }}" alt="{{ hall.name }}" />
+        <p><a href="{{ url_for('dorm', hid=hall.id ) }}">{{ hall.name }} ({{ hall.id }})</a></p>
+    </div>
+    {% endfor %} 
+</div> 
+
+{% endblock %}
+====================== templates/login.html =====================
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>WENDI Login</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        function showUsername() {
+            var usernameContainer = document.getElementById('usernameContainer');
+            var usernameInput = document.getElementById('usernameInput');
+            usernameContainer.classList.add('active');
+            usernameInput.focus();
+        }
+
+        function showPassword() {
+            var passwordContainer = document.getElementById('passwordContainer');
+            var passwordInput = document.getElementById('passwordInput');
+            passwordContainer.classList.add('active');
+            passwordInput.type = 'text';
+            passwordInput.focus();
+        }
+    </script>
+</head>
+
+<body id="login">
+    <div class="login-page">
+        <img class="logo-image" src="{{ url_for('static', filename='media/login/wellesleylogo.png') }}">
+        <div>
+            <div id="WENDI-text">WENDI</div>
+            <div id="WENDI-fullname">Wellesley Evaluation Network for Dorm Information</p>
+        </div>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <div class="flash_msg">
+            {% for m in messages %}
+            <div class="alert">{{ m }}</div>
+            {% endfor %}
+        </div>
+        {% endif %}
+        {% endwith %}
+
+        <form action="{{ url_for('login') }}" method="post">
+            <div class="field-container">
+                <div id="usernameContainer" class="username-container" onclick="showUsername()">
+                    <input class="username-input" type="text" name="username" id="usernameInput" required>
+                    <div class="username-placeholder">Username</div>
+                </div>
+                <div id="passwordContainer" class="password-container" onclick="showPassword()">
+                    <input class="password-input" type="password" name="password" id="passwordInput" required>
+                    <div class="password-placeholder">Password</div>
+                </div>
+            </div>
+            <div class="login-buttons">
+                <button type="submit" class="overlap">
+                    <div class="text">LOGIN</div>
+                </button>
+                <a href="{{ url_for('join') }}" class="join-link">Create an Account</a>
+            </div>
+        </form>
+    </div>
+</body>
+
+</html>
+====================== templates/room.html =====================
+{% extends "base.html" %}
+
+{% block title%} WENDI {{dormname}} - {{number}} {% endblock %}
+
+{% block main_content %}
+<h1>{{dormname}} - {{number}}</h1>
+
+  {% if reviews %}
+    {% for one in reviews %}
+    <div id="{{one.id}}">
+        
+        <div id="room-content">
+            <p class="room-content-header">Review for {{dormname}} - {{one.rid}} ({{one.description}}) posted on {{one.timePosted}} by User {{one.uid}}</p>
+            <p><b>Comment: </b>{{one.comment}}</p>
+
+            <p><b>Start Date: </b>{{one.startTime}}</p> 
+            <p><b>Length of Stay: </b>{{one.lengthOfStay}}</p>
+            <p><b>Overall Rating: </b>{{one.rating}}</p>
+            <table class="review-table">
+              <tr class="review-table-header">
+                <td>Size</td>
+                <td>Vent</td>
+                <td>Clean</td>
+                <td>Bathroom</td>
+                <td>Accessibility</td>
+                <td>Sunlight</td>
+                <td>Bug</td>
+                <td>Window</td>
+                <td>Noise</td>
+              </tr>  
+              <tr>
+                <td>{{one.sizeScore}}</td>
+                <td>{{one.ventScore}}</td>
+                <td>{{one.cleanScore}}</td>
+                <td>{{one.bathroomScore}}</td>
+                <td>{{one.accessibilityScore}}</td>
+                <td>{{one.sunlightScore}}</td>
+                <td>{{one.bugScore}}</td>
+                <td>{{one.windowScore}}</td>
+                <td>{{one.noiseScore}}</td>
+              </tr>  
+            </table>
+
+
+        </div>
+
+
+    </div>
+    {% endfor %}
+
+    <div class="comment-section">
+      {% for each in allComments %}
+      <div class="comment-div" id="{{each.id}}">
+
+        <p class="comment-header">Comment by {{each.uid}} posted on {{each.timePosted}}</p>
+        <p class="comment-content">{{each.content}}</p>
+        
+      </div>
+      {% endfor %}
+    </div>
+
+
+    <div class="comments">
+        <form method="POST" action="{{ url_for('room', hid=dormname, number=number) }}">
+            <tr>
+                <td>
+                  <p>
+                    <label for="comments">Write a comment:</label>
+                  </p>
+                </td>
+                <td>
+                  <p>
+                    <textarea id="comments" name="comments" rows="4" cols="50"></textarea>
+                    <input type="submit" value="Submit">
+                  </p>
+                </td>
+              </tr>
+        </form>
+    </div>
+
+  {% else %}
+
+    <p>Sorry! No reviews have been made for this room yet.</p>
+
+  {% endif %}
+
+    
+
+{% endblock %}
+====================== static/style.css =====================
+/* Base styles */
+body.base{
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  padding: 0px 10px;
+}
+
+.base-element {
+  background-color: #ffffff;
+}
+
+.header-logo {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 10px;
+  display: flex;
+  align-items: flex-start; 
+  position: relative; 
+  flex-grow: 1; 
+}
+
+.header-logo .logo {
+  font-weight: 700;
+  color: #0e2c88;
+  font-size: 120px;
+  margin-bottom: 0;
+}
+
+.header-logo .sitename {
+  font-weight: 700;
+  color: #0e2c88;
+  font-size: 17px;
+  position: absolute;
+  bottom: -5%;
+  left: 0;
+  padding-left: 60px;
+}
+
+.top-header {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center;
+  position: relative;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logout-form {
+  align-self: flex-end;
+}
+
+.logout-button {
+  background-color: #0e2c88; 
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.not-logged-in {
+  align-self: flex-end;
+}
+
+.logout-button:hover {
+  background-color: #0d2269;
+}
+
+/* Navbar styles */
+.nav-bar {
+  background-color: #0f2c88;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  position: relative;
+}
+
+.nav-tabs {
+  display: flex;
+  gap: 10px;
+}
+
+.nav-tabs .regular-button,
+.nav-tabs .primary-button {
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px 20px;
+}
+
+.nav-tabs .regular-button a,
+.nav-tabs .primary-button a {
+  font-weight: 700;
+  color: #000000;
+  text-decoration: none;
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.nav-tabs .primary-button {
+  background-color: #d9b600;
+  border: none;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  border: 2px solid #5470ff;
+  padding: 5px 10px;
+  height: 45px;
+}
+
+.search-bar .magnifier,
+.search-bar .blackx {
+  width: 24px;
+  height: 24px;
+}
+
+.search-bar-containerer {
+  border: none;
+}
+
+.search-bar .search-input {
+  border: none;
+  flex-grow: 1;
+  border-radius: 5px;
+  height: 80%;
+  font-size: 16px;
+}
+
+.search-bar .search-input:focus {
+  outline: none;
+  border: none; 
+}
+
+#filter-and-results {
+  position: absolute;
+  top: 100%;
+  width: 40%;
+  right: 0;
+  background-color: #ffffff;
+  border-radius: 8px;
+  border: 2px solid #d9d9d9;
+  display: none;
+  z-index: 10;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#filter-and-results .filter-header,
+#filter-and-results .result-header {
+  font-weight: 700;
+  color: #000000;
+  font-size: 16px;
+  padding: 14px 16px;
+}
+
+#filter-and-results .filters-collection .filter {
+  background-color: #eaeaef;
+  border-radius: 100px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 16px;
+}
+
+#filter-and-results .filters-collection .filter-text {
+  font-weight: 700;
+  color: #000000;
+  font-size: 16px;
+}
+
+#filter-and-results .filters-collection .whitex {
+  width: 9.71px;
+  height: 9.71px;
+}
+
+#filter-and-results #searchResults {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 0 16px;
+}
+
+#divId {
+  color: #000000;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .nav-tabs {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+
+  .nav-bar {
+      padding: 10px;
+  }
+
+  .header-logo {
+      flex-direction: column;
+      align-items: flex-start;
+  }
+}
+
+/* the following is the CSS for the Range Slider for Room Review */
+.slider {
+  /* position and layout styles */
+  width: 100%; /* adjust as needed, but should not exceed its container's width */
+  padding: 10px 0; /* added padding for visual comfort */
+  background: transparent; /* no background to avoid visual clutter */
+  box-shadow: none; /* removing shadow for a flatter design */
+}
+
+/* the following CSS is for landing.html */
+#residential-halls {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+
+.hall {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+
+.hall img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+/* login.html */
+#login {
+  margin: 0; 
+  height: 100vh;
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.login-page {
+  text-align: center; 
+  padding: 20px; 
+  border-radius: 10px; 
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  width: 100%;
+}
+
+.logo-image {
+  max-width: 100%; 
+  height: auto;
+  margin-bottom: 20px;
+  padding-right: 30px;
+}
+
+#WENDI-text {
+  padding-top: 10px;
+  font-size: 100px; 
+  font-weight: bold; 
+  color: #0d2269;
+}
+
+#WENDI-fullname {
+  font-size: 14px; 
+  color: black; 
+  margin: 0; 
+  align-self: center; 
+  padding-bottom: 5px;
+}
+
+.alert {
+  color: red; 
+  margin-bottom: 20px; 
+}
+
+.login-buttons {
+  padding-top: 30px;
+  flex-direction: column; 
+  gap: 10px; 
+}
+
+.login-page .overlap {
+  background-color: #0d2269;
+  position: relative;
+  height: 55px;
+  border-radius: 13px;
+  width: 100%; 
+  max-width: 384px;
+  margin: 0 auto; 
+}
+
+.login-buttons .overlap .text {
+  color: white;
+  font-weight: bold; 
+  font-size: 16px; 
+}
+
+.join-link {
+  color: #0d2269;
+  display: block; 
+  text-align: center; 
+  margin-top: 10px; 
+}
+
+.field-container {
+  position: relative;
+  width: 100%; 
+  max-width: 380px; 
+  margin: 10px auto; 
+}
+
+.username-container, .password-container {
+  background-color: #f2f2f2;
+  border-radius: 20px; 
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1); 
+  display: flex;
+  align-items: center;
+  padding: 0 20px; 
+  margin-bottom: 15px;
+}
+
+.username-input, .password-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 16px;
+  color: #333;
+  padding: 15px 0; 
+  border-radius: 20px; 
+}
+
+.username-placeholder, .password-placeholder {
+  color: #aaa;
+  transition: all 0.3s ease; 
+  left: 20px;
+}
+
+.username-container.active .username-placeholder, 
+.password-container.active .password-placeholder {
+  top: 5px;
+  font-size: 12px;
+  color: #333;
+}
+
+.username-input:focus + .username-placeholder, 
+.password-input:focus + .password-placeholder {
+  color: #0d2269; 
+}
+
+.username-container:hover, .password-container:hover {
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2); 
+}
+
+/* star rating for the review form */
+.star-rating {
+  direction: rtl; /* Right-to-left */
+  display: inline-flex;
+  font-size: 2em;
+}
+.star-rating input[type="radio"] {
+  display: none;
+}
+.star-rating label {
+  color: #333; /* Default star color (empty star) */
+  cursor: pointer;
+  /* font-size: 2em; */
+}
+/* Style for when a radio button is checked (filled star) */
+.star-rating input[type="radio"]:checked ~ label {
+  /* color: #0056b3; Deep blue color for filled star */
+  color:orange
+}
+
+/*COMMENT APPEARANCE - Room.html***************/
+.comment-div{
+  border-bottom: solid 1px black;
+  padding: 1em;
+}
+
+.comment-header{
+  font-weight: bold;
+  margin:0;
+  padding:0;
+}
+
+.comment-content{
+  font-weight:normal;
+  margin:0;
+  padding:0;
+}
+
+/*DORM PAGE APPEARANCE - dorm.html***************/
+.roomList{
+  margin:0;
+  margin-bottom:0.5em;
+  padding:0;
+  border-bottom:solid 1px #D9D9D9;
+}
+.roomList p{
+  margin:0;
+}
+
+
+/*ROOM PAGE APPEARANGE - room.html**************/
+#room-content{
+  border: solid 1px black;
+  margin-bottom: 1em;
+  padding-left: 1em;
+}
+
+#content{
+  padding:1em;
+}
+
+.review-table{
+  border: solid 1px black;
+  margin-bottom:1em;
+}
+
+.review-table td{
+  padding-right:1em;
+}
+
+.review-table-header{
+  border-bottom: solid 1px black;
+  font-weight:bold;
+}
+
+.room-content-header{
+  font-weight:bold;
+}
+
+
+/* JOIN page css */
+body.join {
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  background-color: #e6e6e6;
+  color: #333;
+  margin: 0;
+  padding: 0;
+}
+
+.join-page {
+  width: 100%;
+  max-width: 600px;
+  margin: 50px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.join-page h1 {
+  color: #333;
+  font-size: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.account-form form {
+  display: flex;
+  flex-direction: column;
+  align-items: center; 
+}
+
+.usernamejoin-container,
+.email-container,
+.classyear-container,
+.password1-container,
+.password2-container {
+  background-color: #f2f2f2;
+  border-radius: 20px;
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  margin-bottom: 15px;
+  width: 100%; 
+  max-width: 384px; 
+}
+
+.frame {
+  flex: 1;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  font-size: 16px;
+  color: #333;
+  padding: 15px 0;
+}
+
+.usernamejoin-placeholder,
+.email-placeholder,
+.classyear-placeholder,
+.password1-placeholder,
+.password2-placeholder {
+  color: #aaa;
+}
+
+.usernamejoin-container.active,
+.email-container.active,
+.classyear-container.active,
+.password1-container.active,
+.password2-container.active {
+  box-shadow: inset 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.frame:focus + .placeholder,
+.frame:hover + .placeholder {
+  color: #0d2269;
+}
+
+.join-page .overlap {
+  background-color: #0d2269;
+  height: 55px;
+  border-radius: 13px;
+  width: 100%;
+  max-width: 384px;
+  margin: 0 auto;
+}
+
+.join-page .overlap .text {
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+.overlap:hover {
+  background-color: #0f4983;
+}
+
+.back-to-login {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.back-to-login .text {
+  color: #0055a2;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.join-page .flash_msg .alert {
+  color: #d9534f;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background-color: #f2dede;
+  border-color: #ebccd1;
+  text-align: center;
+}
+
+.hall-image {
+  max-width: 450px; /* Adjust the max width as needed */
+  max-height: 250px; /* Adjust the max height as needed */
+  width: auto;
+  height: auto;
+  display: block;
+  margin: 0 auto; /* Center the image */
+}
+
+.hall-container {
+  border: solid 2px black;
+  margin-bottom: 15px;
+  text-align: center;
+  padding: 10px;
+  margin: 10px;
+  flex-basis: calc(33% - 20px); /* Adjust this to control the number of items per row */
+  max-width: 450px; /* Maximum width of each hall container */
+}
+

@@ -206,6 +206,7 @@ def dorm(hid):
         conn, hid
     )  # dropdown menu's values for all the room types
     print("filterContent ==== " + str(filterContent))
+    
     if request.method == "POST":
         print("request.method ===== POST")
 
@@ -240,6 +241,7 @@ def dorm(hid):
 def room(hid, number):
     conn = dbi.connect()
     reviewList = queries.show_reviews(conn, number)
+    print("REVIEWLIST::::::"+str(reviewList))
 
     currentsession = session["username"]
     session_uid = session["uid"]
