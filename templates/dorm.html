@@ -14,22 +14,25 @@ WENDI {{dormname}}
     <select id="room-type" name="room-type" required>
         <option value="All">All</option>
             {% for item in filterContent %}
-        <option value="{{item.description}}">{{item.description}}</option>
+            <option value="{{item.description}}">{{item.description}}</option>
             {% endfor %}
-    </select>
-    <p><input type='submit' value='Submit'></p>
-</form>
+        </select>
+        <p><input type='submit' value='Submit'></p>
+    </form>
 
-<h3>Displaying {{filterType}} Rooms</h3>
-<div class="{{dormname}}">
+    <h3>Displaying {{filterType}} Rooms</h3>
+    <div class="{{dormname}}">
 
-    {% for room in dorm %}
-    <div class="roomList" id="{{room.number}}">
-        <p><a href="{{ url_for('room', hid=dormname, number=room.number) }}">{{dormname}} - {{room.number}}</a> ({{room.type}} {{room.description}})</p>
+        {% for room in dorm %}
+        <div class="roomList" id="{{room.number}}">
+            <p><a href="{{ url_for('room', hid=dormname, number=room.number) }}">{{dormname}} - {{room.number}}</a>
+                ({{room.type}} {{room.description}})</p>
+        </div>
+        {% endfor %}
+
     </div>
-    {% endfor %}
-
 </div>
+
 
 
 {% endblock %}
