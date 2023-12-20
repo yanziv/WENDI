@@ -242,9 +242,11 @@ def room(hid, number):
     conn = dbi.connect()
     reviewList = queries.show_reviews(conn, number)
     print("REVIEWLIST::::::"+str(reviewList))
-
-    currentsession = session["username"]
-    session_uid = session["uid"]
+    print("session username:::",str(session))
+    currentsession = session.get('username')
+    #["username"]
+    session_uid = session.get('uid')
+    #["uid"]
 
     print("CURRENTSESSION==========" + str(currentsession))
     print("SESSION UID========" + str(session.get("uid")))
@@ -255,13 +257,7 @@ def room(hid, number):
     if request.method == "GET":
         allComments = queries.get_comments(conn, rid)
 
-        return render_template(
-            "room.html",
-            reviews=reviewList,
-            dormname=hid,
-            number=number,
-            allComments=allComments,
-        )
+        return render_template("room.html",reviews=reviewList,dormname=hid,number=number,allComments=allComments)
     elif request.method == "POST":
         comment = request.form.get("comments")
 
