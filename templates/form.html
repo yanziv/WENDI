@@ -1,26 +1,19 @@
 {% extends "base.html" %}
 {% block title %} WENDI Review Form {% endblock %}
+
 {% block main_content %}
-
-<!-- the following is a Javascript function that updates the text based on the slider's value.-->
-<script>
-    // this function updates the text to show current val of the slider
-    function updateSliderValue(value, outputId) {
-        document.getElementById(outputId).innerText = value;
-    }
-
-</script>
     
 <h1>Room Review</h1>
-
+<div class="review-form">
 <form method="POST" action="{{ url_for('review') }}" enctype="multipart/form-data" onsubmit="return validateForm()">
 
     <fieldset>
-        <legend>Leave A Room Review Below</legend>
         <table>
             <tr>
                 <td>
                     <label for="res-hall">Residential Hall: </label>
+                </td>
+                <td>
                     <select id="res-hall" name="res-hall" required>
                     <option value="">Select</option>
                     {% for dorm in dorms %}
@@ -40,6 +33,8 @@
             <tr>
                 <td>
                     <label for="length-of-stay">How long did you/are you staying in this room? </label>
+                </td>
+                <td>
                     <select id="length-of-stay" name="length-of-stay" required>
                     <option value="">Select</option>
                         <option value="Winter">Winter</option>
@@ -52,14 +47,21 @@
             </tr>
 
             <tr>
-                <td style="padding-top: 30px;">
+                <td class="explanation" colspan="2">
                     The questions below are designed to rate various aspects of your room. 
-                    Please use the star rating system to indicate your level of satisfaction. 
                 </td>
             </tr>
+
             <tr>
-                <td style="padding-top: 5px;">
+                <td class="explanation" colspan="2">
+                    Please use the star rating system to indicate your level of satisfaction. 
                     <strong>1 star represents complete dissatisfaction and 5 stars represent complete satisfaction.
+                    Please leave a rating for each aspect of your room; you will not be able to submit the form without leaving a rating.</strong>
+                </td>
+            </tr>
+
+            <tr>
+                <td class="warning" colspan="2">
                     Please leave a rating for each aspect of your room; you will not be able to submit the form without leaving a rating.</strong>
                 </td>
             </tr>
@@ -213,9 +215,9 @@
         </table>
     </fieldset>
 
-        <p> <input type='submit' value='Submit'> </p>
+        <p> <input type='submit' value='SUBMIT'> </p>
 
 </form>
-
+</div>
 
 {% endblock %} 

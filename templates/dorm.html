@@ -8,8 +8,8 @@ WENDI {{dormname}}
 
 {% block main_content %}
 <h1>{{dormname}}</h1>
-
-<form>
+<div class="dorm-display">
+<form class="dorm-filter">
     <label for="room-type">Filter by: </label>
     <select id="room-type" name="room-type" required>
         <option value="All">All</option>
@@ -30,6 +30,8 @@ WENDI {{dormname}}
     {% endfor %}
 
 </div>
+</div>
+
 
 
 {% endblock %}
