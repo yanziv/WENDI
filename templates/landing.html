@@ -1,31 +1,32 @@
 {% extends "base.html" %}
 
-{% block title%} WENDI - {{complex}} {% endblock %}
+{% block title%} WENDI - Browsing {{complex}} {% endblock %}
 
 {% block main_content %}
 
 <h1>Browse {{browse}}</h1>
-
-<form method="POST" action="{{ url_for('landing') }}">
-    <label for="hall-type">Hall Type: </label>
-    <select id="hall-type" name="hall-type" required>
-        <option value=none disabled selected>Select</option>
-        <option value="All Halls">All Halls</option>
-        <option value="Tower Complex">Tower Complex</option>
-        <option value="East Side Complex">East Side Complex</option>
-        <option value="The Quint">The Quint</option>
-        <option value="Stone-Davis and Small Halls">Stone-Davis and Small Halls</option>
-    </select>
-    <p><input type='submit' value='Submit'></p>
-</form>
+<div class="dorm-list">
+    <form method="POST" action="{{ url_for('landing') }}">
+        <label for="hall-type">Hall Type: </label>
+        <select id="hall-type" name="hall-type" required>
+            <option value=none disabled selected>Select</option>
+            <option value="All Halls">All Halls</option>
+            <option value="Tower Complex">Tower Complex</option>
+            <option value="East Side Complex">East Side Complex</option>
+            <option value="The Quint">The Quint</option>
+            <option value="Stone-Davis and Small Halls">Stone-Davis and Small Halls</option>
+        </select>
+        <p><input type='submit' value='Submit'></p>
+    </form>
 
 
     {% for hall in halls %}
     <div class="hall-container" id="{{ hall.name }}">
-        <img class="hall-image" src="{{ url_for('static', filename='media/hall_pics/' + hall.id + '.png') }}" alt="{{ hall.name }}" />
+        <img class="hall-image" src="{{ url_for('static', filename='media/hall_pics/' + hall.id + '.png') }}"
+            alt="{{ hall.name }}" />
         <p><a href="{{ url_for('dorm', hid=hall.id ) }}">{{ hall.name }} ({{ hall.id }})</a></p>
     </div>
-    {% endfor %} 
-</div> 
+    {% endfor %}
+</div>
 
 {% endblock %}
