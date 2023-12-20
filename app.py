@@ -132,57 +132,62 @@ def review():
         hasMedia = "0"  # set hasMedia to False
         submission_time = datetime.now()
 
-        print(session)
+        # check if user is still logged in
+        if "uid" in session: 
 
-        # insert review into wendi_db and get review_id
-        review_id = queries.insert_review(
-            conn,
-            userID,
-            rid,
-            overallRating,
-            startDate,
-            length,
-            size,
-            storage,
-            ventilation,
-            cleanliness,
-            bathroom,
-            accessibility,
-            sunlight,
-            bugs,
-            window,
-            noise,
-            comments,
-            hasMedia,
-            submission_time,
-        )
+            # insert review into wendi_db and get review_id
+            review_id = queries.insert_review(
+                conn,
+                userID,
+                rid,
+                overallRating,
+                startDate,
+                length,
+                size,
+                storage,
+                ventilation,
+                cleanliness,
+                bathroom,
+                accessibility,
+                sunlight,
+                bugs,
+                window,
+                noise,
+                comments,
+                hasMedia,
+                submission_time,
+            )
 
-        # check uploaded files
-        try:
-            # session_id = int(session['id'])
-            files = request.files.getlist("roomMedia")
+            # check uploaded files
+            try:
+                # session_id = int(session['id'])
+                files = request.files.getlist("roomMedia")
 
-            for file in files:
-                if file and allowed_file(
-                    file.filename
-                ):  # check if extension is allowed
-                    # hasMedia = True  # Set hasMedia to True as a valid file is found
-                    filename = secure_filename(file.filename)
-                    file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
+                for file in files:
+                    if file and allowed_file(
+                        file.filename
+                    ):  # check if extension is allowed
+                        # hasMedia = True  # Set hasMedia to True as a valid file is found
+                        filename = secure_filename(file.filename)
+                        file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
 
-                    # Insert each file's information into the media table
-                    media_url = os.path.join(app.config["UPLOAD_FOLDER"], filename)
-                    queries.insert_media(
-                        conn, media_url, userID, review_id, cid=None
-                    )  # Assuming review_id is available
+                        # Insert each file's information into the media table
+                        media_url = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+                        queries.insert_media(
+                            conn, media_url, userID, review_id, cid=None
+                        )  # Assuming review_id is available
 
-        except Exception as err:
-            flash("Upload failed {why}".format(why=err))
+            except Exception as err:
+                flash("Upload failed {why}".format(why=err))
+                return render_template("form.html")
+
+            flash("Thank you for submitting a review!")
+            return redirect(url_for("room", hid=dorm, number=room_number))
+
+        # session has expired, re-render form
+        else:
+            flash("Sorry, your session has expired. Please login again.")
             return render_template("form.html")
-
-        flash("Thank you for submitting a review!")
-        return redirect(url_for("room", hid=dorm, number=room_number))
-
 
 def allowed_file(filename):
     """
@@ -321,7 +326,7 @@ def logout():
         session.pop("uid")
         session.pop("logged_in")
         flash("You are logged out")
-        return redirect(url_for("index"))
+    return redirect(url_for("index"))
 
 
 @app.route("/search", methods=["POST"])
@@ -364,20 +369,31 @@ def edit_comment(comment_id):
 
 @app.route("/home", methods=["GET"])
 def home():
-    userID = session["uid"]
 
-    conn = dbi.connect()
-    user_details = queries.get_user_details(conn, userID)
-    user_reviews = queries.get_user_reviews(conn, userID)
-    user_comments = queries.get_user_comments(conn, userID)
+    if 'uid' in session:
+        userID = session["uid"]
+        conn = dbi.connect()
+        user_details = queries.get_user_details(conn, userID)
+        user_reviews = queries.get_user_reviews(conn, userID)
+        user_comments = queries.get_user_comments(conn, userID)
 
-    return render_template(
-        "user.html",
-        uid=userID,
-        details=user_details,
-        reviews=user_reviews,
-        comments=user_comments,
-    )
+        return render_template(
+            "user.html",
+            uid=userID,
+            details=user_details,
+            reviews=user_reviews,
+            comments=user_comments,
+        )
+    else:
+        flash("Sorry, your session has expired. Please log in again.")
+
+        return render_template(
+            "user.html",
+            uid="",
+            details="",
+            reviews="",
+            comments="",
+        )
 
 
 @app.route("/about")
