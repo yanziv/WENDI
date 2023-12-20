@@ -253,7 +253,7 @@ def room(hid, number):
     print("USERNAME======" + str(currentsession))
 
     rid = queries.get_roomid(conn, hid, number)["id"]
-
+    print("rid===="+str(rid))
     if request.method == "GET":
         allComments = queries.get_comments(conn, rid)
 

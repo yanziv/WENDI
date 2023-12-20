@@ -924,3 +924,7 @@ ul li:last-child {
 .about-wendi footer p {
   margin: 0;
 }
+
+.reviewPic{
+  width: 200px;
+}
