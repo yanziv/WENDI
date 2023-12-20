@@ -25,37 +25,36 @@
         <div class="account-form">
             <form method="POST" action="{{ url_for('join') }}">
                 <!-- Username Input -->
+                <label for="usernamejoinInput">Username</label>
                 <div id="usernamejoinContainer" class="usernamejoin-container">
-                    <input class="frame usernamejoin-input" type="text" name="usernamejoin" id="usernamejoinInput"
-                        required>
+                    <input class="frame usernamejoin-input" type="text" name="usernamejoin" id="usernamejoinInput" required>
                     <div class="usernamejoin-placeholder">Username</div>
-
                 </div>
 
                 <!-- Email Input -->
+                <label for="emailInput">Email</label>
                 <div id="emailContainer" class="email-container">
                     <input class="frame email-input" type="email" name="email" id="emailInput" required>
                     <div class="email-placeholder">Email</div>
                 </div>
-
                 <!-- Class Year Input -->
+                <label for="classYearInput">Class Year</label>
                 <div id="classYearContainer" class="classyear-container">
                     <input class="frame classyear-input" type="text" name="classYear" id="classYearInput" required>
                     <div class="classyear-placeholder">Class Year</div>
                 </div>
-
                 <!-- Password Input -->
+                <label for="password1Input">Password</label>
                 <div id="password1Container" class="password1-container">
                     <input class="frame password1-input" type="password" name="password1" id="password1Input" required>
                     <div class="password1-placeholder">Password</div>
                 </div>
-
                 <!-- Confirm Password Input -->
+                <label for="password2Input">Confirm Password</label>
                 <div id="password2Container" class="password2-container">
                     <input class="frame password2-input" type="password" name="password2" id="password2Input" required>
                     <div class="password2-placeholder">Confirm Password</div>
                 </div>
-
                 <!-- Submit Button -->
                 <button type="submit" class="overlap">
                     <div class="text">Create Account</div>

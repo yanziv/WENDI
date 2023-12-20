@@ -9,15 +9,6 @@ DROP TABLE IF EXISTS `comment`;
 DROP TABLE IF EXISTS `review`;
 DROP TABLE IF EXISTS `room`;
 DROP TABLE IF EXISTS `hall`;
-DROP TABLE IF EXISTS `user`;
-
-CREATE TABLE `user` (
-  `username` VARCHAR(12) NOT NULL PRIMARY KEY,
-  `email` VARCHAR(50) NOT NULL,
-  `classYear` CHAR(4) NOT NULL,
-  `numReview` INT NOT NULL
-)
-ENGINE = InnoDB;
 
 CREATE TABLE `hall` (
   `id` CHAR(3) PRIMARY KEY,
@@ -82,14 +73,14 @@ CREATE TABLE `comment` (
   `rid` INT,
   `content` VARCHAR(1500),
   `hasMedia` BOOLEAN,
-  `timePosted` timestamp,
-  FOREIGN KEY (uid) REFERENCES `userpass`(`uid`)
-        ON UPDATE RESTRICT
-        ON DELETE RESTRICT,
-  FOREIGN KEY (rid) REFERENCES room(id)
-        ON UPDATE RESTRICT
-        ON DELETE RESTRICT
-)
+  `timePosted` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  FOREIGN KEY (`uid`) REFERENCES `userpass`(`uid`)
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT,
+  FOREIGN KEY (`rid`) REFERENCES `room`(`id`)
+    ON UPDATE RESTRICT
+    ON DELETE RESTRICT
+) 
 ENGINE = InnoDB;
 
 CREATE TABLE `collection` (
@@ -116,17 +107,17 @@ ENGINE = InnoDB;
 
 CREATE TABLE `media` (
   `id` INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
-  `url` VARCHAR(200),
+  `url` VARCHAR(255),
   `uid` INT,
   `rid` INT,
   `cid` INT,
-  FOREIGN KEY (uid) REFERENCES `userpass`(`uid`)
+  FOREIGN KEY (`uid`) REFERENCES `userpass`(`uid`)
         ON UPDATE RESTRICT
         ON DELETE RESTRICT,
-  FOREIGN KEY (rid) REFERENCES review(id)
+  FOREIGN KEY (`rid`) REFERENCES `review`(`id`)
         ON UPDATE RESTRICT
         ON DELETE RESTRICT,
-  FOREIGN KEY (cid) REFERENCES comment(id)
+  FOREIGN KEY (`cid`) REFERENCES `comment`(`id`)
         ON UPDATE RESTRICT
         ON DELETE RESTRICT
 )

@@ -1,13 +1,13 @@
-use wendi_db;
+USE wendi_db;
 
-create table userpass(
-      uid int auto_increment,
-      username varchar(50) not null,
-      email varchar(50) not null,
-      classYear char(4) not null,
-      hashed char(60),
-      unique(username),
-      index(username),
-      primary key (uid)
+CREATE TABLE userpass (
+    uid INT AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL,
+    classYear CHAR(4) NOT NULL,
+    hashed CHAR(60) NOT NULL,
+    UNIQUE (username),
+    INDEX (username),
+    PRIMARY KEY (uid)
 )
 ENGINE = InnoDB;

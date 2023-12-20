@@ -18,7 +18,7 @@ from werkzeug.utils import secure_filename
 app = Flask(__name__)
 app.config["UPLOAD_FOLDER"] = "media/review/"
 app.config["MAX_CONTENT_LENGTH"] = 16 * 1024 * 1024  # 16 MB limit
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(hours=1)
+app.config["PERMANENT_SESSION_LIFETIME"] = timedelta(hours=1)
 
 
 # one or the other of these. Defaults to MySQL (PyMySQL)
@@ -37,9 +37,7 @@ app.secret_key = "your secret here"
 app.secret_key = "".join(
     [
         random.choice(
-            ("ABCDEFGHIJKLMNOPQRSTUVXYZ" + 
-            "abcdefghijklmnopqrstuvxyz" +
-             "0123456789")
+            ("ABCDEFGHIJKLMNOPQRSTUVXYZ" + "abcdefghijklmnopqrstuvxyz" + "0123456789")
         )
         for i in range(20)
     ]
@@ -50,25 +48,25 @@ app.config["TRAP_BAD_REQUEST_ERRORS"] = True
 
 
 @app.route("/", methods=["GET", "POST"])
-def index(): 
+def index():
     return render_template("login.html", title="Main Page")
 
 
 @app.route("/browse-all/", methods=["GET", "POST"])
 def landing():
     conn = dbi.connect()
-    
+
     if request.method == "GET":
-        halls = queries.get_hall_names_given_complex(conn,'All Halls')
-        return render_template("landing.html", halls=halls, browse='All Halls')
+        halls = queries.get_hall_names_given_complex(conn, "All Halls")
+        return render_template("landing.html", halls=halls, browse="All Halls")
 
     else:
         hall_type = request.form["hall-type"]
 
         if hall_type == "All Halls":
-            return redirect(url_for('landing'))
-        
-        else: # specific complex halls
+            return redirect(url_for("landing"))
+
+        else:  # specific complex halls
             halls = queries.get_hall_names_given_complex(conn, hall_type)
             return render_template("landing.html", halls=halls, browse=hall_type)
 
@@ -114,9 +112,9 @@ def review():
     else:  # POST
         # 1: retrieve user input and insert review into the review table in wendi_db
         userID = session.get("uid")
-        dorm = request.form.get("res-hall") # dorm is the 3-letter dorm encoding
+        dorm = request.form.get("res-hall")  # dorm is the 3-letter dorm encoding
         room_number = request.form.get("room-num")
-        rid = queries.get_rid_given_hall_and_number(conn, dorm, room_number)['id']
+        rid = queries.get_rid_given_hall_and_number(conn, dorm, room_number)["id"]
         overallRating = request.form.get("overall")
         startDate = request.form.get("start-date")
         length = request.form.get("length-of-stay")
@@ -162,21 +160,25 @@ def review():
         # check uploaded files
         try:
             # session_id = int(session['id'])
-            files = request.files.getlist('roomMedia')
-            
+            files = request.files.getlist("roomMedia")
+
             for file in files:
-                if file and allowed_file(file.filename): # check if extension is allowed
+                if file and allowed_file(
+                    file.filename
+                ):  # check if extension is allowed
                     # hasMedia = True  # Set hasMedia to True as a valid file is found
                     filename = secure_filename(file.filename)
-                    file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+                    file.save(os.path.join(app.config["UPLOAD_FOLDER"], filename))
 
                     # Insert each file's information into the media table
-                    media_url = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-                    queries.insert_media(conn, media_url, userID, review_id, cid=None)  # Assuming review_id is available
+                    media_url = os.path.join(app.config["UPLOAD_FOLDER"], filename)
+                    queries.insert_media(
+                        conn, media_url, userID, review_id, cid=None
+                    )  # Assuming review_id is available
 
         except Exception as err:
-            flash('Upload failed {why}'.format(why=err))
-            return render_template('form.html')
+            flash("Upload failed {why}".format(why=err))
+            return render_template("form.html")
 
         flash("Thank you for submitting a review!")
         return redirect(url_for("room", hid=dorm, number=room_number))
@@ -239,17 +241,14 @@ def room(hid, number):
     conn = dbi.connect()
     reviewList = queries.show_reviews(conn, number)
 
-    currentsession = session['username']
-    uid = currentsession
-   
-    session_uid = session.get("uid")
+    currentsession = session["username"]
+    session_uid = session["uid"]
 
     print("CURRENTSESSION==========" + str(currentsession))
     print("SESSION UID========" + str(session.get("uid")))
-    print("USERNAME======"+str(currentsession))
-    print("UID===========" + str(uid))
-    
-    rid = queries.get_roomid(conn,hid,number)['id']
+    print("USERNAME======" + str(currentsession))
+
+    rid = queries.get_roomid(conn, hid, number)["id"]
 
     if request.method == "GET":
         allComments = queries.get_comments(conn, rid)
@@ -259,7 +258,7 @@ def room(hid, number):
             reviews=reviewList,
             dormname=hid,
             number=number,
-            allComments=allComments
+            allComments=allComments,
         )
     elif request.method == "POST":
         comment = request.form.get("comments")
@@ -267,6 +266,7 @@ def room(hid, number):
         queries.insert_comment(conn, session_uid, rid, comment)
 
         return redirect(url_for("room", hid=hid, number=number))
+
 
 @app.route("/join/", methods=["GET", "POST"])
 def join():
@@ -302,8 +302,14 @@ def join():
         row = curs.fetchone()
         uid = row[0]
 
-        flash("Account created successfully! Please log in with your account.")
-        return redirect(url_for("index"))
+        # Set session variables for the newly created user
+        session["username"] = username
+        session["uid"] = uid  # Use the user ID from the database
+        session["logged_in"] = True
+        session["visits"] = 1
+
+        flash("Account created successfully! You are now logged in.")
+        return redirect(url_for("landing"))
     else:
         return render_template("join.html")
 
@@ -330,10 +336,54 @@ def search():
     return jsonify({"individual": results_individual, "combined": results_combined})
 
 
-# @app.route("/addcomment/", methods=["POST"])
-# def addcomment():
+@app.route("/delete_comment/<int:comment_id>", methods=["POST"])
+def delete_comment(comment_id):
+    conn = dbi.connect()
+    try:
+        queries.delete_comment(conn, comment_id)
+        flash("Comment deleted successfully")
+    except Exception as err:
+        flash("Failed to delete comment: {}".format(repr(err)))
+    finally:
+        conn.close()
+    return redirect(request.referrer)  # Redirect back to the same page
 
-#     return redirect(url_for('room'), hid=)
+
+@app.route("/edit_comment/<int:comment_id>", methods=["POST"])
+def edit_comment(comment_id):
+    new_comment_text = request.form.get("edit_comment")
+    conn = dbi.connect()
+    try:
+        queries.edit_comment(conn, new_comment_text, comment_id)
+    except Exception as err:
+        flash("Failed to edit comment: {}".format(repr(err)))
+    finally:
+        conn.close()
+    return redirect(request.referrer)  # Redirect back to the same page
+
+
+@app.route("/home", methods=["GET"])
+def home():
+    userID = session["uid"]
+
+    conn = dbi.connect()
+    user_details = queries.get_user_details(conn, userID)
+    user_reviews = queries.get_user_reviews(conn, userID)
+    user_comments = queries.get_user_comments(conn, userID)
+
+    return render_template(
+        "user.html",
+        uid=userID,
+        details=user_details,
+        reviews=user_reviews,
+        comments=user_comments,
+    )
+
+
+@app.route("/about")
+def about():
+    return render_template("about.html")
+
 
 if __name__ == "__main__":
     import sys, os

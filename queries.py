@@ -1,15 +1,19 @@
 import cs304dbi as dbi
 from flask import flash
 
-def insert_media(conn,url,uid,rid,cid):
+
+def insert_media(conn, url, uid, rid, cid):
     """
     Uploads media to the table for room reviews.
     """
     curs = dbi.dict_cursor(conn)
-    curs.execute("""insert into media(url,uid,rid,cid) 
+    curs.execute(
+        """insert into media(url,uid,rid,cid) 
                     values (%s,%s,%s,%s)""",
-                    [url,uid,rid,cid])
+        [url, uid, rid, cid],
+    )
     conn.commit()
+
 
 def get_all_dorms(conn):
     """
@@ -22,21 +26,24 @@ def get_all_dorms(conn):
     )
     return curs.fetchall()
 
-def get_rid_given_hall_and_number(conn,hall,number):
+
+def get_rid_given_hall_and_number(conn, hall, number):
     """
     Returns room id (id in the room table) given the 3-letter
     hall encoding and specific room number.
     """
     curs = dbi.dict_cursor(conn)
-    curs.execute('''
+    curs.execute(
+        """
         select id from room
         where number = %s 
-        and hid = %s''',
-        [number,hall])
+        and hid = %s""",
+        [number, hall],
+    )
     return curs.fetchone()
 
 
-def get_hid_given_hall_name(conn,hall_name):
+def get_hid_given_hall_name(conn, hall_name):
     """
     Returns the three-letter encoding hid of a given residential hall.
     """
@@ -50,11 +57,29 @@ def get_hid_given_hall_name(conn,hall_name):
     return curs.fetchone()
 
 
-def insert_review(conn, uid, rid, rating, startTime, lengthOfStay, sizeScore, storageScore, ventScore, cleanScore,
-                  bathroomScore, accessibilityScore, sunlightScore, bugScore, windowScore, noiseScore, comment,
-                  hasMedia, timePosted):
+def insert_review(
+    conn,
+    uid,
+    rid,
+    rating,
+    startTime,
+    lengthOfStay,
+    sizeScore,
+    storageScore,
+    ventScore,
+    cleanScore,
+    bathroomScore,
+    accessibilityScore,
+    sunlightScore,
+    bugScore,
+    windowScore,
+    noiseScore,
+    comment,
+    hasMedia,
+    timePosted,
+):
     """
-    Insert user review into the review table in wendi_db 
+    Insert user review into the review table in wendi_db
     and return the review_id.
     """
     curs = dbi.dict_cursor(conn)
@@ -63,15 +88,33 @@ def insert_review(conn, uid, rid, rating, startTime, lengthOfStay, sizeScore, st
                                cleanScore, bathroomScore, accessibilityScore, sunlightScore, bugScore, windowScore,
                                noiseScore, comment, hasMedia, timePosted)
            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""",
-        [uid, rid, rating, startTime, lengthOfStay, sizeScore, storageScore, ventScore, cleanScore, bathroomScore,
-         accessibilityScore, sunlightScore, bugScore, windowScore, noiseScore, comment, hasMedia, timePosted]
+        [
+            uid,
+            rid,
+            rating,
+            startTime,
+            lengthOfStay,
+            sizeScore,
+            storageScore,
+            ventScore,
+            cleanScore,
+            bathroomScore,
+            accessibilityScore,
+            sunlightScore,
+            bugScore,
+            windowScore,
+            noiseScore,
+            comment,
+            hasMedia,
+            timePosted,
+        ],
     )
     conn.commit()
-    
+
     # Retrieve the last insert id
     curs.execute("SELECT LAST_INSERT_ID()")
     row = curs.fetchone()
-    return row['LAST_INSERT_ID()']
+    return row["LAST_INSERT_ID()"]
 
 
 def show_rooms(conn, hall_id):
@@ -87,8 +130,8 @@ def show_rooms(conn, hall_id):
 
 
 def sort_rooms_by(conn, hall_id, criteria):
-    """returns all rooms with specified hall_id 
-        by the criteria entered"""
+    """returns all rooms with specified hall_id
+    by the criteria entered"""
     curs = dbi.dict_cursor(conn)
     curs.execute(
         """
@@ -132,21 +175,17 @@ def show_reviews(conn, roomnum):
     return curs.fetchall()
 
 
-def authenticate_user(username, password):
-    """Check if the username and password match."""
-    conn = dbi.connect()
-    curs = dbi.dict_cursor(conn)
-    curs.execute(
-        """
-        SELECT * FROM user WHERE username = %s AND password=%s
-        """,
-        [username,password]
-    )
-    result = curs.fetchone()
-    return result is not None  # It returns True if authentication successful.
-
-
 def search_by_hid_or_number(conn, search_term):
+    """
+    Search for rooms in the database by either HID or number.
+
+    Args:
+        conn (object): The database connection object.
+        search_term (str): The search term to match against HID or number.
+
+    Returns:
+        list: A list of tuples containing matched HID and number pairs.
+    """
     query = "SELECT hid, number FROM room WHERE hid LIKE %s OR number LIKE %s"
     params = ("%" + search_term + "%", "%" + search_term + "%")
 
@@ -160,10 +199,20 @@ def search_by_hid_or_number(conn, search_term):
 
 
 def search_by_hid_and_number(conn, search_term):
+    """
+    Search for rooms in the database by both HID and number.
+
+    Args:
+        conn (object): The database connection object.
+        search_term (str): The search term to match against HID and number.
+
+    Returns:
+        list: A list of tuples containing matched HID and number pairs.
+    """
     # Split the search term into individual terms
     terms = search_term.split()
 
-    # Use individual terms to search for both hid and number
+    # Use individual terms to search for both HID and number
     if len(terms) >= 2:
         query = """SELECT hid, number FROM room 
                 WHERE hid LIKE %s AND number LIKE %s"""
@@ -185,48 +234,63 @@ def search_by_hid_and_number(conn, search_term):
 
     return results
 
+
 def get_roomid(conn, hid, number):
-    """takes in a hid and room number and 
-        returns the rid for that room"""
+    """takes in a hid and room number and
+    returns the rid for that room"""
     curs = dbi.dict_cursor(conn)
-    curs.execute('''
+    curs.execute(
+        """
         SELECT id from room where hid=%s and number=%s
-    ''', [hid, number])
+    """,
+        [hid, number],
+    )
     return curs.fetchone()
 
 
 def insert_comment(conn, uid, rid, comment):
-    """takes in a conn and content and 
-        inserts into content table"""
+    """takes in a conn and content and
+    inserts into content table"""
     curs = dbi.dict_cursor(conn)
-    curs.execute('''
+    curs.execute(
+        """
         INSERT into comment(uid, rid, content)
         values (%s, %s, %s)
-    ''', [uid,rid,comment])
+    """,
+        [uid, rid, comment],
+    )
     conn.commit()
 
 
 def get_comments(conn, rid):
-    """returns dict of all comments for room 
-        with specified hid and number"""
+    """returns dict of all comments for room
+    with specified hid and number"""
     curs = dbi.dict_cursor(conn)
-    curs.execute('''
+    curs.execute(
+        """
         SELECT id, uid, content, timePosted FROM comment
         WHERE rid=%s
-    ''',[rid])
+    """,
+        [rid],
+    )
     return curs.fetchall()
+
 
 def get_username(conn, sessionUid):
     """returns username of user with corresponding
-        session uid"""
+    session uid"""
     curs = dbi.dict_cursor(conn)
-    curs.execute("""
+    curs.execute(
+        """
         SELECT username from userpass
         WHERE uid=%s    
-    """,[sessionUid])
+    """,
+        [sessionUid],
+    )
     return curs.fetchone()
 
-def get_hall_names_given_complex(conn,complex):
+
+def get_hall_names_given_complex(conn, complex):
     """
     Returns dictionary that includes the IDs and names of halls in
     a given complex.
@@ -235,9 +299,131 @@ def get_hall_names_given_complex(conn,complex):
     if complex == "All Halls":
         curs.execute("""SELECT id,name from hall""")
     else:
-        curs.execute("""
+        curs.execute(
+            """
             SELECT id,name from hall
             WHERE complex = %s    
-            """,[complex])
-        
+            """,
+            [complex],
+        )
+
     return curs.fetchall()
+
+
+def delete_comment(conn, comment_id):
+    """
+    Deletes a comment from the database.
+
+    Parameters:
+    - conn (object): The database connection object.
+    - comment_id (int): The unique identifier of the comment to be deleted.
+
+    Returns:
+    None
+
+    Side Effects:
+    - Removes the specified comment from the database.
+    """
+    curs = dbi.dict_cursor(conn)
+    curs.execute(
+        """DELETE FROM comment
+           WHERE id = %s""",
+        [comment_id],
+    )
+    conn.commit()
+
+
+def edit_comment(conn, new_comment_text, comment_id):
+    """
+    Edits the content of a comment in the database.
+
+    Parameters:
+    - conn (object): The database connection object.
+    - new_comment_text (str): The new text content for the comment.
+    - comment_id (int): The unique identifier of the comment to be edited.
+
+    Returns:
+    None
+
+    Side Effects:
+    - Modifies the content of the specified comment in the database.
+    """
+    curs = dbi.dict_cursor(conn)
+    curs.execute(
+        """UPDATE comment
+           SET content = %s
+           WHERE id = %s""",
+        [new_comment_text, comment_id],
+    )
+    conn.commit()
+
+
+def get_user_details(conn, uid):
+    """
+    Returns dictionary that includes the username, email address, and class year
+    belonging to the given uid
+    """
+    curs = dbi.dict_cursor(conn)
+    curs.execute(
+        """SELECT username, email, classYear 
+           FROM userpass 
+           WHERE uid = %s""",
+        [uid],
+    )
+    return curs.fetchone()
+
+
+def get_user_reviews(conn, uid):
+    """
+    Returns a list that includes all rooms that the given user has left a
+    review for
+    """
+    curs = dbi.dict_cursor(conn)
+    curs.execute(
+        """SELECT rid 
+           FROM review
+           WHERE uid = %s""",
+        [uid],
+    )
+    results = curs.fetchall()
+
+    user_rooms = []
+    for row in results:
+        rid = row["rid"]
+        curs.execute(
+            """SELECT hid, number 
+            FROM room
+            WHERE id = %s""",
+            [rid],
+        )
+        user_rooms.append(curs.fetchone())
+
+    return user_rooms
+
+
+def get_user_comments(conn, uid):
+    """
+    Returns a list that includes all rooms that the given user has left a
+    comment for
+    """
+    curs = dbi.dict_cursor(conn)
+    curs.execute(
+        """SELECT rid 
+           FROM comment
+           WHERE uid = %s""",
+        [uid],
+    )
+    results = curs.fetchall()
+
+    user_comments = []
+    for row in results:
+        rid = row["rid"]
+        curs.execute(
+            """SELECT hid, number 
+            FROM room
+            WHERE id = %s""",
+            [rid],
+        )
+        user_comments.append(curs.fetchone())
+
+    return user_comments
