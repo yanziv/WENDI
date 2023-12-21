@@ -52,23 +52,18 @@ def index():
     return render_template("login.html", title="Main Page")
 
 
-@app.route("/browse-all/", methods=["GET", "POST"])
+@app.route("/browse-all/", methods=["GET"])
 def landing():
     conn = dbi.connect()
+    halls = queries.get_hall_names_given_complex(conn, "All Halls")
+    return render_template("landing.html", halls=halls, browse="All Halls")
 
-    if request.method == "GET":
-        halls = queries.get_hall_names_given_complex(conn, "All Halls")
-        return render_template("landing.html", halls=halls, browse="All Halls")
 
-    else:
-        hall_type = request.form["hall-type"]
-
-        if hall_type == "All Halls":
-            return redirect(url_for("landing"))
-
-        else:  # specific complex halls
-            halls = queries.get_hall_names_given_complex(conn, hall_type)
-            return render_template("landing.html", halls=halls, browse=hall_type)
+@app.route("/browse/<complex_type>/", methods=["GET"])
+def browse_complex_type(complex_type):
+    conn = dbi.connect()
+    halls = queries.get_hall_names_given_complex(conn, complex_type)
+    return render_template("landing.html", halls=halls, browse=complex_type)
 
 
 @app.route("/login/", methods=["GET", "POST"])

@@ -5,20 +5,13 @@
 {% block main_content %}
 
 <h1>Browse {{browse}}</h1>
-<div class="dorm-list">
-    <form method="POST" action="{{ url_for('landing') }}">
-        <label for="hall-type">Hall Type: </label>
-        <select id="hall-type" name="hall-type" required>
-            <option value=none disabled selected>Select</option>
-            <option value="All Halls">All Halls</option>
-            <option value="Tower Complex">Tower Complex</option>
-            <option value="East Side Complex">East Side Complex</option>
-            <option value="The Quint">The Quint</option>
-            <option value="Stone-Davis and Small Halls">Stone-Davis and Small Halls</option>
-        </select>
-        <p><input type='submit' value='Submit'></p>
-    </form>
-
+<div class="hall-type-selector">
+    <a href="{{ url_for('landing') }}">All Halls</a>
+    <a href="{{ url_for('browse_complex_type', complex_type='Tower Complex') }}">Tower Complex</a>
+    <a href="{{ url_for('browse_complex_type', complex_type='East Side Complex') }}">East Side Complex</a>
+    <a href="{{ url_for('browse_complex_type', complex_type='The Quint') }}">The Quint</a>
+    <a href="{{ url_for('browse_complex_type', complex_type='Stone-Davis and Small Halls') }}">Stone-Davis and Small Halls</a>
+</div>
 
     {% for hall in halls %}
     <div class="hall-container" id="{{ hall.name }}">

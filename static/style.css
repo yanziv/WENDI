@@ -934,6 +934,7 @@ ul li:last-child {
 .reviewPic{
   width: 500px;
 }
+
 /* Targeting the container of flash messages */
 #flashes {
   margin: 10px 0;
@@ -952,3 +953,31 @@ ul li:last-child {
   text-align: center;
   font-weight: bold; 
 }
+
+/* Hall Type Selector Styles */
+.hall-type-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Space between each button */
+  padding: 10px 0;
+  margin: 20px 0; /* Additional margin for separation from other elements */
+}
+
+.hall-type-selector a {
+  font-weight: bold; 
+  background-color: #ffffff; 
+  color: #003366; 
+  border: 2px solid black; 
+  text-decoration: none; 
+  padding: 12px 20px; /* Padding for button size */
+  font-size: 16px; /* Increase font size for larger text */
+  border-radius: 15px; 
+  transition: background-color 0.3s, color 0.3s, border-color 0.3s; 
+}
+
+.hall-type-selector a:hover {
+  background-color: #0f2c88; /* Original blue background for hover effect */
+  color: white; /* White text on hover */
+  border-color: #0f2c88; /* Blue border to match the background */
+}
+
