@@ -932,7 +932,7 @@ ul li:last-child {
 }
 
 .reviewPic{
-  width: 200px;
+  width: 500px;
 }
 /* Targeting the container of flash messages */
 #flashes {
