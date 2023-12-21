@@ -952,3 +952,12 @@ ul li:last-child {
   text-align: center;
   font-weight: bold; 
 }
+
+.comment-header {
+  font-weight:bold;
+  margin-bottom:0;
+}
+.comment-content{
+  margin:0;
+  padding-bottom:1em;
+}
