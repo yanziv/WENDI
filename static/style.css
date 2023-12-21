@@ -954,6 +954,15 @@ ul li:last-child {
   font-weight: bold; 
 }
 
+.comment-header {
+  font-weight:bold;
+  margin-bottom:0;
+}
+.comment-content{
+  margin:0;
+  padding-bottom:1em;
+}
+
 /* Hall Type Selector Styles */
 .hall-type-selector {
   display: flex;
