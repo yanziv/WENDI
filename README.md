@@ -10,7 +10,8 @@ The Wellesley Evaluation Network for Dorm Information (WENDI) is a web tool desi
 - Veronica Lin (yl102@wellesley.edu)
 
 ## Video Demo
-[Click here for the video demo](./WENDI_finalDemo.mp4)
+[Click here to download the video demo](./WENDI_finalDemo.mp4)
+[Click here to view the video demo on Google Drive](https://drive.google.com/drive/folders/14-mplFHYxd89QbULS8cfanUY21xxmupp?usp=sharing)
 
 ## Technology Stack
 - **Flask**: Used as the web framework
